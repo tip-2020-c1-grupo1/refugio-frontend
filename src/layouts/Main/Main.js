@@ -36,12 +36,13 @@ const Main = props => {
 
   const [openSidebar, setOpenSidebar] = useState(false);
 
+  // const url = "https://gist.githubusercontent.com/witalewski/fc8f043d53a0d505f84c5ddb04ae76ea/raw/7c505bbc1675a0bc8a067f8b633b531c769bb64c/data.json"
+  const url = 'http://localhost:8000/api/users/';
+
   useEffect(() => {
     console.log('preparing components');
     axios
-      .get(
-        "https://gist.githubusercontent.com/witalewski/fc8f043d53a0d505f84c5ddb04ae76ea/raw/7c505bbc1675a0bc8a067f8b633b531c769bb64c/data.json"
-      )
+      .get(url)
       .then(({ data }) => {
         console.log(data);
         console.log(data.length);
