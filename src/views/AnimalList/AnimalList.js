@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { IconButton, Grid, Typography } from '@material-ui/core';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import axios from 'axios';
 
 import { AnimalsToolbar, AnimalCard } from './components';
 import mockData from './data';
@@ -25,7 +26,27 @@ const useStyles = makeStyles(theme => ({
 const AnimalList = () => {
   const classes = useStyles();
 
-  const [products] = useState(mockData);
+  const [animals] = useState(mockData);
+  const [data, setData] = useState([]);
+  const [load, setLoad] = useState(false);
+  const [error, setError] = useState('');
+  // const [data, setData] = useState({ hits: [] });
+
+  useEffect(() => {
+    const baseUrl = 'http://localhost:8000/api/';
+    axios.get(baseUrl + 'animals')
+        .then(res => {
+            console.log(res.data);
+            setData(res.data);
+            setLoad(true);
+            console.log(data);
+        })
+        .catch(err => {
+            setError(err.message);
+            console.log(err.message);
+            setLoad(true)
+        })
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -35,15 +56,27 @@ const AnimalList = () => {
           container
           spacing={3}
         >
-          {products.map(product => (
+          
+          {/*data.map(animal => (
             <Grid
               item
-              key={product.id}
+              key={animal.id}
               lg={4}
               md={6}
               xs={12}
             >
-              <AnimalCard product={product} />
+              <span>{animal.name}</span>
+            </Grid>
+          )) */}
+          {animals.map(animal => (
+            <Grid
+              item
+              key={animal.id}
+              lg={4}
+              md={6}
+              xs={12}
+            >
+              <AnimalCard animal={animal} />
             </Grid>
           ))}
         </Grid>

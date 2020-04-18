@@ -11,7 +11,6 @@ import {
   Divider
 } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import GetAppIcon from '@material-ui/icons/GetApp';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -40,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AnimalCard = props => {
-  const { className, product, ...rest } = props;
+  const { className, animal, ...rest } = props;
 
   const classes = useStyles();
 
@@ -54,7 +53,7 @@ const AnimalCard = props => {
           <img
             alt="Animal"
             className={classes.image}
-            src={product.imageUrl}
+            src={animal.imageUrl}
           />
         </div>
         <Typography
@@ -62,13 +61,13 @@ const AnimalCard = props => {
           gutterBottom
           variant="h4"
         >
-          {product.title}
+          {animal.title}
         </Typography>
         <Typography
           align="center"
           variant="body1"
         >
-          {product.description}
+          {animal.description}
         </Typography>
       </CardContent>
       <Divider />
@@ -89,18 +88,6 @@ const AnimalCard = props => {
               Updated 2hr ago
             </Typography>
           </Grid>
-          <Grid
-            className={classes.statsItem}
-            item
-          >
-            <GetAppIcon className={classes.statsIcon} />
-            <Typography
-              display="inline"
-              variant="body2"
-            >
-              {product.totalVisits} Downloads
-            </Typography>
-          </Grid>
         </Grid>
       </CardActions>
     </Card>
@@ -109,7 +96,7 @@ const AnimalCard = props => {
 
 AnimalCard.propTypes = {
   className: PropTypes.string,
-  product: PropTypes.object.isRequired
+  animal: PropTypes.object.isRequired
 };
 
 export default AnimalCard;
