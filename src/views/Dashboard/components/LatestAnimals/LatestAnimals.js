@@ -36,7 +36,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const LatestProducts = props => {
+const LatestAnimals = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
@@ -62,7 +62,7 @@ const LatestProducts = props => {
             >
               <ListItemAvatar>
                 <img
-                  alt="Product"
+                  alt="Animal"
                   className={classes.image}
                   src={product.imageUrl}
                 />
@@ -95,8 +95,8 @@ const LatestProducts = props => {
   );
 };
 
-LatestProducts.propTypes = {
+LatestAnimals.propTypes = {
   className: PropTypes.string
 };
 
-export default LatestProducts;
+export default LatestAnimals;

@@ -44,23 +44,27 @@ const Sidebar = props => {
   const user = props.user;
   console.log(user);
   const pages = [
+    /*
     {
       title: 'Dashboard',
       href: '/dashboard',
       icon: <DashboardIcon />
     }
-    /*
+    
     ,
     {
       title: 'Users',
       href: '/users',
       icon: <PeopleIcon />
     },
+    */
     {
-      title: 'Products',
-      href: '/products',
+      title: 'Animals',
+      href: '/animals',
       icon: <ShoppingBasketIcon />
-    },
+    }
+    /*
+    ,
     {
       title: 'Authentication',
       href: '/sign-in',

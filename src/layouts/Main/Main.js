@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/styles';
@@ -24,10 +24,10 @@ const useStyles = makeStyles(theme => ({
 
 const Main = props => {
   const { children } = props;
-  console.log(props);
+  
 
   const user = children.props.user;
-
+  console.log(user);
   const classes = useStyles();
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
@@ -37,17 +37,6 @@ const Main = props => {
   const [openSidebar, setOpenSidebar] = useState(false);
 
   // const url = "https://gist.githubusercontent.com/witalewski/fc8f043d53a0d505f84c5ddb04ae76ea/raw/7c505bbc1675a0bc8a067f8b633b531c769bb64c/data.json"
-  const url = 'http://localhost:8000/api/users/';
-
-  useEffect(() => {
-    console.log('preparing components');
-    axios
-      .get(url)
-      .then(({ data }) => {
-        console.log(data);
-        console.log(data.length);
-      });
-  }, []);
 
   const handleSidebarOpen = () => {
     setOpenSidebar(true);

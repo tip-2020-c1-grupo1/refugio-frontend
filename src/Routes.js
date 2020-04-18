@@ -6,7 +6,7 @@ import { Main as MainLayout, Minimal as MinimalLayout } from './layouts';
 
 import {
   Dashboard as DashboardView,
-  ProductList as ProductListView,
+  AnimalList as AnimalListView,
   UserList as UserListView,
   Typography as TypographyView,
   Icons as IconsView,
@@ -25,7 +25,7 @@ const Routes = (props) => {
       <Redirect
         exact
         from="/"
-        to="/dashboard"
+        to="/animals"
       />
       <RouteWithLayout
         component={DashboardView}
@@ -41,10 +41,11 @@ const Routes = (props) => {
         path="/users"
       />
       <RouteWithLayout
-        component={ProductListView}
+        component={AnimalListView}
+        user={props.user}
         exact
         layout={MainLayout}
-        path="/products"
+        path="/animals"
       />
       <RouteWithLayout
         component={TypographyView}

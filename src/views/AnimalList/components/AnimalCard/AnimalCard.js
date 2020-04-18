@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ProductCard = props => {
+const AnimalCard = props => {
   const { className, product, ...rest } = props;
 
   const classes = useStyles();
@@ -52,7 +52,7 @@ const ProductCard = props => {
       <CardContent>
         <div className={classes.imageContainer}>
           <img
-            alt="Product"
+            alt="Animal"
             className={classes.image}
             src={product.imageUrl}
           />
@@ -98,7 +98,7 @@ const ProductCard = props => {
               display="inline"
               variant="body2"
             >
-              {product.totalDownloads} Downloads
+              {product.totalVisits} Downloads
             </Typography>
           </Grid>
         </Grid>
@@ -107,9 +107,9 @@ const ProductCard = props => {
   );
 };
 
-ProductCard.propTypes = {
+AnimalCard.propTypes = {
   className: PropTypes.string,
   product: PropTypes.object.isRequired
 };
 
-export default ProductCard;
+export default AnimalCard;

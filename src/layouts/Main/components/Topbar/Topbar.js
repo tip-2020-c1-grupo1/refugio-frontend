@@ -34,10 +34,14 @@ const Topbar = props => {
     >
       <Toolbar>
         <RouterLink to="/">
-          <img
+          <img style={{height: '40px', width: '40px'}}
             alt="Logo"
-            src="/images/logos/logo--white.svg"
+            src="/images/logos/logo--white.png"
           />
+          <span style={{marginLeft: '10px',
+            marginTop: '20px',
+            position: 'absolute',
+            alignItems: 'center'}}>Refugio App</span>
         </RouterLink>
         <div className={classes.flexGrow} />
         <Hidden mdDown>
