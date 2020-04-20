@@ -36,7 +36,7 @@ const AnimalsToolbar = props => {
         <SearchInput
           onChange={(e) => setSearchString(e.target.value)}
           className={classes.searchInput}
-          placeholder="Search product"
+          placeholder="Busque su mascota aquí"
         />
         <Button onClick={applySearch}> Aplicar Busqueda</Button>
       </div>

@@ -3,10 +3,23 @@ import { makeStyles } from '@material-ui/styles';
 import { IconButton, Grid, Typography } from '@material-ui/core';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import cogoToast from 'cogo-toast';
+import MDSpinner from 'react-md-spinner';
 import axios from 'axios';
 
 import { AnimalsToolbar, AnimalCard } from './components';
 import mockData from './data';
+
+const containerCss = {
+  display: 'flex',
+  width: '100%', 
+  height: '100vh',
+  justifyContent: 'center'
+};
+
+const centerCss = {
+  alignSelf: 'center'
+};
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,12 +33,13 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end'
-  }
+  },
+  container: containerCss,
+  center: centerCss
 }));
 
 const AnimalList = () => {
   const classes = useStyles();
-
   const [animals] = useState(mockData);
   const [data, setData] = useState([]);
   const [load, setLoad] = useState(false);
@@ -60,9 +74,11 @@ const AnimalList = () => {
             console.log(res.data);
         })
         .catch(err => {
-            setError(err.message);
+            // CHECK ERRORS
+            cogoToast.error(err.message, {
+              position: 'top-center'
+            });
             console.log(err.message);
-            setLoad(true)
         })
   }
 
@@ -76,6 +92,16 @@ const AnimalList = () => {
 
   const applySearch = () => {
     getAnimals(actualUrl);
+  }
+
+  if (!load) {
+    return (
+      <div className={classes.container}>
+        <div className={classes.center}>
+          <MDSpinner size={88} />
+        </div>
+      </div>
+      );
   }
 
   return (
