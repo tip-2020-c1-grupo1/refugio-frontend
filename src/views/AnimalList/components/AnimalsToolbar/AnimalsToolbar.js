@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
@@ -17,12 +17,6 @@ const useStyles = makeStyles(theme => ({
   spacer: {
     flexGrow: 1
   },
-  importButton: {
-    marginRight: theme.spacing(1)
-  },
-  exportButton: {
-    marginRight: theme.spacing(1)
-  },
   searchInput: {
     marginRight: theme.spacing(1)
   }
@@ -30,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 const AnimalsToolbar = props => {
   const { className, ...rest } = props;
-
+  const {applySearch, setSearchString} = props;
   const classes = useStyles();
 
   return (
@@ -39,21 +33,12 @@ const AnimalsToolbar = props => {
       className={clsx(classes.root, className)}
     >
       <div className={classes.row}>
-        <span className={classes.spacer} />
-        <Button className={classes.importButton}>Import</Button>
-        <Button className={classes.exportButton}>Export</Button>
-        <Button
-          color="primary"
-          variant="contained"
-        >
-          Add product
-        </Button>
-      </div>
-      <div className={classes.row}>
         <SearchInput
+          onChange={(e) => setSearchString(e.target.value)}
           className={classes.searchInput}
           placeholder="Search product"
         />
+        <Button onClick={applySearch}> Aplicar Busqueda</Button>
       </div>
     </div>
   );

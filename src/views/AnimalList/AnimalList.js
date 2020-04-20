@@ -29,35 +29,67 @@ const AnimalList = () => {
   const [animals] = useState(mockData);
   const [data, setData] = useState([]);
   const [load, setLoad] = useState(false);
+  const [actualUrl, setActualUrl] = useState(''); 
   const [error, setError] = useState('');
+  const [searchString, setSearchString] = useState('');
   // const [data, setData] = useState({ hits: [] });
 
   useEffect(() => {
+    // ASYNC , set true
+    getInitialAnimals()
+  }, []);
+
+  const getInitialAnimals = () => {
     const baseUrl = 'http://localhost:8000/api/';
-    axios.get(baseUrl + 'animals')
+    const animalsUrl = baseUrl + 'animals';
+    getAnimals(animalsUrl);
+  }
+
+  const getAnimals = (animalsUrl) => {
+    let url = animalsUrl;
+    if (searchString !== '') {
+      url += '?name=' + searchString;
+    }
+    console.log(url);
+    axios.get(url)
         .then(res => {
-            console.log(res.data);
+            console.log(animalsUrl);
             setData(res.data);
+            setActualUrl(animalsUrl);
             setLoad(true);
-            console.log(data);
+            console.log(res.data);
         })
         .catch(err => {
             setError(err.message);
             console.log(err.message);
             setLoad(true)
         })
-  }, []);
+  }
+
+  const getPrevPage = () => {
+    getAnimals(data.previous);
+  };
+
+  const getNextPage = () => {
+    getAnimals(data.next);
+  };
+
+  const applySearch = () => {
+    getAnimals(actualUrl);
+  }
 
   return (
     <div className={classes.root}>
-      {/* <AnimalsToolbar /> */}
+      {<AnimalsToolbar
+        setSearchString={setSearchString} 
+        applySearch={applySearch} /> }
       <div className={classes.content}>
         <Grid
           container
           spacing={3}
         >
           
-          {/*data.map(animal => (
+          {/*data.results.map(animal => (
             <Grid
               item
               key={animal.id}
@@ -83,10 +115,10 @@ const AnimalList = () => {
       </div>
       <div className={classes.pagination}>
         <Typography variant="caption">1-6 of 20</Typography>
-        <IconButton>
+        <IconButton disabled={!data.previous} onClick={getPrevPage}>
           <ChevronLeftIcon />
         </IconButton>
-        <IconButton>
+        <IconButton disabled={!data.next} onClick={getNextPage}>
           <ChevronRightIcon />
         </IconButton>
       </div>
