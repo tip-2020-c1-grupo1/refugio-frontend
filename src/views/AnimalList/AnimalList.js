@@ -68,10 +68,11 @@ const AnimalList = () => {
     axios.get(url)
         .then(res => {
             console.log(animalsUrl);
+            console.log(res.data);
             setData(res.data);
             setActualUrl(animalsUrl);
             setLoad(true);
-            console.log(res.data);
+            
         })
         .catch(err => {
             // CHECK ERRORS
@@ -115,18 +116,8 @@ const AnimalList = () => {
           spacing={3}
         >
           
-          {/*data.results.map(animal => (
-            <Grid
-              item
-              key={animal.id}
-              lg={4}
-              md={6}
-              xs={12}
-            >
-              <span>{animal.name}</span>
-            </Grid>
-          )) */}
-          {animals.map(animal => (
+          
+          {data.map(animal => (
             <Grid
               item
               key={animal.id}

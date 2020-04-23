@@ -1,7 +1,7 @@
 {
-  "name": "react-material-dashboard",
-  "author": "DeviasIO",
-  "email": "contact@devias.io",
+  "name": "refugio-app",
+  "author": "Refugio App",
+  "email": "luciano.federico.olmedo@gmail.com, beniteznahueloscar@gmail.com",
   "licence": "MIT",
   "version": "0.3.0",
   "private": false,
@@ -47,7 +47,6 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "^3.0.1",
     "recompose": "^0.30.0",
-    "simple-react-notifications": "^1.2.13",
     "underscore": "^1.9.1",
     "uuid": "^3.3.2",
     "validate.js": "^0.13.1"
