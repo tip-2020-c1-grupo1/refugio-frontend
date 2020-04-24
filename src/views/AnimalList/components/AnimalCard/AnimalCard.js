@@ -42,8 +42,6 @@ const AnimalCard = props => {
   const { className, animal, ...rest } = props;
 
   const classes = useStyles();
-
-  const baseUrl = 'http://localhost:8000';
   
   return (
     <Card
@@ -55,7 +53,7 @@ const AnimalCard = props => {
           <img
             alt="Animal"
             className={classes.image}
-            src={baseUrl + animal.images[0].image}
+            src={animal.images[0].image}
           />
         </div>
         <Typography
