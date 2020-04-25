@@ -7,6 +7,7 @@ import {
   CardContent,
   CardActions,
   Typography,
+  Button,
   Grid,
   Divider
 } from '@material-ui/core';
@@ -59,9 +60,7 @@ const AnimalCard = props => {
       className={clsx(classes.root, className)}
     >
       <CardContent>
-        <button type="button" onClick={handleOpen}>
-          Ver detalle
-        </button>
+        <Button size="small" variant="contained" onClick={handleOpen}>Ver detalle</Button>
         <AnimalModal 
           handleClose={handleClose}
           animal={animal}
