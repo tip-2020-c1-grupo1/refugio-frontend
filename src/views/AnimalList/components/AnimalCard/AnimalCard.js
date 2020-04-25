@@ -10,7 +10,6 @@ import {
   Grid,
   Divider
 } from '@material-ui/core';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -42,7 +41,7 @@ const AnimalCard = props => {
   const { className, animal, ...rest } = props;
 
   const classes = useStyles();
-
+  
   return (
     <Card
       {...rest}
@@ -53,7 +52,7 @@ const AnimalCard = props => {
           <img
             alt="Animal"
             className={classes.image}
-            src={animal.imageUrl}
+            src={animal.images[0].image}
           />
         </div>
         <Typography
@@ -61,7 +60,7 @@ const AnimalCard = props => {
           gutterBottom
           variant="h4"
         >
-          {animal.title}
+          {animal.name}
         </Typography>
         <Typography
           align="center"
@@ -80,12 +79,11 @@ const AnimalCard = props => {
             className={classes.statsItem}
             item
           >
-            <AccessTimeIcon className={classes.statsIcon} />
             <Typography
               display="inline"
               variant="body2"
             >
-              Updated 2hr ago
+              {animal.gender} - {animal.race} - {animal.species}
             </Typography>
           </Grid>
         </Grid>

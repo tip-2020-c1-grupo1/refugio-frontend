@@ -36,7 +36,7 @@ const Topbar = props => {
         <RouterLink to="/">
           <img style={{height: '40px', width: '40px'}}
             alt="Logo"
-            src="/images/logos/logo--white.png"
+            src="/images/logos/logo--white.svg"
           />
           <span style={{marginLeft: '10px',
             marginTop: '20px',
