@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import { Button } from '@material-ui/core';
-
+import MultiSelect from "react-multi-select-component";
 import { SearchInput } from 'components';
 
 const useStyles = makeStyles(theme => ({
@@ -22,11 +22,20 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const options = [
+  { label: "Nombre", value: "name" },
+  { label: "Especie", value: "species" },
+  { label: "Raza", value: "race" },
+];
+
 const AnimalsToolbar = props => {
   const { className, ...rest } = props;
-  const {applySearch, setSearchString} = props;
+  const { applySearch, selectedFilters, setSelectedFilters , setSearchString} = props;
   const classes = useStyles();
 
+  const applyFilter = (e) => {
+    setSelectedFilters(e);
+  }
   return (
     <div
       {...rest}
@@ -38,7 +47,14 @@ const AnimalsToolbar = props => {
           className={classes.searchInput}
           placeholder="Busque su mascota aquí"
         />
-        <Button onClick={applySearch}> Aplicar Busqueda</Button>
+        <MultiSelect
+          options={options}
+          value={selectedFilters}
+          onChange={applyFilter}
+          selectAllLabel={'Seleccionar todos'}
+          labelledBy={"Select"}
+        />
+        <Button disabled={selectedFilters && selectedFilters.length == 0} onClick={applySearch}> Aplicar Busqueda</Button>
       </div>
     </div>
   );

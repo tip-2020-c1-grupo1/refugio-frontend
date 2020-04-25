@@ -10,7 +10,6 @@ import {
   Grid,
   Divider
 } from '@material-ui/core';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 const useStyles = makeStyles(theme => ({
   root: {},
