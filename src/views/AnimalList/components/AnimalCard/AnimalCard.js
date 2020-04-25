@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
@@ -10,6 +10,7 @@ import {
   Grid,
   Divider
 } from '@material-ui/core';
+import AnimalModal from './AnimalModal';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -41,6 +42,16 @@ const AnimalCard = props => {
   const { className, animal, ...rest } = props;
 
   const classes = useStyles();
+
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   
   return (
     <Card
@@ -48,6 +59,14 @@ const AnimalCard = props => {
       className={clsx(classes.root, className)}
     >
       <CardContent>
+        <button type="button" onClick={handleOpen}>
+          Ver detalle
+        </button>
+        <AnimalModal 
+          handleClose={handleClose}
+          animal={animal}
+          open={open}
+        />
         <div className={classes.imageContainer}>
           <img
             alt="Animal"
