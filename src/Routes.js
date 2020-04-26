@@ -6,7 +6,8 @@ import { Main as MainLayout, Minimal as MinimalLayout } from './layouts';
 
 import {
   AnimalList as AnimalListView,
-  NotFound as NotFoundView
+  NotFound as NotFoundView,
+  SignIn as SignIn
 } from './views';
 
 const Routes = (props) => {
@@ -14,11 +15,22 @@ const Routes = (props) => {
   console.log(props);
   return (
     <Switch>
+
       <Redirect
         exact
         from="/"
         to="/animals"
       />
+
+      
+      <RouteWithLayout
+        component={SignIn}
+        user={props.user}
+        exact
+        layout={MainLayout}
+        path="/signIn"
+      />
+
       
       <RouteWithLayout
         component={AnimalListView}
