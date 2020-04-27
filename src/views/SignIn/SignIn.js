@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import {getOrCreateProfile} from './SignInApi';
+
 
 // import { GoogleLogout, GoogleLogin } from '../src/index'
 // import GoogleLogin, { GoogleLogout } from '../dist/google-login'
@@ -11,8 +13,14 @@ const clientId = '520250969211-39m3tjqhlf6nm61emdm65k8nifmbn648.apps.googleuserc
 const responseGoogle = (response) => {
   console.log('Todo bien')
   console.log(response);
-  window.profileObj = response.profileObj;
-  alert(window.profileObj.name);
+  getOrCreateProfile(response.profileObj).then(function (response) {
+    console.log('Todo bien');
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
   // Make HTTP call to backend to register or check user alredy there
   // save in app state user after successfull
 }
