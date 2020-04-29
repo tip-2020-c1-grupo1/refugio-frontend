@@ -16,6 +16,7 @@ const responseGoogle = (response) => {
   getOrCreateProfile(response.profileObj).then(function (response) {
     console.log('Todo bien');
     console.log(response);
+    localStorage.setItem("googleUser", JSON.stringify(response));
   })
   .catch(function (error) {
     console.log(error);

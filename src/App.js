@@ -11,25 +11,33 @@ import Routes from './Routes';
 
 const browserHistory = createBrowserHistory();
 
+const [googleUser, setGoogleUser] = React.useState('');
+
 validate.validators = {
   ...validate.validators,
   ...validators
 };
 
-const user = {
-  name: 'Example User2',
-  city: 'Los Angeles',
-  country: 'USA',
-  timezone: 'GTM-7',
-  avatar: '/images/avatars/avatar_11.png'
-};
+// const user = {
+//   name: 'Example User2',
+//   city: 'Los Angeles',
+//   country: 'USA',
+//   timezone: 'GTM-7',
+//   avatar: '/images/avatars/avatar_11.png'
+// };
+
+
 
 export default class App extends Component {
+
   render() {
+
+    setGoogleUser(localStorage.getItem('googleUser'))
+
     return (
       <ThemeProvider theme={theme}>
         <Router history={browserHistory}>
-          <Routes user={user} />
+          <Routes user={googleUser} />
         </Router>
       </ThemeProvider>
     );

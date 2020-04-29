@@ -26,7 +26,16 @@ const Profile = props => {
   console.log(props);
   const classes = useStyles();
 
-  const user = props.user;
+
+  // const data = JSON.parse(sessionStorage.getItem('userData'));
+  //
+  // console.log(data);
+
+  const user = {
+    name: 'Shen Zhi',
+    avatar: '/images/avatars/avatar_11.png',
+    bio: 'Brain Director'
+  };
 
   return (
     <div
@@ -50,6 +59,8 @@ const Profile = props => {
     </div>
   );
 };
+
+
 
 Profile.propTypes = {
   className: PropTypes.string

@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import { Divider, Drawer } from '@material-ui/core';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 
 import { Profile, SidebarNav } from './components';
@@ -41,8 +42,13 @@ const Sidebar = props => {
       title: 'Animals',
       href: '/animals',
       icon: <DashboardIcon />
+    },
+    {
+      title: 'Account',
+      href: '/account',
+      icon: <AccountBoxIcon />
     }
-   
+
   ];
 
   return (

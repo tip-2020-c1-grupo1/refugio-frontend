@@ -7,7 +7,8 @@ import { Main as MainLayout, Minimal as MinimalLayout } from './layouts';
 import {
   AnimalList as AnimalListView,
   NotFound as NotFoundView,
-  SignIn as SignIn
+  SignIn,
+  Account as AccountView
 } from './views';
 
 const Routes = (props) => {
@@ -22,16 +23,15 @@ const Routes = (props) => {
         to="/animals"
       />
 
-      
+
       <RouteWithLayout
         component={SignIn}
-        user={props.user}
         exact
         layout={MainLayout}
         path="/signIn"
       />
 
-      
+
       <RouteWithLayout
         component={AnimalListView}
         user={props.user}
@@ -39,7 +39,15 @@ const Routes = (props) => {
         layout={MainLayout}
         path="/animals"
       />
-      
+
+      <RouteWithLayout
+        component={AccountView}
+        user={props.user}
+        exact
+        layout={MainLayout}
+        path="/account"
+      />
+
       <RouteWithLayout
         component={NotFoundView}
         exact
