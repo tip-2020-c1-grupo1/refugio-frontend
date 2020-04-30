@@ -26,6 +26,8 @@ const Routes = (props) => {
 
       <RouteWithLayout
         component={SignIn}
+        user={props.user}
+        setUser={props.setUser}
         exact
         layout={MainLayout}
         path="/signIn"

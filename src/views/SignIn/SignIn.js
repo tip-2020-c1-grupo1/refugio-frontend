@@ -32,6 +32,9 @@ const errorResponseGoogle = (response) => {
 }
 
 const SignIn = props => {
+  console.log('Props de sign In');
+  console.log(props);
+
   return (
     <GoogleLogin
     clientId={clientId}

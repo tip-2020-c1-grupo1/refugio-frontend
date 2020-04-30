@@ -108,7 +108,7 @@ export default class App extends Component {
     return (
       <ThemeProvider theme={theme}>
         <Router history={browserHistory}>
-          <Routes user={this.state.user} />
+          <Routes setUser={this.setUser} user={this.state.user} />
         </Router>
       </ThemeProvider>
     );

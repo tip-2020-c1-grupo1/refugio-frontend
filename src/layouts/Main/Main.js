@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 const Main = props => {
   const { children } = props;
   
-
+  const setUser = children.props.setUser;
   const user = children.props.user;
   console.log(user);
   const classes = useStyles();
