@@ -127,7 +127,8 @@ export default class App extends Component {
     
     if (!hasBasicUserInfoInLocalStorage && !hasBasicUserInfoInState){
       /* 
-      redirect to sign In , remembering that signIn will call the sso service and
+      redirect to sign In , 
+      remembering that signIn will call the sso service and
       use setUser function
       */
       console.log('FALTA QUE ME SETEEN LAS CREDENCIALES');

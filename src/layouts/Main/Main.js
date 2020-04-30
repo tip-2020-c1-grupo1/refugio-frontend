@@ -54,7 +54,10 @@ const Main = props => {
         [classes.shiftContent]: isDesktop
       })}
     >
-      <Topbar onSidebarOpen={handleSidebarOpen} />
+      <Topbar 
+        user={user}
+        setUser={setUser}
+        onSidebarOpen={handleSidebarOpen} />
       <Sidebar
         user={user}
         setUser={setUser}
