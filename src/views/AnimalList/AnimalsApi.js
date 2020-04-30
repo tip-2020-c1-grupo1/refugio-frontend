@@ -16,7 +16,6 @@ function getAnimalsByPage(page, searchString, selectedFilters) {
     const filtersApplied = map(selectedFilters, 'value');
     url += '&filter=' + filtersApplied.join('_');
   }
-  console.log(url);
   return axios.get(url);
 }
 

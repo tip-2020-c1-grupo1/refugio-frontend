@@ -12,8 +12,6 @@ import {
 } from './views';
 
 const Routes = (props) => {
-  console.log('En routes');
-  console.log(props);
   return (
     <Switch>
 

@@ -27,7 +27,6 @@ const Main = props => {
   
   const setUser = children.props.setUser;
   const user = children.props.user;
-  console.log(user);
   const classes = useStyles();
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
@@ -58,6 +57,7 @@ const Main = props => {
       <Topbar onSidebarOpen={handleSidebarOpen} />
       <Sidebar
         user={user}
+        setUser={setUser}
         onClose={handleSidebarClose}
         open={shouldOpenSidebar}
         variant={isDesktop ? 'persistent' : 'temporary'}

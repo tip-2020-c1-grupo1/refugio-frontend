@@ -36,7 +36,6 @@ const Sidebar = props => {
 
   const classes = useStyles();
   const user = props.user;
-  console.log(user);
   const pages = [
     {
       title: 'Animals',
