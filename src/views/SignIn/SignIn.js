@@ -13,9 +13,7 @@ const clientId = '520250969211-39m3tjqhlf6nm61emdm65k8nifmbn648.apps.googleuserc
 
 
 const SignIn = props => {
-  console.log('Props de sign In');
   const {user, setUser} = props; 
-  console.log(user);
 
   const responseGoogle = (response) => {
     getOrCreateProfile(response.profileObj).then(function (response) {

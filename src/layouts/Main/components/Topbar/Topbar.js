@@ -7,6 +7,7 @@ import { AppBar, Toolbar, Badge, Hidden, IconButton } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
+import cogoToast from 'cogo-toast';
 import { getOrCreateProfile } from 'views/SignIn/SignInApi';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
@@ -44,12 +45,13 @@ const Topbar = props => {
         email: response.data.email
         // animals: []
       }
-      console.log(responseUser);
       setUser(responseUser);
       
     })
     .catch(function (error) {
-      console.log(error);
+      cogoToast.error('Ocurrio un error al intentar ingresar, intente nuevamente', {
+        position: 'top-center'
+      });
     });
   
     // Make HTTP call to backend to register or check user alredy there
@@ -59,6 +61,10 @@ const Topbar = props => {
   const errorResponseGoogle = (response) => {
     console.log('Error')
     console.log(response);
+    cogoToast.error('No pudimos ingresar, intente nuevamente', {
+      position: 'top-center'
+    });
+
   }
 
   return (

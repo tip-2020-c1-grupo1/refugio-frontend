@@ -58,14 +58,12 @@ export default class App extends Component {
   setUser(user) {
     this.setState({user}, 
       () => {
-        console.log(this.state.user);
         this.setUserInfoToLocalStorage();
       }
     );
   }
 
   setUserInfoToLocalStorage() {
-    console.log('Tengo que guardar en localStorage');
     const array = [
       'googleId',
       'imageUrl',
@@ -77,7 +75,6 @@ export default class App extends Component {
     ];
     const self = this;
     array.forEach(element => {
-      console.log(element);
       self.toStorage(element);
     });
   }
@@ -99,9 +96,7 @@ export default class App extends Component {
   }
 
   toStorage(stringProperty) {
-    console.log('Guardando en el storage');
     const value = this.state.user[stringProperty];
-    console.log(value);
     return window.localStorage.setItem(stringProperty, value);
   }
 
@@ -120,7 +115,6 @@ export default class App extends Component {
     const hasImageUrl = this.state.user.imageUrl.length !== 0;
     const hasGoogleId = this.state.user.googleId.length !== 0;
     const hasEmail = this.state.user.email.length !== 0;
-    console.log(this.state);
 
     const hasBasicUserInfoInLocalStorage = hasEmailLocalStorage && hasGoogleIdLocalStorage;
     const hasBasicUserInfoInState = hasEmail && hasImageUrl && hasGoogleId;
