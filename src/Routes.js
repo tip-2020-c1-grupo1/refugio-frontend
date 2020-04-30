@@ -35,6 +35,7 @@ const Routes = (props) => {
       <RouteWithLayout
         component={AnimalListView}
         user={props.user}
+        setUser={props.setUser}
         exact
         layout={MainLayout}
         path="/animals"
@@ -43,6 +44,7 @@ const Routes = (props) => {
       <RouteWithLayout
         component={AccountView}
         user={props.user}
+        setUser={props.setUser}
         exact
         layout={MainLayout}
         path="/account"
