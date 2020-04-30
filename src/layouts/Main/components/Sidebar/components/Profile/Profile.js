@@ -23,18 +23,12 @@ const useStyles = makeStyles(theme => ({
 
 const Profile = props => {
   const { className, ...rest } = props;
-  console.log(props);
   const classes = useStyles();
 
-
-  // const data = JSON.parse(sessionStorage.getItem('userData'));
-  //
-  // console.log(data);
-
   const user = {
-    name: 'Shen Zhi',
-    avatar: '/images/avatars/avatar_11.png',
-    bio: 'Brain Director'
+    name: props.user.firstName + '' + props.user.lastName,
+    avatar: 'http://localhost:8000/media/bretona1.jpg', // props.user.imageUrl,
+    bio: props.user.email
   };
 
   return (
