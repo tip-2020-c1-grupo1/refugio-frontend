@@ -46,6 +46,9 @@ export default class App extends Component {
     this.fromLocalStorage = this.fromLocalStorage.bind(this);
     this.setUserInfoFromLocalStorage = this.setUserInfoFromLocalStorage.bind(this);
     this.checkCredentials = this.checkCredentials.bind(this);
+    this.toStorage = this.toStorage.bind(this);
+    this.setUserInfoToLocalStorage = this.setUserInfoToLocalStorage.bind(this);
+    this.existsInLocalStorage = this.existsInLocalStorage.bind(this);
   }
 
   componentDidMount() {
@@ -53,7 +56,30 @@ export default class App extends Component {
   }
 
   setUser(user) {
-    this.setState({user});
+    this.setState({user}, 
+      () => {
+        console.log(this.state.user);
+        this.setUserInfoToLocalStorage();
+      }
+    );
+  }
+
+  setUserInfoToLocalStorage() {
+    console.log('Tengo que guardar en localStorage');
+    const array = [
+      'googleId',
+      'imageUrl',
+      'typeOfProfile',
+      'username',
+      'firstName',
+      'lastName',
+      'email'      
+    ];
+    const self = this;
+    array.forEach(element => {
+      console.log(element);
+      self.toStorage(element);
+    });
   }
 
   setUserInfoFromLocalStorage() {
@@ -61,7 +87,7 @@ export default class App extends Component {
     const user = {
       googleId: this.fromLocalStorage('googleId'),
       imageUrl: this.fromLocalStorage('imageUrl'),
-      // typeOfProfile: '',
+      typeOfProfile: this.fromLocalStorage('typeOfProfile'),
       username: this.fromLocalStorage('username'),
       firstName: this.fromLocalStorage('firstName'),
       lastName: this.fromLocalStorage('lastName'),
@@ -69,36 +95,54 @@ export default class App extends Component {
       // animals: []
     }
 
-    this.setUser(user);
+    this.setState({user});
+  }
+
+  toStorage(stringProperty) {
+    console.log('Guardando en el storage');
+    const value = this.state.user[stringProperty];
+    console.log(value);
+    return window.localStorage.setItem(stringProperty, value);
   }
 
   fromLocalStorage(stringProperty) {
     return window.localStorage.getItem(stringProperty);
   }
 
-  checkCredentials() {
-    const googleIdLocalStorage = this.fromLocalStorage('googleId');
-    const emailLocalStorage = this.fromLocalStorage('email');
-    const imageUrl = this.state.imageUrl;
-    const googleId = this.state.googleId;
-    const email = this.state.email;
+  existsInLocalStorage(stringProperty) {
+    const value = this.fromLocalStorage(stringProperty);
+    return value !== undefined && value !== null;
+  }
 
-    const basicUserInfoInLocalStorage = emailLocalStorage && googleIdLocalStorage;
-    const basicUserInfoInState = email !== '' && imageUrl !== '' && googleId !== '';
+  checkCredentials() {
+    const hasGoogleIdLocalStorage = this.existsInLocalStorage('googleId');
+    const hasEmailLocalStorage = this.existsInLocalStorage('email');
+    const hasImageUrl = this.state.user.imageUrl.length !== 0;
+    const hasGoogleId = this.state.user.googleId.length !== 0;
+    const hasEmail = this.state.user.email.length !== 0;
+    console.log(this.state);
+
+    const hasBasicUserInfoInLocalStorage = hasEmailLocalStorage && hasGoogleIdLocalStorage;
+    const hasBasicUserInfoInState = hasEmail && hasImageUrl && hasGoogleId;
     
-    if (!basicUserInfoInLocalStorage && !basicUserInfoInState){
+    if (!hasBasicUserInfoInLocalStorage && !hasBasicUserInfoInState){
       /* 
       redirect to sign In , remembering that signIn will call the sso service and
       use setUser function
       */
       console.log('FALTA QUE ME SETEEN LAS CREDENCIALES');
     } else {
-      if (!basicUserInfoInState) {
+      if (!hasBasicUserInfoInState) {
         this.setUserInfoFromLocalStorage();
       } else {
-        // La tengo en el state y no en localstorage ...
-      }
-      
+        if (!hasBasicUserInfoInLocalStorage) {
+          // La tengo en el state y no en localstorage ...
+          this.setUserInfoToLocalStorage();
+        } 
+        else{
+          console.log('Todo Ok');
+        }       
+      }      
     }
   }
 

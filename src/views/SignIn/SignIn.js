@@ -10,30 +10,41 @@ import {getOrCreateProfile} from './SignInApi';
 
 const clientId = '520250969211-39m3tjqhlf6nm61emdm65k8nifmbn648.apps.googleusercontent.com';
 
-const responseGoogle = (response) => {
-  console.log('Todo bien')
-  console.log(response);
-  getOrCreateProfile(response.profileObj).then(function (response) {
-    console.log('Todo bien');
-    console.log(response);
-    localStorage.setItem("googleUser", JSON.stringify(response));
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
 
-  // Make HTTP call to backend to register or check user alredy there
-  // save in app state user after successfull
-}
-
-const errorResponseGoogle = (response) => {
-  console.log('Error')
-  console.log(response);
-}
 
 const SignIn = props => {
   console.log('Props de sign In');
-  console.log(props);
+  const {user, setUser} = props; 
+  console.log(user);
+
+  const responseGoogle = (response) => {
+    getOrCreateProfile(response.profileObj).then(function (response) {
+      const responseUser = {
+        googleId: response.data.google_id,
+        imageUrl: response.data.image_url,
+        typeOfProfile: response.data.type_of_profile,
+        username: response.data.username,
+        firstName: response.data.first_name,
+        lastName: response.data.last_name,
+        email: response.data.email
+        // animals: []
+      }
+      console.log(responseUser);
+      setUser(responseUser);
+      
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  
+    // Make HTTP call to backend to register or check user alredy there
+    // save in app state user after successfull
+  }
+  
+  const errorResponseGoogle = (response) => {
+    console.log('Error')
+    console.log(response);
+  }
 
   return (
     <GoogleLogin

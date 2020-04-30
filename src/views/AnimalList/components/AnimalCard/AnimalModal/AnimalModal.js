@@ -42,7 +42,6 @@ const useStyles = makeStyles(theme => ({
 
 const AnimalModal = props => {
   const { className, open, handleClose, animal, ...rest } = props;
-  console.log(animal);
   const classes = useStyles();
   return (
     <Modal

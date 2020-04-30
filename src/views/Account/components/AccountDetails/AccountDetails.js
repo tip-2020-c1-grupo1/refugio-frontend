@@ -18,17 +18,17 @@ const useStyles = makeStyles(() => ({
 }));
 
 const AccountDetails = props => {
-  const { className, ...rest } = props;
+  const { className, user, setUser, ...rest } = props;
 
   const classes = useStyles();
 
   const [values, setValues] = useState({
-    firstName: 'Shen',
-    lastName: 'Zhi',
-    email: 'shen.zhi@devias.io',
-    phone: '',
-    state: 'Alabama',
-    country: 'USA'
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    phone: 'N/A',
+    state: 'N/A',
+    country: 'N/A'
   });
 
   const handleChange = event => {
@@ -38,6 +38,9 @@ const AccountDetails = props => {
     });
   };
 
+  // El set de state de arriba esta perfecto, pero tiene que haber un save
+  // Que haga un post http !!! 
+  // Check !!!
   const states = [
     {
       value: 'alabama',

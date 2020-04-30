@@ -27,7 +27,7 @@ const Profile = props => {
 
   const user = {
     name: props.user.firstName + '' + props.user.lastName,
-    avatar: 'http://localhost:8000/media/bretona1.jpg', // props.user.imageUrl,
+    avatar: props.user.imageUrl,
     bio: props.user.email
   };
 
