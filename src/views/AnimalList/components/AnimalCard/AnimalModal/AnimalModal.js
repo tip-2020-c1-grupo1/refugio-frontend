@@ -75,7 +75,7 @@ const AnimalModal = props => {
             gutterBottom
             variant="h4"
           >
-            {animal.name} SOY EL MODAL
+            {animal.name}
           </Typography>
           <Typography
             align="center"

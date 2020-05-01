@@ -67,6 +67,36 @@ const Topbar = props => {
 
   }
 
+  const responseGoogleLogout = () => {
+      const responseUser = {
+        googleId: null,
+        imageUrl: null,
+        typeOfProfile: null,
+        username: null,
+        firstName: null,
+        lastName: null,
+        email: null
+      }
+    setUser(responseUser);
+  }
+
+  function googleLoginHandler(){
+    if(user.googleId){
+      return <GoogleLogout
+        clientId={clientId}
+        buttonText="Logout"
+        onLogoutSuccess={responseGoogleLogout}
+      />
+    }
+    return <GoogleLogin
+          clientId={clientId}
+          buttonText="Login"
+          onSuccess={responseGoogle}
+          onFailure={errorResponseGoogle}
+          cookiePolicy={'single_host_origin'}
+        />
+  }
+
   return (
     <AppBar
       {...rest}
@@ -84,13 +114,7 @@ const Topbar = props => {
             alignItems: 'center'}}>Refugio App</span>
         </RouterLink>
         <div className={classes.flexGrow} />
-        <GoogleLogin
-          clientId={clientId}
-          buttonText="Login"
-          onSuccess={responseGoogle}
-          onFailure={errorResponseGoogle}
-          cookiePolicy={'single_host_origin'}
-        />
+        {googleLoginHandler()}
         <Hidden mdDown>
           <IconButton color="inherit">
             <Badge

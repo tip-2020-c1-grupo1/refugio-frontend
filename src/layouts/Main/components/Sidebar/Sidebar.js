@@ -32,10 +32,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Sidebar = props => {
-  const { open, variant, onClose, className, ...rest } = props;
+  const { open, variant, onClose, className, user, ...rest } = props;
 
   const classes = useStyles();
-  const user = props.user;
   const pages = [
     {
       title: 'Animals',
@@ -43,12 +42,22 @@ const Sidebar = props => {
       icon: <DashboardIcon />
     },
     {
-      title: 'Account',
+      title: 'Perfil',
       href: '/account',
       icon: <AccountBoxIcon />
     }
 
   ];
+
+  const pagesGuest = [
+    {
+      title: 'Animals',
+      href: '/animals',
+      icon: <DashboardIcon />
+    }
+  ];
+
+  const pageSelector = () => user.googleId ? pages : pagesGuest
 
   return (
     <Drawer
@@ -66,7 +75,7 @@ const Sidebar = props => {
         <Divider className={classes.divider} />
         <SidebarNav
           className={classes.nav}
-          pages={pages}
+          pages={pageSelector()}
         />
       </div>
     </Drawer>

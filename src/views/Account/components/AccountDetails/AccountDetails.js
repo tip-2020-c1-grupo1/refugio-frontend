@@ -66,8 +66,8 @@ const AccountDetails = props => {
         noValidate
       >
         <CardHeader
-          subheader="The information can be edited"
-          title="Profile"
+          subheader="La información puede ser editada"
+          title="Perfil"
         />
         <Divider />
         <CardContent>
@@ -82,8 +82,8 @@ const AccountDetails = props => {
             >
               <TextField
                 fullWidth
-                helperText="Please specify the first name"
-                label="First name"
+                helperText="Ingrese su nombre aquí"
+                label="Nombre"
                 margin="dense"
                 name="firstName"
                 onChange={handleChange}
@@ -99,7 +99,7 @@ const AccountDetails = props => {
             >
               <TextField
                 fullWidth
-                label="Last name"
+                label="Apellido"
                 margin="dense"
                 name="lastName"
                 onChange={handleChange}
@@ -114,8 +114,9 @@ const AccountDetails = props => {
               xs={12}
             >
               <TextField
+                disabled
                 fullWidth
-                label="Email Address"
+                label="Email"
                 margin="dense"
                 name="email"
                 onChange={handleChange}
@@ -131,56 +132,12 @@ const AccountDetails = props => {
             >
               <TextField
                 fullWidth
-                label="Phone Number"
+                label="Teléfono"
                 margin="dense"
                 name="phone"
                 onChange={handleChange}
                 type="number"
                 value={values.phone}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Select State"
-                margin="dense"
-                name="state"
-                onChange={handleChange}
-                required
-                select
-                // eslint-disable-next-line react/jsx-sort-props
-                SelectProps={{ native: true }}
-                value={values.state}
-                variant="outlined"
-              >
-                {states.map(option => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Country"
-                margin="dense"
-                name="country"
-                onChange={handleChange}
-                required
-                value={values.country}
                 variant="outlined"
               />
             </Grid>
@@ -192,7 +149,7 @@ const AccountDetails = props => {
             color="primary"
             variant="contained"
           >
-            Save details
+            Guardar
           </Button>
         </CardActions>
       </form>

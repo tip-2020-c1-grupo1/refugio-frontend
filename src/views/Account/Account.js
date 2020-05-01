@@ -21,15 +21,6 @@ const Account = props => {
       >
         <Grid
           item
-          lg={4}
-          md={6}
-          xl={4}
-          xs={12}
-        >
-          <AccountProfile user={props.user} />
-        </Grid>
-        <Grid
-          item
           lg={8}
           md={6}
           xl={8}

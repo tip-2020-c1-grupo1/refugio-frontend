@@ -26,10 +26,12 @@ const Profile = props => {
   const classes = useStyles();
 
   const user = {
-    name: props.user.firstName + '' + props.user.lastName,
+    name: props.user.username,
     avatar: props.user.imageUrl,
     bio: props.user.email
   };
+
+  const userNameResolver = () => user.name ? user.name : 'Invitado'
 
   return (
     <div
@@ -47,7 +49,7 @@ const Profile = props => {
         className={classes.name}
         variant="h4"
       >
-        {user.name}
+        {userNameResolver()}
       </Typography>
       <Typography variant="body2">{user.bio}</Typography>
     </div>
