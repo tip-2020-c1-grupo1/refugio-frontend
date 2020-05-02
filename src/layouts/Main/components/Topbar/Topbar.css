@@ -1,0 +1,23 @@
+.signInGoogleButton {
+  border-radius: 20px !important;
+}
+
+.signOutGoogleButton {
+  border-radius: 20px !important;
+}
+
+.signInGoogleButton > div{
+  display: none !important;
+}
+
+.signOutGoogleButton > div{
+  display: none !important;
+}
+
+.signOutGoogleButton > span{
+  padding: 10px !important;
+}
+
+.signInGoogleButton > span{
+  padding: 10px !important;
+}

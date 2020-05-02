@@ -16,15 +16,6 @@ validate.validators = {
   ...validators
 };
 
-// const user = {
-//   name: 'Example User2',
-//   city: 'Los Angeles',
-//   country: 'USA',
-//   timezone: 'GTM-7',
-//   avatar: '/images/avatars/avatar_11.png'
-// };
-
-
 
 export default class App extends Component {
 
@@ -39,6 +30,7 @@ export default class App extends Component {
         firstName: '',
         lastName: '',
         email: '',
+        phone: ''
         // animals: []
       }
     };
@@ -55,10 +47,15 @@ export default class App extends Component {
     this.checkCredentials()
   }
 
-  setUser(user) {
+  setUser(user, callback) {
+    console.log(user);
     this.setState({user}, 
       () => {
         this.setUserInfoToLocalStorage();
+        if (callback) {
+          callback();
+        }
+        
       }
     );
   }
@@ -71,7 +68,8 @@ export default class App extends Component {
       'username',
       'firstName',
       'lastName',
-      'email'      
+      'email',
+      'phone'  
     ];
     const self = this;
     array.forEach(element => {
@@ -89,6 +87,7 @@ export default class App extends Component {
       firstName: this.fromLocalStorage('firstName'),
       lastName: this.fromLocalStorage('lastName'),
       email: this.fromLocalStorage('email'),
+      phone: this.fromLocalStorage('phone')
       // animals: []
     }
 
@@ -119,26 +118,14 @@ export default class App extends Component {
     const hasBasicUserInfoInLocalStorage = hasEmailLocalStorage && hasGoogleIdLocalStorage;
     const hasBasicUserInfoInState = hasEmail && hasImageUrl && hasGoogleId;
     
-    if (!hasBasicUserInfoInLocalStorage && !hasBasicUserInfoInState){
-      /* 
-      redirect to sign In , 
-      remembering that signIn will call the sso service and
-      use setUser function
-      */
-      console.log('FALTA QUE ME SETEEN LAS CREDENCIALES');
+    if (!hasBasicUserInfoInState) {
+      this.setUserInfoFromLocalStorage();
     } else {
-      if (!hasBasicUserInfoInState) {
-        this.setUserInfoFromLocalStorage();
-      } else {
-        if (!hasBasicUserInfoInLocalStorage) {
-          // La tengo en el state y no en localstorage ...
-          this.setUserInfoToLocalStorage();
-        } 
-        else{
-          console.log('Todo Ok');
-        }       
-      }      
-    }
+      if (!hasBasicUserInfoInLocalStorage) {
+        // La tengo en el state y no en localstorage ...
+        this.setUserInfoToLocalStorage();
+      }     
+    }   
   }
 
   render() {

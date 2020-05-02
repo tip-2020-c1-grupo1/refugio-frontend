@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
+import cogoToast from 'cogo-toast';
 import {
   Card,
   CardHeader,
@@ -12,6 +13,8 @@ import {
   Button,
   TextField
 } from '@material-ui/core';
+import {isEmpty} from 'lodash';
+import {submitAccountDetails} from './AccountDetailsApi'; 
 
 const useStyles = makeStyles(() => ({
   root: {}
@@ -26,10 +29,43 @@ const AccountDetails = props => {
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
-    phone: 'N/A',
-    state: 'N/A',
-    country: 'N/A'
+    phone: user.phone || ''
   });
+
+
+  const validateAndSubmit = () => {
+    if (isEmpty(values.firstName) || 
+    isEmpty(values.lastName) || 
+    isEmpty(values.email) ||
+    isEmpty(values.phone)) {
+      cogoToast.warn('Todos los campos deben tener valores', {
+        position: 'top-center'
+      });
+    } else {
+      cogoToast.loading('Salvando tus cambios ...').then(() => {
+        submitAccountDetails(values)
+          .then(response => {
+            cogoToast.success('Ha guardado el cambio en el perfil con exito', {
+              position: 'top-center'
+            });
+            const newUser = {
+              googleId: user.googleId,
+              imageUrl: user.imageUrl,
+              // typeOfProfile: user.typeOfProfile,
+              username: user.username,
+              firstName: values.firstName,
+              lastName: values.lastName,
+              email: user.email,
+              phone: values.phone
+              // animals: []
+            }
+            setUser(newUser);
+          }
+        )        
+      });
+      
+    }
+  }
 
   const handleChange = event => {
     setValues({
@@ -41,20 +77,6 @@ const AccountDetails = props => {
   // El set de state de arriba esta perfecto, pero tiene que haber un save
   // Que haga un post http !!! 
   // Check !!!
-  const states = [
-    {
-      value: 'alabama',
-      label: 'Alabama'
-    },
-    {
-      value: 'new-york',
-      label: 'New York'
-    },
-    {
-      value: 'san-francisco',
-      label: 'San Francisco'
-    }
-  ];
 
   return (
     <Card
@@ -146,6 +168,7 @@ const AccountDetails = props => {
         <Divider />
         <CardActions>
           <Button
+            onClick={validateAndSubmit}
             color="primary"
             variant="contained"
           >

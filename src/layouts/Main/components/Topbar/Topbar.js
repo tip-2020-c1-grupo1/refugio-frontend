@@ -10,6 +10,8 @@ import InputIcon from '@material-ui/icons/Input';
 import cogoToast from 'cogo-toast';
 import { getOrCreateProfile } from 'views/SignIn/SignInApi';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import './Topbar.css';
+import { white } from 'color-name';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -42,7 +44,8 @@ const Topbar = props => {
         username: response.data.username,
         firstName: response.data.first_name,
         lastName: response.data.last_name,
-        email: response.data.email
+        email: response.data.email,
+        phone: response.data.phone
         // animals: []
       }
       setUser(responseUser);
@@ -59,7 +62,6 @@ const Topbar = props => {
   }
   
   const errorResponseGoogle = (response) => {
-    console.log('Error')
     console.log(response);
     cogoToast.error('No pudimos ingresar, intente nuevamente', {
       position: 'top-center'
@@ -68,21 +70,22 @@ const Topbar = props => {
   }
 
   const responseGoogleLogout = () => {
-      const responseUser = {
-        googleId: null,
-        imageUrl: null,
-        typeOfProfile: null,
-        username: null,
-        firstName: null,
-        lastName: null,
-        email: null
-      }
+    const responseUser = {
+      googleId: '',
+      imageUrl: '',
+      typeOfProfile: '',
+      username: '',
+      firstName: '',
+      lastName: '',
+      email: ''
+    }
     setUser(responseUser);
   }
 
   function googleLoginHandler(){
     if(user.googleId){
       return <GoogleLogout
+        className='signOutGoogleButton'
         clientId={clientId}
         buttonText="Logout"
         onLogoutSuccess={responseGoogleLogout}
@@ -91,6 +94,7 @@ const Topbar = props => {
     return <GoogleLogin
           clientId={clientId}
           buttonText="Login"
+          className='signInGoogleButton'
           onSuccess={responseGoogle}
           onFailure={errorResponseGoogle}
           cookiePolicy={'single_host_origin'}
@@ -104,34 +108,21 @@ const Topbar = props => {
     >
       <Toolbar>
         <RouterLink to="/">
-          <img style={{height: '40px', width: '40px'}}
+          <img style={{
+            height: '40px',
+            color: 'white',
+            width: '40px'}}
             alt="Logo"
             src="/images/logos/logo--white.svg"
           />
           <span style={{marginLeft: '10px',
             marginTop: '20px',
             position: 'absolute',
+            color: white,
             alignItems: 'center'}}>Refugio App</span>
         </RouterLink>
         <div className={classes.flexGrow} />
-        {googleLoginHandler()}
-        <Hidden mdDown>
-          <IconButton color="inherit">
-            <Badge
-              badgeContent={notifications.length}
-              color="primary"
-              variant="dot"
-            >
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <IconButton
-            className={classes.signOutButton}
-            color="inherit"
-          >
-            <InputIcon />
-          </IconButton>
-        </Hidden>
+        
         <Hidden lgUp>
           <IconButton
             color="inherit"
@@ -140,6 +131,7 @@ const Topbar = props => {
             <MenuIcon />
           </IconButton>
         </Hidden>
+        {googleLoginHandler()}
       </Toolbar>
     </AppBar>
   );

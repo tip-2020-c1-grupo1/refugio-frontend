@@ -4,10 +4,6 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import {getOrCreateProfile} from './SignInApi';
 
 
-// import { GoogleLogout, GoogleLogin } from '../src/index'
-// import GoogleLogin, { GoogleLogout } from '../dist/google-login'
-// import FontAwesome from 'react-fontawesome';
-
 const clientId = '520250969211-39m3tjqhlf6nm61emdm65k8nifmbn648.apps.googleusercontent.com';
 
 
