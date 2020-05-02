@@ -21,3 +21,11 @@
 .signInGoogleButton > span{
   padding: 10px !important;
 }
+
+.refugioAppTitle {
+  margin-left: 10px !important;
+  margin-top: 20px !important;
+  position: absolute !important;
+  color: white !important;
+  align-items: 'center' !important;
+}

@@ -115,11 +115,7 @@ const Topbar = props => {
             alt="Logo"
             src="/images/logos/logo--white.svg"
           />
-          <span style={{marginLeft: '10px',
-            marginTop: '20px',
-            position: 'absolute',
-            color: white,
-            alignItems: 'center'}}>Refugio App</span>
+          <span className='refugioAppTitle'>Refugio App</span>
         </RouterLink>
         <div className={classes.flexGrow} />
         
