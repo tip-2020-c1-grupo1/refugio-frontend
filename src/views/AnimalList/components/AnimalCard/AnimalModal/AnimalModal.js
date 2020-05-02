@@ -13,6 +13,7 @@ import {
 import Modal from '@material-ui/core/Modal';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
+import './AnimalModal.css';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -28,7 +29,8 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center'
   },
   image: {
-    width: '100%'
+    width: '100%',
+    height: 400
   },
   statsItem: {
     display: 'flex',
