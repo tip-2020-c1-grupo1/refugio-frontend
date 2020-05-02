@@ -3,15 +3,13 @@ import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
-import { AppBar, Toolbar, Badge, Hidden, IconButton } from '@material-ui/core';
+import { AppBar, Toolbar, Hidden, IconButton } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
-import InputIcon from '@material-ui/icons/Input';
 import cogoToast from 'cogo-toast';
 import { getOrCreateProfile } from 'views/SignIn/SignInApi';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import {getClientId} from './TopbarSSOCreds';
 import './Topbar.css';
-import { white } from 'color-name';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const clientId = '520250969211-39m3tjqhlf6nm61emdm65k8nifmbn648.apps.googleusercontent.com';
+const clientId = getClientId();
 
 
 const Topbar = props => {
