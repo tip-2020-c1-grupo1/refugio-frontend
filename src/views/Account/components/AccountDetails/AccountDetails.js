@@ -74,9 +74,26 @@ const AccountDetails = props => {
     });
   };
 
-  // El set de state de arriba esta perfecto, pero tiene que haber un save
-  // Que haga un post http !!! 
-  // Check !!!
+  const hasSameValues = () => { return values.firstName === user.firstName && values.lastName === user.lastName && values.phone === user.phone}
+
+  const hasEmptyValues = () => { return !values.firstName || !values.lastName }
+  
+  const disableSaveButton = hasSameValues() || hasEmptyValues()
+
+  const onlyNumbersRegex = /^\d+$/;
+
+  const onlyLettersRegex = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/;
+
+
+  const onChangeWithRegex = (regex, event) => {
+    if (event.target.value === '' || regex.test(event.target.value)) {
+      handleChange(event)
+   }
+  }
+  
+  const onlyLetters = (event) => onChangeWithRegex(onlyLettersRegex, event)
+  
+  const onlyNumbers = (event) => onChangeWithRegex(onlyNumbersRegex, event)
 
   return (
     <Card
@@ -108,7 +125,7 @@ const AccountDetails = props => {
                 label="Nombre"
                 margin="dense"
                 name="firstName"
-                onChange={handleChange}
+                onChange={onlyLetters}
                 required
                 value={values.firstName}
                 variant="outlined"
@@ -124,7 +141,7 @@ const AccountDetails = props => {
                 label="Apellido"
                 margin="dense"
                 name="lastName"
-                onChange={handleChange}
+                onChange={onlyLetters}
                 required
                 value={values.lastName}
                 variant="outlined"
@@ -141,7 +158,6 @@ const AccountDetails = props => {
                 label="Email"
                 margin="dense"
                 name="email"
-                onChange={handleChange}
                 required
                 value={values.email}
                 variant="outlined"
@@ -157,7 +173,7 @@ const AccountDetails = props => {
                 label="Teléfono"
                 margin="dense"
                 name="phone"
-                onChange={handleChange}
+                onChange={onlyNumbers}
                 type="number"
                 value={values.phone}
                 variant="outlined"
@@ -168,6 +184,7 @@ const AccountDetails = props => {
         <Divider />
         <CardActions>
           <Button
+            disabled={disableSaveButton}
             onClick={validateAndSubmit}
             color="primary"
             variant="contained"
