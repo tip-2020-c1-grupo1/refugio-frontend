@@ -42,27 +42,34 @@ const AccountDetails = props => {
         position: 'top-center'
       });
     } else {
-      cogoToast.loading('Salvando tus cambios ...').then(() => {
-        submitAccountDetails(values)
-          .then(response => {
-            cogoToast.success('Ha guardado el cambio en el perfil con exito', {
-              position: 'top-center'
-            });
-            const newUser = {
-              googleId: user.googleId,
-              imageUrl: user.imageUrl,
-              // typeOfProfile: user.typeOfProfile,
-              username: user.username,
-              firstName: values.firstName,
-              lastName: values.lastName,
-              email: user.email,
-              phone: values.phone
-              // animals: []
+      if (isNaN(values.phone) || values.phone.length < 8) {
+        cogoToast.warn('Ingrese un telefono valido', {
+          position: 'top-center'
+        });
+      } else {
+        cogoToast.loading('Salvando tus cambios ...').then(() => {
+          submitAccountDetails(values)
+            .then(response => {
+              cogoToast.success('Ha guardado el cambio en el perfil con exito', {
+                position: 'top-center'
+              });
+              const newUser = {
+                googleId: user.googleId,
+                imageUrl: user.imageUrl,
+                // typeOfProfile: user.typeOfProfile,
+                username: user.username,
+                firstName: values.firstName,
+                lastName: values.lastName,
+                email: user.email,
+                phone: values.phone
+                // animals: []
+              }
+              setUser(newUser);
             }
-            setUser(newUser);
-          }
-        )        
-      });
+          )        
+        });
+
+      }
       
     }
   }
