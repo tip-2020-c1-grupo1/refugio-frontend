@@ -20,6 +20,7 @@ const useStyles = makeStyles(() => ({
   root: {}
 }));
 
+
 const AccountDetails = props => {
   const { className, user, setUser, ...rest } = props;
 
@@ -87,15 +88,16 @@ const AccountDetails = props => {
   
   const disableSaveButton = hasSameValues() || hasEmptyValues()
 
-  const onlyNumbersRegex = /^\d+$/;
+  const onlyNumbersRegex = /^[0-9]*$/;
 
   const onlyLettersRegex = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/;
 
 
   const onChangeWithRegex = (regex, event) => {
     if (event.target.value === '' || regex.test(event.target.value)) {
+      console.log(event.target.value, ' paso regex') 
       handleChange(event)
-   }
+    } 
   }
   
   const onlyLetters = (event) => onChangeWithRegex(onlyLettersRegex, event)
@@ -181,7 +183,6 @@ const AccountDetails = props => {
                 margin="dense"
                 name="phone"
                 onChange={onlyNumbers}
-                type="number"
                 value={values.phone}
                 variant="outlined"
               />
