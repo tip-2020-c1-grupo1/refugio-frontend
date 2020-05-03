@@ -6,28 +6,50 @@ import { Main as MainLayout, Minimal as MinimalLayout } from './layouts';
 
 import {
   AnimalList as AnimalListView,
-  NotFound as NotFoundView
+  NotFound as NotFoundView,
+  SignIn,
+  Account as AccountView
 } from './views';
 
 const Routes = (props) => {
-  console.log('En routes');
-  console.log(props);
   return (
     <Switch>
+
       <Redirect
         exact
         from="/"
         to="/animals"
       />
-      
+
+
+      <RouteWithLayout
+        component={SignIn}
+        user={props.user}
+        setUser={props.setUser}
+        exact
+        layout={MainLayout}
+        path="/signIn"
+      />
+
+
       <RouteWithLayout
         component={AnimalListView}
         user={props.user}
+        setUser={props.setUser}
         exact
         layout={MainLayout}
         path="/animals"
       />
-      
+
+      <RouteWithLayout
+        component={AccountView}
+        user={props.user}
+        setUser={props.setUser}
+        exact
+        layout={MainLayout}
+        path="/account"
+      />
+
       <RouteWithLayout
         component={NotFoundView}
         exact

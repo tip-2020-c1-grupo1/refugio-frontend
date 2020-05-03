@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import { Divider, Drawer } from '@material-ui/core';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 
 import { Profile, SidebarNav } from './components';
@@ -31,19 +32,32 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Sidebar = props => {
-  const { open, variant, onClose, className, ...rest } = props;
+  const { open, variant, onClose, className, user, ...rest } = props;
 
   const classes = useStyles();
-  const user = props.user;
-  console.log(user);
   const pages = [
     {
       title: 'Animals',
       href: '/animals',
       icon: <DashboardIcon />
+    },
+    {
+      title: 'Perfil',
+      href: '/account',
+      icon: <AccountBoxIcon />
     }
-   
+
   ];
+
+  const pagesGuest = [
+    {
+      title: 'Animals',
+      href: '/animals',
+      icon: <DashboardIcon />
+    }
+  ];
+
+  const pageSelector = () => user.googleId ? pages : pagesGuest
 
   return (
     <Drawer
@@ -61,7 +75,7 @@ const Sidebar = props => {
         <Divider className={classes.divider} />
         <SidebarNav
           className={classes.nav}
-          pages={pages}
+          pages={pageSelector()}
         />
       </div>
     </Drawer>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
@@ -7,22 +7,24 @@ import {
   CardContent,
   CardActions,
   Typography,
+  Button,
   Grid,
   Divider
 } from '@material-ui/core';
+import AnimalModal from './AnimalModal';
 
 const useStyles = makeStyles(theme => ({
   root: {},
   imageContainer: {
-    height: 64,
-    width: 64,
+    height: 200,
+    width: 200,
     margin: '0 auto',
     border: `1px solid ${theme.palette.divider}`,
     borderRadius: '5px',
     overflow: 'hidden',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   image: {
     width: '100%'
@@ -41,6 +43,16 @@ const AnimalCard = props => {
   const { className, animal, ...rest } = props;
 
   const classes = useStyles();
+
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   
   return (
     <Card
@@ -48,6 +60,12 @@ const AnimalCard = props => {
       className={clsx(classes.root, className)}
     >
       <CardContent>
+        <Button size="small" variant="contained" onClick={handleOpen}>Ver detalle</Button>
+        <AnimalModal 
+          handleClose={handleClose}
+          animal={animal}
+          open={open}
+        />
         <div className={classes.imageContainer}>
           <img
             alt="Animal"

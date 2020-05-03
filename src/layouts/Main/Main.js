@@ -25,9 +25,8 @@ const useStyles = makeStyles(theme => ({
 const Main = props => {
   const { children } = props;
   
-
+  const setUser = children.props.setUser;
   const user = children.props.user;
-  console.log(user);
   const classes = useStyles();
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
@@ -35,8 +34,6 @@ const Main = props => {
   });
 
   const [openSidebar, setOpenSidebar] = useState(false);
-
-  // const url = "https://gist.githubusercontent.com/witalewski/fc8f043d53a0d505f84c5ddb04ae76ea/raw/7c505bbc1675a0bc8a067f8b633b531c769bb64c/data.json"
 
   const handleSidebarOpen = () => {
     setOpenSidebar(true);
@@ -55,9 +52,13 @@ const Main = props => {
         [classes.shiftContent]: isDesktop
       })}
     >
-      <Topbar onSidebarOpen={handleSidebarOpen} />
+      <Topbar 
+        user={user}
+        setUser={setUser}
+        onSidebarOpen={handleSidebarOpen} />
       <Sidebar
         user={user}
+        setUser={setUser}
         onClose={handleSidebarClose}
         open={shouldOpenSidebar}
         variant={isDesktop ? 'persistent' : 'temporary'}
