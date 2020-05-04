@@ -37,8 +37,8 @@ const Sidebar = props => {
   const classes = useStyles();
   const pages = [
     {
-      title: 'Animals',
-      href: '/animals',
+      title: 'Animales',
+      href: '/animales',
       icon: <DashboardIcon />
     },
     {
@@ -51,8 +51,8 @@ const Sidebar = props => {
 
   const pagesGuest = [
     {
-      title: 'Animals',
-      href: '/animals',
+      title: 'Animales',
+      href: '/animales',
       icon: <DashboardIcon />
     }
   ];
