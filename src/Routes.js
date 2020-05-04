@@ -18,19 +18,8 @@ const Routes = (props) => {
       <Redirect
         exact
         from="/"
-        to="/animals"
+        to="/animales"
       />
-
-
-      <RouteWithLayout
-        component={SignIn}
-        user={props.user}
-        setUser={props.setUser}
-        exact
-        layout={MainLayout}
-        path="/signIn"
-      />
-
 
       <RouteWithLayout
         component={AnimalListView}
@@ -38,7 +27,7 @@ const Routes = (props) => {
         setUser={props.setUser}
         exact
         layout={MainLayout}
-        path="/animals"
+        path="/animales"
       />
 
       <RouteWithLayout
