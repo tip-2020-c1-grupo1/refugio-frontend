@@ -95,7 +95,6 @@ const AccountDetails = props => {
 
   const onChangeWithRegex = (regex, event) => {
     if (event.target.value === '' || regex.test(event.target.value)) {
-      console.log(event.target.value, ' paso regex') 
       handleChange(event)
     } 
   }
