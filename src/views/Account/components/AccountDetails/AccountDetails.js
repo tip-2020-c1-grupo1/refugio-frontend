@@ -128,8 +128,9 @@ const AccountDetails = props => {
               xs={12}
             >
               <TextField
+                error={!values.firstName}
                 fullWidth
-                helperText="Ingrese su nombre aquí"
+                helperText={!values.firstName ? "Ingrese su nombre aquí" : ""}
                 label="Nombre"
                 margin="dense"
                 name="firstName"
@@ -146,6 +147,8 @@ const AccountDetails = props => {
             >
               <TextField
                 fullWidth
+                error={!values.lastName}
+                helperText={!values.lastName ? "Ingrese su apellido aquí" : ""}
                 label="Apellido"
                 margin="dense"
                 name="lastName"

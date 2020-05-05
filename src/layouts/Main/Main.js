@@ -55,7 +55,7 @@ const Main = props => {
       <Topbar 
         user={user}
         setUser={setUser}
-        onSidebarOpen={handleSidebarOpen} />
+        onSidebarOpen={handleSidebarOpen}/>
       <Sidebar
         user={user}
         setUser={setUser}

@@ -27,9 +27,9 @@ const Footer = props => {
           href="https://github.com/tip-2020-c1-grupo1/refugio-docs"
           target="_blank"
         >
-          Refugio IO
+          Refug.io 
         </Link>
-        . 2020
+        {' '}2020
       </Typography>
       <Typography variant="caption">
         Created with love for the environment.
