@@ -3,13 +3,14 @@ import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
-import { AppBar, Toolbar, Hidden, IconButton } from '@material-ui/core';
+import { AppBar, Toolbar, Hidden, IconButton, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import cogoToast from 'cogo-toast';
 import { getOrCreateProfile } from 'views/SignIn/SignInApi';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import {getClientId} from './TopbarSSOCreds';
 import './Topbar.css';
+import typography from 'theme/typography';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,6 +21,9 @@ const useStyles = makeStyles(theme => ({
   },
   signOutButton: {
     marginLeft: theme.spacing(1)
+  },
+  appTitle:{
+    color: 'white'
   }
 }));
 
@@ -105,16 +109,20 @@ const Topbar = props => {
       className={clsx(classes.root, className)}
     >
       <Toolbar>
-        <RouterLink to="/">
+        <RouterLink to="/"> 
           <img style={{
             height: '40px',
             color: 'white',
-            width: '40px'}}
+            width: '50px',
+            paddingRight: 10}}
             alt="Logo"
-            src="/images/logos/logo--white.svg"
+            src="/images/logos/logo--blue.png"
+            
           />
-          <span className='refugioAppTitle'>Refugio App</span>
         </RouterLink>
+        <Typography variant="h3">
+            <span className="refugioAppTitle">REFUG.IO</span>
+          </Typography>
         <div className={classes.flexGrow} />
         
         <Hidden lgUp>

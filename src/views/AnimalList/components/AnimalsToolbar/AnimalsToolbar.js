@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import MultiSelect from "react-multi-select-component";
 import { SearchInput } from 'components';
 
@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     height: '42px',
     display: 'flex',
     alignItems: 'center',
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   spacer: {
     flexGrow: 1
@@ -20,6 +20,7 @@ const useStyles = makeStyles(theme => ({
   searchInput: {
     marginRight: theme.spacing(1)
   }
+
 }));
 
 const options = [
@@ -47,13 +48,15 @@ const AnimalsToolbar = props => {
           className={classes.searchInput}
           placeholder="Busque su mascota aquí"
         />
-        <MultiSelect
-          options={options}
-          value={selectedFilters}
-          onChange={applyFilter}
-          selectAllLabel={'Seleccionar todos'}
-          labelledBy={"Select"}
-        />
+        <Typography>
+          <MultiSelect
+            options={options}
+            value={selectedFilters}
+            onChange={applyFilter}
+            selectAllLabel={'Seleccionar todos'}
+            labelledBy={"Select"}
+          />
+        </Typography>
         <Button disabled={selectedFilters && selectedFilters.length == 0} onClick={applySearch}> Aplicar Busqueda</Button>
       </div>
     </div>

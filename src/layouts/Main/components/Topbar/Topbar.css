@@ -23,9 +23,11 @@
 }
 
 .refugioAppTitle {
-  margin-left: 10px !important;
-  margin-top: 20px !important;
+  margin-left: 5px !important;
+  margin-top: -13px !important;
   position: absolute !important;
   color: white !important;
   align-items: 'center' !important;
+  font-family: Roboto;
+  font-size: larger;
 }
