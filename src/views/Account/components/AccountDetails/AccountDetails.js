@@ -90,11 +90,12 @@ const AccountDetails = props => {
 
   const onlyNumbersRegex = /^[0-9]*$/;
 
-  const onlyLettersRegex = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/;
+  const onlyLettersRegex = /^[a-zA-ZÀ-ÿ\u00f1\u00d1_ ]+$/;
 
 
   const onChangeWithRegex = (regex, event) => {
-    if (event.target.value === '' || regex.test(event.target.value)) {
+    const targetValue = event.target.value
+    if (targetValue === '' || regex.test(targetValue) && !targetValue.startsWith(' ')) {
       handleChange(event)
     } 
   }
