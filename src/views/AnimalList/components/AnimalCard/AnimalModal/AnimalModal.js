@@ -8,7 +8,8 @@ import {
   CardActions,
   Typography,
   Grid,
-  Divider
+  Divider,
+  Button
 } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -102,6 +103,13 @@ const AnimalModal = props => {
               >
                 {animal.gender} - {animal.race} - {animal.species}
               </Typography>
+              
+            </Grid>
+            <Grid
+              className={classes.statsItem}
+              item
+            >
+              <Button variant='outlined' color='primary' className={classes.button}>Solicitar adopción</Button>
             </Grid>
           </Grid>
         </CardActions>

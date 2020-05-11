@@ -36,6 +36,12 @@ const useStyles = makeStyles(theme => ({
   statsIcon: {
     color: theme.palette.icon,
     marginRight: theme.spacing(1)
+  },
+  button: {
+    height: 50,
+    width: 139,
+    size: 'small',
+    fontSize: '10px'
   }
 }));
 
@@ -105,6 +111,9 @@ const AnimalCard = props => {
             </Typography>
           </Grid>
         </Grid>
+        <Grid className={classes.statsItem} item>
+            <Button variant='outlined' color='primary' className={classes.button} >Solicitar adopción</Button>
+          </Grid>
       </CardActions>
     </Card>
   );
