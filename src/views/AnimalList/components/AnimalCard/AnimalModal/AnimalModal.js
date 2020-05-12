@@ -15,6 +15,9 @@ import Modal from '@material-ui/core/Modal';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import './AnimalModal.css';
+import cogoToast from 'cogo-toast';
+import submitAdoptionRequest from '../AnimalAdoptionApi';
+import AdoptionSubmit from '../AdoptionSubmit'
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -44,8 +47,26 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AnimalModal = props => {
-  const { className, open, handleClose, animal, ...rest } = props;
+  const { className, open, handleClose, animal, user, ...rest } = props;
   const classes = useStyles();
+
+  const errorCallback = (err) => {
+    cogoToast.error(err.response.data.Error, {
+      position: 'top-center'
+    })
+  };
+
+  const adoptionRequest = () => { 
+    submitAdoptionRequest(animal.id, user.email).then(response => {
+      cogoToast.success(response.data.Ok, {
+        position: 'top-center'
+      });           
+    })
+    .catch(err => {        
+      errorCallback(err);
+    })   
+  };
+
   return (
     <Modal
       open={open}
@@ -109,7 +130,7 @@ const AnimalModal = props => {
               className={classes.statsItem}
               item
             >
-              <Button variant='outlined' color='primary' className={classes.button}>Solicitar adopción</Button>
+              <AdoptionSubmit user={user} animal={animal}/>
             </Grid>
           </Grid>
         </CardActions>

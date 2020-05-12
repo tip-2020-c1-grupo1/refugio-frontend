@@ -12,6 +12,7 @@ import {
   Divider
 } from '@material-ui/core';
 import AnimalModal from './AnimalModal';
+import AdoptionSubmit from './AdoptionSubmit';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -46,7 +47,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AnimalCard = props => {
-  const { className, animal, ...rest } = props;
+  const { className, animal, user, ...rest } = props;
 
   const classes = useStyles();
 
@@ -71,6 +72,7 @@ const AnimalCard = props => {
           handleClose={handleClose}
           animal={animal}
           open={open}
+          user={user}
         />
         <div className={classes.imageContainer}>
           <img
@@ -112,7 +114,7 @@ const AnimalCard = props => {
           </Grid>
         </Grid>
         <Grid className={classes.statsItem} item>
-            <Button variant='outlined' color='primary' className={classes.button} >Solicitar adopción</Button>
+            <AdoptionSubmit user={user} animal={animal}/>
           </Grid>
       </CardActions>
     </Card>
