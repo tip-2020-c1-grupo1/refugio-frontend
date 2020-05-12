@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
   center: centerCss
 }));
 
-const AnimalList = () => {
+const AnimalList = props => {
   const classes = useStyles();
   const [data, setData] = useState([]);
   const [pages, setPages] = useState([]);
@@ -56,6 +56,8 @@ const AnimalList = () => {
   const [load, setLoad] = useState(false);  
   const [selectedFilters, setSelectedFilters] = useState([{ label: "Nombre", value: "name" }]);
   const [searchString, setSearchString] = useState('');
+  
+  const {user} = props
 
   useEffect(() => {
     searchAnimals();
@@ -181,7 +183,7 @@ const AnimalList = () => {
               md={6}
               xs={12}
             >
-              <AnimalCard animal={animal} />
+              <AnimalCard animal={animal} user={user}/>
             </Grid>
           ))}
         </Grid> }

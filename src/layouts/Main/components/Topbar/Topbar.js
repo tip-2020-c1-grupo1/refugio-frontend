@@ -10,11 +10,11 @@ import { getOrCreateProfile } from 'views/SignIn/SignInApi';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import {getClientId} from './TopbarSSOCreds';
 import './Topbar.css';
-import typography from 'theme/typography';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    boxShadow: 'none'
+    boxShadow: 'none',
+    backgroundColor: '#041c90'
   },
   flexGrow: {
     flexGrow: 1
@@ -116,7 +116,7 @@ const Topbar = props => {
             width: '50px',
             paddingRight: 10}}
             alt="Logo"
-            src="/images/logos/logo--blue.png"
+            src="/images/logos/logo--white.png"
             
           />
         </RouterLink>

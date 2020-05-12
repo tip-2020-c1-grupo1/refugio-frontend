@@ -12,6 +12,7 @@ import {
   Divider
 } from '@material-ui/core';
 import AnimalModal from './AnimalModal';
+import AdoptionSubmit from './AdoptionSubmit';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -36,11 +37,17 @@ const useStyles = makeStyles(theme => ({
   statsIcon: {
     color: theme.palette.icon,
     marginRight: theme.spacing(1)
+  },
+  button: {
+    height: 50,
+    width: 139,
+    size: 'small',
+    fontSize: '10px'
   }
 }));
 
 const AnimalCard = props => {
-  const { className, animal, ...rest } = props;
+  const { className, animal, user, ...rest } = props;
 
   const classes = useStyles();
 
@@ -65,6 +72,7 @@ const AnimalCard = props => {
           handleClose={handleClose}
           animal={animal}
           open={open}
+          user={user}
         />
         <div className={classes.imageContainer}>
           <img
@@ -105,6 +113,9 @@ const AnimalCard = props => {
             </Typography>
           </Grid>
         </Grid>
+        <Grid className={classes.statsItem} item>
+            <AdoptionSubmit user={user} animal={animal}/>
+          </Grid>
       </CardActions>
     </Card>
   );
