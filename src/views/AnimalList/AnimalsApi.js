@@ -3,11 +3,11 @@ import {map} from 'lodash';
 
 const baseUrl = 'http://localhost:8000/api/animals?page=';
 
-function getInitialsAnimals(searchString, selectedFilters) {
-  return getAnimalsByPage(1, searchString, selectedFilters);
+function getInitialsAnimals(searchString, selectedFilters, selectedStateFilter) {
+  return getAnimalsByPage(1, searchString, selectedFilters, selectedStateFilter);
 }
 
-function getAnimalsByPage(page, searchString, selectedFilters) {
+function getAnimalsByPage(page, searchString, selectedFilters, selectedStateFilter) {
   let url = baseUrl + page;
   if (searchString !== '') {
     url += '&search=' + searchString;
@@ -15,6 +15,10 @@ function getAnimalsByPage(page, searchString, selectedFilters) {
   if (selectedFilters.length > 0) {
     const filtersApplied = map(selectedFilters, 'value');
     url += '&filter=' + filtersApplied.join('_');
+  }
+  if (selectedStateFilter.length > 0) {
+    const filtersApplied = map(selectedStateFilter, 'value');
+    url += '&state=' + filtersApplied.join('_');
   }
   return axios.get(url);
 }
