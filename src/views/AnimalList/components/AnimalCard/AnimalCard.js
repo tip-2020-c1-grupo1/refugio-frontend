@@ -151,8 +151,9 @@ const AnimalCard = props => {
               display="inline"
               variant="body2"
             >
-              {animal.gender} - {animal.race} - {animal.species}
+              {animal.gender} - {animal.race} - {animal.species} | ESTADO : {animal.status_request}
             </Typography>
+
           </Grid>
         </Grid>
         <Grid className={classes.statsItem} item>
