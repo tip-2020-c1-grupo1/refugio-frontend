@@ -26,6 +26,7 @@ const AdoptionSubmit = props => {
     };
 
     const adoptionRequest = () => {
+        console.log()
         submitAdoptionRequest(animal.id, user.email).then(response => {
             cogoToast.success(response.data.Ok, {
                 position: 'top-center'
@@ -36,11 +37,14 @@ const AdoptionSubmit = props => {
             })
     };
 
+    const isAvailable = animal.status_request === 'DISPONIBLE'
+
     return (
         <Button variant='outlined'
             color='primary'
             className={classes.button}
-            onClick={adoptionRequest}>Solicitar adopción</Button>
+            onClick={adoptionRequest}
+    disabled={!isAvailable}>{isAvailable ? 'Solicitar adopción' : 'No disponible'}</Button>
     )
 }
 
