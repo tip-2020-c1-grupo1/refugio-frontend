@@ -45,10 +45,8 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1)
   },
   button: {
-    height: 50,
-    width: 139,
-    size: 'small',
-    fontSize: '10px'
+    size: 'large',
+    marginLeft: 13
   }
 }));
 
@@ -99,9 +97,9 @@ const AnimalCard = props => {
       className={clsx(classes.root, className)}
     >
       <CardContent>
-        <Button size="small" variant="contained" onClick={manageOpenSeguimiento}>Ver seguimiento</Button>
+        <Button className={classes.button} size="small" variant="contained" onClick={manageOpenSeguimiento}>Ver seguimiento</Button>
 
-        <Button size="small" variant="contained" onClick={handleOpen}>Ver detalle</Button>
+        <Button className={classes.button} size="small" variant="contained" onClick={handleOpen}>Ver detalle</Button>
         <AnimalModal 
           handleClose={handleClose}
           animal={animal}
@@ -114,7 +112,6 @@ const AnimalCard = props => {
           data={data}
           open={openSeguimiento}
         />
-
 
         <div className={classes.imageContainer}>
           <img
