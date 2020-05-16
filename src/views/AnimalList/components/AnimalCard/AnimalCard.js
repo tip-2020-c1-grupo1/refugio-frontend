@@ -12,7 +12,13 @@ import {
   Divider
 } from '@material-ui/core';
 import AnimalModal from './AnimalModal';
+import AnimalSeguimientoModal from './AnimalSeguimientoModal';
 import AdoptionSubmit from './AdoptionSubmit';
+
+import cogoToast from 'cogo-toast';
+import getAnimalTimelineApi from './AnimalTimelineApi';
+
+// <RouterLink {...props} />
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -39,10 +45,8 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1)
   },
   button: {
-    height: 50,
-    width: 139,
-    size: 'small',
-    fontSize: '10px'
+    size: 'large',
+    marginLeft: 13
   }
 }));
 
@@ -50,8 +54,9 @@ const AnimalCard = props => {
   const { className, animal, user, ...rest } = props;
 
   const classes = useStyles();
-
+  const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
+  const [openSeguimiento, setOpenSeguimiento] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -60,6 +65,31 @@ const AnimalCard = props => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const errorCallback = (err) => {
+    cogoToast.error(err.response.data.Error, {
+      position: 'top-center'
+    })
+  };
+
+  const manageOpenSeguimiento = () => {
+    getAnimalTimelineApi(animal.id).then(response => {
+      const data = response.data;
+      console.log(data);
+      setData(data);
+      setOpenSeguimiento(true);    
+    })
+    .catch(err => {   
+      setData([]);     
+      errorCallback(err);
+    });
+    
+  };
+
+  const handleCloseSeguimiento = () => {
+    setOpenSeguimiento(false);
+  };
+
   
   return (
     <Card
@@ -67,13 +97,22 @@ const AnimalCard = props => {
       className={clsx(classes.root, className)}
     >
       <CardContent>
-        <Button size="small" variant="contained" onClick={handleOpen}>Ver detalle</Button>
+        <Button className={classes.button} size="small" variant="contained" onClick={manageOpenSeguimiento}>Ver seguimiento</Button>
+
+        <Button className={classes.button} size="small" variant="contained" onClick={handleOpen}>Ver detalle</Button>
         <AnimalModal 
           handleClose={handleClose}
           animal={animal}
           open={open}
           user={user}
         />
+
+        <AnimalSeguimientoModal 
+          handleClose={handleCloseSeguimiento}
+          data={data}
+          open={openSeguimiento}
+        />
+
         <div className={classes.imageContainer}>
           <img
             alt="Animal"
@@ -109,13 +148,14 @@ const AnimalCard = props => {
               display="inline"
               variant="body2"
             >
-              {animal.gender} - {animal.race} - {animal.species}
+              {animal.gender} - {animal.race} - {animal.species} | ESTADO : {animal.status_request}
             </Typography>
+
           </Grid>
         </Grid>
         <Grid className={classes.statsItem} item>
-            <AdoptionSubmit user={user} animal={animal}/>
-          </Grid>
+          <AdoptionSubmit user={user} animal={animal}/>
+        </Grid>
       </CardActions>
     </Card>
   );

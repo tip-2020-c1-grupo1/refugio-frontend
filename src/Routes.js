@@ -20,7 +20,7 @@ const Routes = (props) => {
         from="/"
         to="/animales"
       />
-
+      
       <RouteWithLayout
         component={AnimalListView}
         user={props.user}
@@ -36,7 +36,7 @@ const Routes = (props) => {
         setUser={props.setUser}
         exact
         layout={MainLayout}
-        path="/account"
+        path="/perfil"
       />
 
       <RouteWithLayout

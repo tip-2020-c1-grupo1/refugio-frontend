@@ -36,11 +36,14 @@ const AdoptionSubmit = props => {
             })
     };
 
+    const isAvailable = animal.status_request == 'Disponible'
+
     return (
         <Button variant='outlined'
             color='primary'
             className={classes.button}
-            onClick={adoptionRequest}>Solicitar adopción</Button>
+            onClick={adoptionRequest}
+            disabled={!isAvailable}>{isAvailable ? 'Solicitar adopción' : 'No disponible'}</Button>
     )
 }
 

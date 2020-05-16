@@ -53,7 +53,9 @@ const AnimalList = props => {
   const [data, setData] = useState([]);
   const [pages, setPages] = useState([]);
   const [selectedPage, setSelectedPage] = useState(1);
-  const [load, setLoad] = useState(false);  
+  const [load, setLoad] = useState(false);
+  const [selectedStateFilter, setSelectedStateFilter] = useState([{ label: 'Disponible', value: 'Disponible' }]);
+
   const [selectedFilters, setSelectedFilters] = useState([{ label: "Nombre", value: "name" }]);
   const [searchString, setSearchString] = useState('');
   
@@ -115,7 +117,7 @@ const AnimalList = props => {
   }
 
   const searchAnimals = () => {
-    getInitialsAnimals(searchString, selectedFilters)
+    getInitialsAnimals(searchString, selectedFilters, selectedStateFilter)
       .then(res => {
         saveInformationInState(res);           
       })
@@ -125,7 +127,7 @@ const AnimalList = props => {
   }
 
   const getAnimalsPage = (page) => {
-    getAnimalsByPage(page, searchString, selectedFilters)
+    getAnimalsByPage(page, searchString, selectedFilters, selectedStateFilter)
     .then(res => {
       saveInformationInState(res);           
     })
@@ -163,6 +165,8 @@ const AnimalList = props => {
       {<AnimalsToolbar
         selectedFilters={selectedFilters}
         setSelectedFilters={setSelectedFilters}
+        selectedStateFilter={selectedStateFilter}
+        setSelectedStateFilter={setSelectedStateFilter}
         setSearchString={setSearchString} 
         applySearch={applySearch} /> }
 

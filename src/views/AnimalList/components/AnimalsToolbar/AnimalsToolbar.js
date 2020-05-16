@@ -29,14 +29,29 @@ const options = [
   { label: "Raza", value: "race" },
 ];
 
+const optionsSelected = [
+  { label: 'Disponible', value: 'Disponible' },
+  { label: 'Comenzo', value: 'Comenzo' },
+  { label: 'En espera', value: 'En espera' },
+  { label: 'Aceptado', value: 'Aceptado' },
+  { label: 'Rechazado', value: 'Rechazado' },
+  { label: 'En revisión', value: 'En revisión' },
+  { label: 'Adoptado', value: 'Adoptado' },
+];
+
 const AnimalsToolbar = props => {
   const { className, ...rest } = props;
-  const { applySearch, selectedFilters, setSelectedFilters , setSearchString} = props;
+  const { applySearch, selectedFilters, selectedStateFilter, setSelectedStateFilter, setSelectedFilters , setSearchString} = props;
   const classes = useStyles();
 
   const applyFilter = (e) => {
     setSelectedFilters(e);
   }
+
+  const applyFilterSelectedStateFilter = (e) => {
+    setSelectedStateFilter(e);
+  }
+  
   return (
     <div
       {...rest}
@@ -57,7 +72,18 @@ const AnimalsToolbar = props => {
             labelledBy={"Select"}
           />
         </Typography>
-        <Button disabled={selectedFilters && selectedFilters.length == 0} onClick={applySearch}> Aplicar Busqueda</Button>
+        <Typography>
+          <MultiSelect
+            options={optionsSelected}
+            value={selectedStateFilter}
+            onChange={applyFilterSelectedStateFilter}
+            selectAllLabel={'Todos los estados'}
+            labelledBy={"Select"}
+          />
+        </Typography>
+        <Button disabled={selectedFilters && selectedFilters.length == 0 && 
+          selectedStateFilter && selectedStateFilter.length == 0
+          } onClick={applySearch}> Aplicar Busqueda</Button>
       </div>
     </div>
   );
