@@ -12,6 +12,8 @@ const containerCss = {
   justifyContent: 'center'
 };
 
+const isLanding = true;
+
 const centerCss = {
   alignSelf: 'center'
 };
@@ -139,7 +141,7 @@ const Landing = props => {
   return (
     <div className={classes.root}>
       <h2>Animales del refugio </h2>
-      <AnimalsGrid classes={classes} data={data} user={user} />
+      <AnimalsGrid isLanding={isLanding} classes={classes} data={data} user={user} />
     </div>
   );
 };

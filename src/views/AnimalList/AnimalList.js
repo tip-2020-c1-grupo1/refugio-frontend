@@ -12,6 +12,8 @@ const containerCss = {
   justifyContent: 'center'
 };
 
+const isLanding = true;
+
 const centerCss = {
   alignSelf: 'center'
 };
@@ -170,7 +172,7 @@ const AnimalList = props => {
         applySearch={applySearch} /> }
 
       
-      <AnimalsGrid classes={classes} data={data} user={user} />
+      <AnimalsGrid isLanding={isLanding} classes={classes} data={data} user={user} />
 
       {data.count === 0 
         ? <h2> Por favor intente buscar nuevamente </h2>

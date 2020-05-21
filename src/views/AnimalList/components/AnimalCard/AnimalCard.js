@@ -51,7 +51,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AnimalCard = props => {
-  const { className, animal, user, ...rest } = props;
+  const { className, isLanding, animal, user, ...rest } = props;
 
   const classes = useStyles();
   const [data, setData] = useState([]);
@@ -97,21 +97,27 @@ const AnimalCard = props => {
       className={clsx(classes.root, className)}
     >
       <CardContent>
-        <Button className={classes.button} size="small" variant="contained" onClick={manageOpenSeguimiento}>Ver seguimiento</Button>
+        {
+          isLanding ? <React.Fragment />
+          : <React.Fragment>
+            <Button className={classes.button} size="small" variant="contained" onClick={manageOpenSeguimiento}>Ver seguimiento</Button>
 
-        <Button className={classes.button} size="small" variant="contained" onClick={handleOpen}>Ver detalle</Button>
-        <AnimalModal 
-          handleClose={handleClose}
-          animal={animal}
-          open={open}
-          user={user}
-        />
+            <Button className={classes.button} size="small" variant="contained" onClick={handleOpen}>Ver detalle</Button>
+            <AnimalModal 
+              handleClose={handleClose}
+              animal={animal}
+              open={open}
+              user={user}
+            />
 
-        <AnimalSeguimientoModal 
-          handleClose={handleCloseSeguimiento}
-          data={data}
-          open={openSeguimiento}
-        />
+            <AnimalSeguimientoModal 
+              handleClose={handleCloseSeguimiento}
+              data={data}
+              open={openSeguimiento}
+            />
+          </React.Fragment>
+        }
+        
 
         <div className={classes.imageContainer}>
           <img
@@ -153,9 +159,12 @@ const AnimalCard = props => {
 
           </Grid>
         </Grid>
-        <Grid className={classes.statsItem} item>
-          <AdoptionSubmit user={user} animal={animal}/>
-        </Grid>
+        {
+          isLanding ? <React.Fragment />
+          : <Grid className={classes.statsItem} item>
+              <AdoptionSubmit user={user} animal={animal}/>
+            </Grid>
+        }        
       </CardActions>
     </Card>
   );
