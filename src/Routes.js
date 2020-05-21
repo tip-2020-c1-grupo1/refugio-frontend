@@ -7,20 +7,28 @@ import { Main as MainLayout, Minimal as MinimalLayout } from './layouts';
 import {
   AnimalList as AnimalListView,
   NotFound as NotFoundView,
-  SignIn,
-  Account as AccountView
+  Account as AccountView,
+  Landing as LandingView
 } from './views';
 
 const Routes = (props) => {
   return (
     <Switch>
 
-      <Redirect
+      {/* <Redirect
         exact
         from="/"
         to="/animales"
+      /> */}
+      <RouteWithLayout
+        component={LandingView}
+        user={props.user}
+        setUser={props.setUser}
+        exact
+        layout={MainLayout}
+        path="/"
       />
-      
+
       <RouteWithLayout
         component={AnimalListView}
         user={props.user}

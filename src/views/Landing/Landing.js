@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { AnimalsGrid, AnimalsToolbar, AnimalsPagination } from './components';
 import cogoToast from 'cogo-toast';
 import MDSpinner from 'react-md-spinner';
-import {getInitialsAnimals, getAnimalsByPage} from './AnimalsApi';
+import {getInitialsAnimals, getAnimalsByPage} from './LandingApi';
+import { AnimalsGrid } from 'views/AnimalList/components';
 
 const containerCss = {
   display: 'flex',
@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
   center: centerCss
 }));
 
-const AnimalList = props => {
+const Landing = props => {
   const classes = useStyles();
   const [data, setData] = useState([]);
   const [pages, setPages] = useState([]);
@@ -125,29 +125,6 @@ const AnimalList = props => {
       })    
   }
 
-  const getAnimalsPage = (page) => {
-    getAnimalsByPage(page, searchString, selectedFilters, selectedStateFilter)
-    .then(res => {
-      saveInformationInState(res);           
-    })
-    .catch(err => {   
-      errorCallback(err);
-    }) 
-  }
-
-  const getPrevPage = (page) => {
-    const prevPage = page - 1;
-    getAnimalsPage(prevPage);
-  }
-
-  const getNextPage = (page) => {
-    const nextPage = page + 1;
-    getAnimalsPage(nextPage);
-  }
-
-  const applySearch = () => {
-    searchAnimals();
-  }
 
   if (!load) {
     return (
@@ -161,33 +138,10 @@ const AnimalList = props => {
 
   return (
     <div className={classes.root}>
-      {<AnimalsToolbar
-        selectedFilters={selectedFilters}
-        setSelectedFilters={setSelectedFilters}
-        selectedStateFilter={selectedStateFilter}
-        setSelectedStateFilter={setSelectedStateFilter}
-        setSearchString={setSearchString} 
-        applySearch={applySearch} /> }
-
-      
+      <h2>Animales del refugio </h2>
       <AnimalsGrid classes={classes} data={data} user={user} />
-
-      {data.count === 0 
-        ? <h2> Por favor intente buscar nuevamente </h2>
-        : <AnimalsPagination 
-          classes={classes}  
-          getAnimalsPage={getAnimalsPage} 
-          getPrevPage={getPrevPage}
-          getNextPage={getNextPage}
-          previousUrl={data.previous}
-          nextUrl={data.next}
-          pages={pages}
-          selectedPage={selectedPage}
-        />
-      }
     </div>
   );
 };
 
-export default AnimalList;
-
+export default Landing;
