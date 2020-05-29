@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import cogoToast from 'cogo-toast';
 import MDSpinner from 'react-md-spinner';
-import {getInitialsAnimals, getAnimalsByPage} from './LandingApi';
+import {getInitialsAnimals} from './LandingApi';
 import { AnimalsGrid } from 'views/AnimalList/components';
-
+import DonationModal from './components/DonationModal';
+import {
+  Button
+} from '@material-ui/core';
 const containerCss = {
   display: 'flex',
   width: '100%', 
@@ -53,6 +56,7 @@ const Landing = props => {
   const classes = useStyles();
   const [data, setData] = useState([]);
   const [pages, setPages] = useState([]);
+  const [open, setOpen] = useState(false);
   const [selectedPage, setSelectedPage] = useState(1);
   const [load, setLoad] = useState(false);
   const [selectedStateFilter, setSelectedStateFilter] = useState([{ label: 'Disponible', value: 'Disponible' }]);
@@ -117,6 +121,14 @@ const Landing = props => {
     setLoad(true); 
   }
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const searchAnimals = () => {
     getInitialsAnimals(searchString, selectedFilters, selectedStateFilter)
       .then(res => {
@@ -140,6 +152,16 @@ const Landing = props => {
 
   return (
     <div className={classes.root}>
+      <Button 
+        className={classes.button} 
+        size="small" 
+        variant="contained" 
+        onClick={handleOpen}> Podes donar? </Button>
+      <DonationModal 
+        handleClose={handleClose}
+        open={open}
+      />
+      
       <h2>Animales del refugio </h2>
       <AnimalsGrid isLanding={isLanding} classes={classes} data={data} user={user} />
     </div>
