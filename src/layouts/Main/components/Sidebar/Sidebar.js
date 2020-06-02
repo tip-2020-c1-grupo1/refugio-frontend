@@ -5,6 +5,8 @@ import { makeStyles } from '@material-ui/styles';
 import { Divider, Drawer } from '@material-ui/core';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import ReportIcon from '@material-ui/icons/Report';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
 import { Profile, SidebarNav } from './components';
 
@@ -45,6 +47,16 @@ const Sidebar = props => {
       title: 'Perfil',
       href: '/perfil',
       icon: <AccountBoxIcon />
+    },
+    {
+      title: 'Donar',
+      href: '/donacion',
+      icon: <AttachMoneyIcon />
+    },
+    {
+      title: 'Denuncia',
+      href: '/denuncia',
+      icon: <ReportIcon />
     }
 
   ];

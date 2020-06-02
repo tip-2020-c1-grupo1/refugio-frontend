@@ -12,7 +12,7 @@ const containerCss = {
   justifyContent: 'center'
 };
 
-const isLanding = true;
+const isLanding = false;
 
 const centerCss = {
   alignSelf: 'center'

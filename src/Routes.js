@@ -8,7 +8,9 @@ import {
   AnimalList as AnimalListView,
   NotFound as NotFoundView,
   Account as AccountView,
-  Landing as LandingView
+  Landing as LandingView,
+  Complaint as ComplaintView,
+  Donation as DonationView
 } from './views';
 
 const Routes = (props) => {
@@ -45,6 +47,24 @@ const Routes = (props) => {
         exact
         layout={MainLayout}
         path="/perfil"
+      />
+
+      <RouteWithLayout
+        component={DonationView}
+        user={props.user}
+        setUser={props.setUser}
+        exact
+        layout={MainLayout}
+        path="/donacion"
+      />
+
+      <RouteWithLayout
+        component={ComplaintView}
+        user={props.user}
+        setUser={props.setUser}
+        exact
+        layout={MainLayout}
+        path="/denuncia"
       />
 
       <RouteWithLayout
