@@ -11,8 +11,9 @@ import {
   Grid,
   Divider
 } from '@material-ui/core';
-import AdoptionSubmit from './AdoptionSubmit';
-
+import ColaborationModal from './ColaborationModal';
+import ColaborationModalOpen from './ColaborationModalOpen';
+import ColaborationSubmit from './ColaborationSubmit';
 import cogoToast from 'cogo-toast';
 
 // <RouterLink {...props} />
@@ -47,12 +48,29 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const AnimalCard = props => {
-  const { className, animal, user, ...rest } = props;
+const ColaborationCard = props => {
+  const { className, reloadColabs, isLanding, colaboration, user, ...rest } = props;
 
   const classes = useStyles();
   const [data, setData] = useState([]);
+  const [open, setOpen] = useState(false);
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const errorCallback = (err) => {
+    cogoToast.error(err.response.data.Error, {
+      position: 'top-center'
+    })
+  };
+
+
+  
   return (
     <Card
       {...rest}
@@ -60,25 +78,26 @@ const AnimalCard = props => {
     >
       <CardContent>
 
-        <div className={classes.imageContainer}>
-          <img
-            alt="Animal"
-            className={classes.image}
-            src={animal.images[0].image}
-          />
-        </div>
+        <ColaborationModal 
+          handleClose={handleClose}
+          reloadColabs={reloadColabs}
+          colaboration={colaboration}
+          open={open}
+          user={user}
+        />
+
         <Typography
           align="center"
           gutterBottom
           variant="h4"
         >
-          {animal.name}
+          {colaboration.name}
         </Typography>
         <Typography
           align="center"
           variant="body1"
         >
-          {animal.description}
+          {colaboration.short_description}
         </Typography>
       </CardContent>
       <Divider />
@@ -95,23 +114,24 @@ const AnimalCard = props => {
               display="inline"
               variant="body2"
             >
-              {animal.gender} - {animal.race} - {animal.species} | ESTADO : {animal.status_request}
+              ESTADO : {colaboration.status_request}
             </Typography>
 
           </Grid>
-          <Grid className={classes.statsItem} item>
-            <AdoptionSubmit user={user} animal={animal}/>
-          </Grid>
-        </Grid>
-        
+          <Grid className={classes.statsItem} item> 
+            <ColaborationModalOpen onClick={handleOpen} />        
+            <ColaborationSubmit reloadColabs={reloadColabs} user={user} colaboration={colaboration}/>
+          </Grid>  
+        </Grid>         
+           
       </CardActions>
     </Card>
   );
 };
 
-AnimalCard.propTypes = {
+ColaborationCard.propTypes = {
   className: PropTypes.string,
-  animal: PropTypes.object.isRequired
+  colaboration: PropTypes.object.isRequired
 };
 
-export default AnimalCard;
+export default ColaborationCard;

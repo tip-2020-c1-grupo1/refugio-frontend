@@ -5,6 +5,7 @@ import MDSpinner from 'react-md-spinner';
 import {getInitialsAnimals} from './LandingApi';
 import { AnimalsGrid } from 'views/AnimalList/components';
 import { Typography } from '@material-ui/core';
+import Colaboration from 'views/Colaboration';
 const containerCss = {
   display: 'flex',
   width: '100%', 
@@ -145,6 +146,7 @@ const Landing = props => {
     <div className={classes.root}>      
       <Typography variant='h2'>Animales del refugio</Typography>
       <AnimalsGrid isLanding={isLanding} classes={classes} data={data} user={user} />
+      <Colaboration classes={classes} data={data} user={user} />
     </div>
   );
 };

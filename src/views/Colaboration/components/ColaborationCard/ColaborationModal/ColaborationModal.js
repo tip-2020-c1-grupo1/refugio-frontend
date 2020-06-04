@@ -12,12 +12,10 @@ import {
   Button
 } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
-import './AnimalModal.css';
+import './ColaborationModal.css';
 import cogoToast from 'cogo-toast';
-import submitAdoptionRequest from '../AnimalAdoptionApi';
-import AdoptionSubmit from '../AdoptionSubmit'
+import submitAdoptionRequest from '../ColaborationAdoptionApi';
+import ColaborationSubmit from '../ColaborationSubmit'
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -46,26 +44,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const AnimalModal = props => {
-  const { className, open, handleClose, animal, user, ...rest } = props;
+const ColaborationModal = props => {
+  const { className, open, reloadColabs, handleClose, colaboration, user, ...rest } = props;
   const classes = useStyles();
-
-  const errorCallback = (err) => {
-    cogoToast.error(err.response.data.Error, {
-      position: 'top-center'
-    })
-  };
-
-  const adoptionRequest = () => { 
-    submitAdoptionRequest(animal.id, user.email).then(response => {
-      cogoToast.success(response.data.Ok, {
-        position: 'top-center'
-      });           
-    })
-    .catch(err => {        
-      errorCallback(err);
-    })   
-  };
 
   return (
     <Modal
@@ -80,32 +61,18 @@ const AnimalModal = props => {
         className={clsx(classes.root, className)}
       >
         <CardContent>
-          <div className={classes.imageContainer}>
-            <Carousel>
-              {animal.images.map(image => (
-                <div>
-                  <img
-                    alt="Animal"
-                    className={classes.image}
-                    src={image.image}
-                  />
-                </div>                
-              ))}
-            </Carousel>
-
-          </div>
           <Typography
             align="center"
             gutterBottom
             variant="h4"
           >
-            {animal.name}
+            {colaboration.name}
           </Typography>
           <Typography
             align="center"
             variant="body1"
           >
-            {animal.description}
+            {colaboration.description}
           </Typography>
         </CardContent>
         <Divider />
@@ -122,7 +89,7 @@ const AnimalModal = props => {
                 display="inline"
                 variant="body2"
               >
-                {animal.gender} - {animal.race} - {animal.species}
+                {colaboration.gender} - {colaboration.race} - {colaboration.species}
               </Typography>
               
             </Grid>
@@ -130,7 +97,7 @@ const AnimalModal = props => {
               className={classes.statsItem}
               item
             >
-              <AdoptionSubmit user={user} animal={animal}/>
+              <ColaborationSubmit reloadColabs={reloadColabs} user={user} colaboration={colaboration}/>
             </Grid>
           </Grid>
         </CardActions>
@@ -140,9 +107,9 @@ const AnimalModal = props => {
   );
 };
 
-AnimalModal.propTypes = {
+ColaborationModal.propTypes = {
   className: PropTypes.string,
-  animal: PropTypes.object.isRequired
+  colaboration: PropTypes.object.isRequired
 };
 
-export default AnimalModal;
+export default ColaborationModal;
