@@ -6,22 +6,19 @@ import {
   Card,
   CardContent,
   CardActions,
-  Divider
+  Divider,
+  responsiveFontSizes
 } from '@material-ui/core';
+import ResponsiveEmbed from 'react-responsive-embed';
 import Modal from '@material-ui/core/Modal';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 import './DonationModal.css';
 
 const useStyles = makeStyles(theme => ({
   root: {},
   imageContainer: {
-    height: 800,
-    width: 720,
-    margin: '0 auto',
-    border: `1px solid ${theme.palette.divider}`,
-    borderRadius: '5px',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    paddingTop: '3%'
   },
   image: {
     width: '100%',
@@ -47,14 +44,16 @@ const DonationModal = props => {
       onClose={handleClose}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
+      className={classes.imageContainer}
     >
       <Card
         {...rest}
-        style={{width: '40.75%', margin: 'auto'}}
+        style={{width: '62%', margin: 'auto'}}
         className={clsx(classes.root, className)}
       >
         <CardContent>
-          <iframe src={url} width="800" height="720"/>
+          {/* <iframe src={url} width="800" height="720"/> */}
+          <ResponsiveEmbed src={url} />
         </CardContent>
       </Card>
     </Modal>

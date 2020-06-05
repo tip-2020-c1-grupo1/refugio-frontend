@@ -49,6 +49,7 @@
     "react-multi-select-component": "^2.0.4",
     "react-perfect-scrollbar": "^1.5.3",
     "react-responsive-carousel": "^3.2.4",
+    "react-responsive-embed": "^2.1.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "^3.0.1",
     "react-vertical-timeline-component": "^2.6.2",
