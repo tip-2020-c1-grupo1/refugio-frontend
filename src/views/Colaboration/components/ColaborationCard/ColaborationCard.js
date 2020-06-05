@@ -99,6 +99,18 @@ const ColaborationCard = props => {
         >
           {colaboration.short_description}
         </Typography>
+
+        {isLanding ? <React.Fragment /> : <React.Fragment >
+          <Divider />
+          <Typography
+          align="center"
+          variant="body1"
+        >
+          {colaboration.description}
+        </Typography>
+        </React.Fragment >
+        }
+
       </CardContent>
       <Divider />
       <CardActions>
@@ -119,8 +131,11 @@ const ColaborationCard = props => {
 
           </Grid>
           <Grid className={classes.statsItem} item> 
-            <ColaborationModalOpen onClick={handleOpen} />        
-            <ColaborationSubmit reloadColabs={reloadColabs} user={user} colaboration={colaboration}/>
+            <ColaborationModalOpen isLanding={isLanding} onClick={handleOpen} />   
+            {
+              isLanding ? <React.Fragment /> : <ColaborationSubmit reloadColabs={reloadColabs} user={user} colaboration={colaboration}/>
+            }     
+            
           </Grid>  
         </Grid>         
            

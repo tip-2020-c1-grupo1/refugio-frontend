@@ -10,8 +10,11 @@ import {
   Account as AccountView,
   Landing as LandingView,
   Complaint as ComplaintView,
+  Colaboration as ColaborationView,
   Donation as DonationView
 } from './views';
+
+const isLanding = false; 
 
 const Routes = (props) => {
   return (
@@ -65,6 +68,16 @@ const Routes = (props) => {
         exact
         layout={MainLayout}
         path="/denuncia"
+      />
+
+      <RouteWithLayout
+        component={ColaborationView}
+        user={props.user}
+        setUser={props.setUser}
+        isLanding={isLanding}
+        exact
+        layout={MainLayout}
+        path="/colaborar"
       />
 
       <RouteWithLayout

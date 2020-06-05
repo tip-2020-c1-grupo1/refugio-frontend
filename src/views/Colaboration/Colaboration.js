@@ -12,8 +12,6 @@ const containerCss = {
   justifyContent: 'center'
 };
 
-const isLanding = false;
-
 const centerCss = {
   alignSelf: 'center'
 };
@@ -53,7 +51,7 @@ const Colaboration = props => {
   const [data, setData] = useState([]);
   const [load, setLoad] = useState(false);
   
-  const {user} = props
+  const {user, isLanding} = props
 
   useEffect(() => {
     searchColaboration();
@@ -92,15 +90,23 @@ const Colaboration = props => {
       );
   }
 
-  return (
-    <div className={classes.root}>
+  function showColabs() {
+    return (<div className={classes.root}>
       <h2>Colaboraciones</h2>
-      <h5>Si queres ayudarnos, podes comprometerte con alguna de estas tareas</h5>
+      {data.results.length > 0 ? <h5>Si queres ayudarnos, podes comprometerte con alguna de estas tareas</h5> : <React.Fragment />}
       <ColaborationGrid reloadColabs={searchColaboration} isLanding={isLanding} classes={classes} data={data} user={user} />
 
-    </div>
-  );
+    </div>)
+  }
+
+  if (data.results.length === 0 && isLanding) {
+    
+    return <React.Fragment />
+  }
+
+  else {
+    return showColabs()
+  }
 };
 
 export default Colaboration;
-

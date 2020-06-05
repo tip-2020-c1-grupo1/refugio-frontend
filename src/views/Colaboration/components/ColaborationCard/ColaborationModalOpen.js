@@ -15,8 +15,11 @@ const ColaborationModalOpen = props => {
 
     const classes = useStyles()
 
-    const {animal, user} = props;
+    const {isLanding} = props;
 
+    if (!isLanding) {
+        return <React.Fragment />
+    }
     return (
         <Button variant='outlined'
             color='primary'

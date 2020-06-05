@@ -39,6 +39,11 @@ const Sidebar = props => {
   const classes = useStyles();
   const pages = [
     {
+      title: 'Inicio',
+      href: '/',
+      icon: <DashboardIcon />
+    },
+    {
       title: 'Animales',
       href: '/animales',
       icon: <DashboardIcon />
@@ -56,6 +61,11 @@ const Sidebar = props => {
     {
       title: 'Denuncia',
       href: '/denuncia',
+      icon: <ReportIcon />
+    },
+    {
+      title: 'Colaborar',
+      href: '/colaborar',
       icon: <ReportIcon />
     }
 

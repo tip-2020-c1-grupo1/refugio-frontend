@@ -146,7 +146,7 @@ const Landing = props => {
     <div className={classes.root}>      
       <Typography variant='h2'>Animales del refugio</Typography>
       <AnimalsGrid isLanding={isLanding} classes={classes} data={data} user={user} />
-      <Colaboration classes={classes} data={data} user={user} />
+      <Colaboration isLanding={isLanding} classes={classes} data={data} user={user} />
     </div>
   );
 };
