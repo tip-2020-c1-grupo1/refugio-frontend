@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import ColaborationCard from "../ColaborationCard";
 import Carousel from 'react-material-ui-carousel'
 
@@ -13,7 +13,7 @@ const ColaborationGrid = props => {
     <React.Fragment>
       <div className={classes.content}>
         {data.count === 0 
-        ? <h2> Aún no hay colaboraciones necesitadas </h2>
+        ? <Typography variant="h2"> Aún no hay colaboraciones necesitadas </Typography>
         : isLanding
         ? <Carousel>
         {data.results.map(colaboration => (

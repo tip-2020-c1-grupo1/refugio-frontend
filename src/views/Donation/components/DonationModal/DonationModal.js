@@ -15,13 +15,11 @@ import './DonationModal.css';
 const useStyles = makeStyles(theme => ({
   root: {},
   imageContainer: {
-    height: 500,
-    width: 500,
+    height: 800,
+    width: 720,
     margin: '0 auto',
     border: `1px solid ${theme.palette.divider}`,
     borderRadius: '5px',
-    overflow: 'hidden',
-    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -52,15 +50,12 @@ const DonationModal = props => {
     >
       <Card
         {...rest}
-        style={{width: '1030px', margin: 'auto'}}
+        style={{width: '40.75%', margin: 'auto'}}
         className={clsx(classes.root, className)}
       >
         <CardContent>
-          <iframe src={url} width="1000" height="720"/>
+          <iframe src={url} width="800" height="720"/>
         </CardContent>
-        <Divider />
-        <CardActions>
-        </CardActions>
       </Card>
     </Modal>
   );

@@ -19,6 +19,9 @@ const useStyles = makeStyles(theme => ({
   },
   searchInput: {
     marginRight: theme.spacing(1)
+  },
+  multiselect: {
+    display: 'flex',
   }
 
 }));
@@ -70,6 +73,7 @@ const AnimalsToolbar = props => {
             onChange={applyFilter}
             selectAllLabel={'Seleccionar todos'}
             labelledBy={"Select"}
+            className={classes.multiselect}
           />
         </Typography>
         <Typography>
@@ -77,8 +81,9 @@ const AnimalsToolbar = props => {
             options={optionsSelected}
             value={selectedStateFilter}
             onChange={applyFilterSelectedStateFilter}
-            selectAllLabel={'Todos los estados'}
+            selectAllLabel={'Seleccionar todos'}
             labelledBy={"Select"}
+            className={classes.multiselect}
           />
         </Typography>
         <Button disabled={selectedFilters && selectedFilters.length == 0 && 

@@ -4,6 +4,7 @@ import { ColaborationGrid} from './components';
 import cogoToast from 'cogo-toast';
 import MDSpinner from 'react-md-spinner';
 import {getInitialsColaborations} from './ColaborationApi';
+import { Typography } from '@material-ui/core';
 
 const containerCss = {
   display: 'flex',
@@ -92,8 +93,8 @@ const Colaboration = props => {
 
   function showColabs() {
     return (<div className={classes.root}>
-      <h2>Colaboraciones</h2>
-      {data.results.length > 0 ? <h5>Si queres ayudarnos, podes comprometerte con alguna de estas tareas</h5> : <React.Fragment />}
+      <Typography variant='h2'>Colaboraciones</Typography>
+      <Typography variant='h5'>{data.results.length > 0 ? <h5>Si queres ayudarnos, podes comprometerte con alguna de estas tareas</h5> : <React.Fragment />}</Typography>
       <ColaborationGrid reloadColabs={searchColaboration} isLanding={isLanding} classes={classes} data={data} user={user} />
 
     </div>)

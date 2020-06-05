@@ -71,11 +71,6 @@ const Donation = props => {
 
     return (
       <div className={classes.root}>
-        {/* <Button 
-            className={classes.button} 
-            size="small" 
-            variant="contained" 
-            onClick={handleOpen}> Podes donar? </Button> */}
         <Typography variant='h2'>
           Ingrese el monto que desea donar
           <Divider light/>
