@@ -10,6 +10,10 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
 
+import {getPreference} from './DonationApi'; 
+
+
+
 const useStyles = makeStyles(theme => ({
     root: {
       padding: theme.spacing(4)
@@ -22,19 +26,30 @@ const useStyles = makeStyles(theme => ({
 const Donation = props => {
     const classes = useStyles();
 
-    const [open, setOpen] = useState(false);
     const [amount, setAmount] = useState('100');
-
-    const handleOpen = () => {
-        setOpen(true);
-    };
-    
-    const handleClose = () => {
-        setOpen(false);
-    };
+    const [open, setOpen] = useState(false);
+    const [url, setUrl] = useState('');
 
     const handleChange = (event) => {
       setAmount(event.target.value)
+    }
+
+    const handleOpen = () => {
+      const preference_url = getPreference(amount)
+      preference_url.then(successCallback, failCallback)
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+    function successCallback(result) {
+      setUrl(result.data);
+    } 
+    
+    function failCallback(error) {
+      console.log("Error with Mercadopago " + error);
     }
 
     if (props.user.email === '') {
@@ -42,6 +57,8 @@ const Donation = props => {
     }
 
     const onlyNumbersRegex = /^[0-9]*$/;
+
+    const validateAmount = !amount || parseInt(amount) <= 0
 
     const onChangeWithRegex = (regex, event) => {
       const targetValue = event.target.value
@@ -66,25 +83,26 @@ const Donation = props => {
             id="standard-adornment-amount"
             value={amount}
             onChange={onlyNumbers}
-            error={!amount || amount === '0'}
+            error={validateAmount}
             margin='dense'
             placeholder='Por favor ingrese un monto mayor a cero'
             startAdornment={<InputAdornment position="start">(ARS) $</InputAdornment>}
           />
         </Typography>
-        <DonationModal 
+        <Typography>
+          <IconButton disabled>
+            <Avatar src={'https://www.mgscreativa.com/images/jamp/page/logo-mercadopago9.png'} />
+          </IconButton>
+          <Button
+            disabled={validateAmount}
+            onClick={handleOpen}
+            color="primary"
+            variant="contained">Donar</Button>
+          <DonationModal 
             handleClose={handleClose}
             open={open}
-        />
-            <Typography>
-            <IconButton disabled>
-              <Avatar src={'https://www.mgscreativa.com/images/jamp/page/logo-mercadopago9.png'} />
-            </IconButton>
-                    <Button
-                        disabled={!amount || amount === '0'}
-                        color="primary"
-                        variant="contained">Donar</Button>
-            </Typography> 
+            url={url}/>
+        </Typography> 
       </div>
     );
   };

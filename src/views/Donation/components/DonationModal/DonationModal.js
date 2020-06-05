@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const DonationModal = props => {
-  const { className, open, handleClose, ...rest } = props;
+  const { className, open, handleClose, url, ...rest } = props;
   const classes = useStyles();
 
   return (
@@ -52,19 +52,17 @@ const DonationModal = props => {
     >
       <Card
         {...rest}
-        style={{width: '600px', margin: 'auto'}}
+        style={{width: '1030px', margin: 'auto'}}
         className={clsx(classes.root, className)}
       >
         <CardContent>
-          <a href='https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=153260243-9f9e41dd-7551-4a29-b7cd-7cca483eadea'> Donar $ 1</a>
-          <h3>Para un monto personalizado por favor contacta al refugio</h3>
+          <iframe src={url} width="1000" height="720"/>
         </CardContent>
         <Divider />
         <CardActions>
         </CardActions>
       </Card>
     </Modal>
-    
   );
 };
 
