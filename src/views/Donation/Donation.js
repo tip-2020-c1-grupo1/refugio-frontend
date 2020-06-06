@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Typography, Button, Divider } from '@material-ui/core';
-import { Redirect } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import DonationModal from './components/DonationModal';
+
 
 import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -11,8 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
 
 import {getPreference} from './DonationApi'; 
-
-
+import cogoToast from 'cogo-toast';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -29,6 +29,8 @@ const Donation = props => {
     const [amount, setAmount] = useState('100');
     const [open, setOpen] = useState(false);
     const [url, setUrl] = useState('');
+
+
 
     const handleChange = (event) => {
       setAmount(event.target.value)
@@ -69,8 +71,15 @@ const Donation = props => {
 
     const onlyNumbers = (event) => onChangeWithRegex(onlyNumbersRegex, event)
 
+    const triggerToast = () => {
+      if(this.props.location.state.status){
+        this.props.location.state.status === 'success' ? cogoToast.success('Gracias por tu donación a Refug.io!') : cogoToast.error('Hubo un error en la transacción');
+      }
+    }
+
     return (
       <div className={classes.root}>
+        {/* {triggerToast()} */}
         <Typography variant='h2'>
           Ingrese el monto que desea donar
           <Divider light/>
@@ -102,4 +111,4 @@ const Donation = props => {
     );
   };
   
-export default Donation;
+export default withRouter(Donation);

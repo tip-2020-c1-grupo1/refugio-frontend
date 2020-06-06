@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Redirect } from 'react-router-dom';
+import { Switch, Redirect, Route } from 'react-router-dom';
 
 import { RouteWithLayout } from './components';
 import { Main as MainLayout, Minimal as MinimalLayout } from './layouts';
@@ -19,12 +19,6 @@ const isLanding = false;
 const Routes = (props) => {
   return (
     <Switch>
-
-      {/* <Redirect
-        exact
-        from="/"
-        to="/animales"
-      /> */}
       <RouteWithLayout
         component={LandingView}
         user={props.user}
@@ -79,12 +73,26 @@ const Routes = (props) => {
         layout={MainLayout}
         path="/colaborar"
       />
-
       <RouteWithLayout
         component={NotFoundView}
         exact
         layout={MinimalLayout}
         path="/not-found"
+      />
+      <Redirect
+        exact
+        from="/donacion/exito"
+        to="/donacion"
+      />
+      <Redirect
+        exact
+        from="/donacion/pendiente"
+        to="/donacion"
+      />
+      <Redirect
+        exact
+        from="/donacion/fallo"
+        to="/donacion"
       />
       <Redirect to="/not-found" />
     </Switch>
