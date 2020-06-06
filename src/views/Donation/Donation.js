@@ -19,7 +19,9 @@ const useStyles = makeStyles(theme => ({
       padding: theme.spacing(4)
     },
     input:{
-      width: "40%"
+      width: "40%",
+      backgroundColor: "white",
+      minWidth: "400px"
     }
   }));
 

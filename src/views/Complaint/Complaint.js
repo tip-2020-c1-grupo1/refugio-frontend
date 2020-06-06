@@ -9,6 +9,13 @@ import {makeComplaint} from './ComplaintApi';
 const useStyles = makeStyles(theme => ({
     root: {
       padding: theme.spacing(4)
+    },
+    input:{
+      backgroundColor: "white",
+      minWidth: "400px"
+    },
+    disabledInput:{
+      minWidth: "400px"
     }
   }));
 
@@ -69,6 +76,7 @@ const Complaint = props => {
           <TextField 
             value={user.email} 
             disabled 
+            className={classes.disabledInput}
             fullWidth
             variant="outlined"/>
         </Grid>
@@ -80,11 +88,11 @@ const Complaint = props => {
             
           <TextField 
             multiline
+            className={classes.input}
             value={description}
             onChange={handleChange}
             rows={2}
             rowsMax={10}
-            color="primary"
             fullWidth
             variant="outlined"/>
         </Grid>
