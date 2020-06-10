@@ -15,6 +15,7 @@ import ColaborationModal from './ColaborationModal';
 import ColaborationModalOpen from './ColaborationModalOpen';
 import ColaborationSubmit from './ColaborationSubmit';
 import cogoToast from 'cogo-toast';
+import './ColaborationCard.css';
 
 // <RouterLink {...props} />
 
@@ -96,6 +97,7 @@ const ColaborationCard = props => {
         <Typography
           align="center"
           variant="body1"
+          className='colaboration_card_description'
         >
           {colaboration.short_description}
         </Typography>
@@ -103,6 +105,7 @@ const ColaborationCard = props => {
         {isLanding ? <React.Fragment /> : <React.Fragment >
           <Divider />
           <Typography
+          className='colaboration_card_description'
           align="center"
           variant="body1"
         >
