@@ -5,6 +5,10 @@ import { makeStyles } from '@material-ui/styles';
 import { Divider, Drawer } from '@material-ui/core';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import ReportIcon from '@material-ui/icons/Report';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import PetsIcon from '@material-ui/icons/Pets';
+import PanToolIcon from '@material-ui/icons/PanTool';
 
 import { Profile, SidebarNav } from './components';
 
@@ -37,15 +41,36 @@ const Sidebar = props => {
   const classes = useStyles();
   const pages = [
     {
+      title: 'Inicio',
+      href: '/',
+      icon: <DashboardIcon />
+    },
+    {
       title: 'Animales',
       href: '/animales',
-      icon: <DashboardIcon />
+      icon: <PetsIcon />
     },
     {
       title: 'Perfil',
       href: '/perfil',
       icon: <AccountBoxIcon />
+    },
+    {
+      title: 'Colaborar',
+      href: '/colaborar',
+      icon: <PanToolIcon />
+    },
+    {
+      title: 'Donar',
+      href: '/donacion',
+      icon: <AttachMoneyIcon />
+    },
+    {
+      title: 'Denuncia',
+      href: '/denuncia',
+      icon: <ReportIcon />
     }
+    
 
   ];
 

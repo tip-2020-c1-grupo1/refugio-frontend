@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Button, Typography } from '@material-ui/core';
 import MultiSelect from "react-multi-select-component";
 import { SearchInput } from 'components';
+import './AnimalsToolbar.css';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -19,6 +20,9 @@ const useStyles = makeStyles(theme => ({
   },
   searchInput: {
     marginRight: theme.spacing(1)
+  },
+  multiselect: {
+    display: 'flex',
   }
 
 }));
@@ -70,6 +74,7 @@ const AnimalsToolbar = props => {
             onChange={applyFilter}
             selectAllLabel={'Seleccionar todos'}
             labelledBy={"Select"}
+            className={classes.multiselect}
           />
         </Typography>
         <Typography>
@@ -77,8 +82,9 @@ const AnimalsToolbar = props => {
             options={optionsSelected}
             value={selectedStateFilter}
             onChange={applyFilterSelectedStateFilter}
-            selectAllLabel={'Todos los estados'}
+            selectAllLabel={'Seleccionar todos'}
             labelledBy={"Select"}
+            className={clsx(classes.multiselect, 'status_of_animal')}
           />
         </Typography>
         <Button disabled={selectedFilters && selectedFilters.length == 0 && 
