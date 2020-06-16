@@ -33,7 +33,9 @@ const Complaint = props => {
 
   const handleChange = event => {
     const value = event.target.value;
-    setDescription(value);
+    if(noWhiteSpaceRegex.test(value) || value===''){
+      setDescription(value);
+    }
   };
 
   const errorCallback = (err) => {
@@ -56,14 +58,15 @@ const Complaint = props => {
       })    
   }
 
+  const noWhiteSpaceRegex = /[^-\s]/
+
+  const disableButton = !description || description.length < 10
+
+  const helperTextHandler = disableButton && description!='' ? 'La descripción debe tener al menos 10 caracteres' : ''
+
+  const errorHandler = description === '' ? false : disableButton
+
   const fiveDivider = [...Array(5)].map((e, i) => <Divider light />);
-      // return <Box>
-      //         <Divider light />
-      //         <Divider light />
-      //         <Divider light />
-      //         <Divider light />
-      //         <Divider light />
-      //     </Box>
 
   return (
     <div className={classes.root}>
@@ -72,7 +75,9 @@ const Complaint = props => {
           item 
           xs={3}
           md={3}>
+        <Typography variant='h4'>
           Email:
+        </Typography>
           <TextField 
             value={user.email} 
             disabled 
@@ -84,11 +89,14 @@ const Complaint = props => {
       {fiveDivider}
       <Typography>
         <Grid item >
+        <Typography variant='h4'>
             Descripción:
-            
+        </Typography>
           <TextField 
             multiline
             className={classes.input}
+            error={errorHandler}
+            helperText={helperTextHandler}
             value={description}
             onChange={handleChange}
             rows={2}
@@ -100,7 +108,10 @@ const Complaint = props => {
         <Button 
           onClick={sendComplaint}
           color="primary"
-          variant="contained">Enviar denuncia</Button>
+          variant="contained"
+          disabled={disableButton}>
+            Enviar denuncia
+          </Button>
       </Typography> 
     </div>
 
