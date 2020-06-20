@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/styles';
 import { useMediaQuery } from '@material-ui/core';
 import { Sidebar, Topbar, Footer } from './components';
+import './Main.css';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: 240
   },
   content: {
-    height: '100%'
+    minHeight: '90%'
   }
 }));
 
@@ -63,9 +64,9 @@ const Main = props => {
         variant={isDesktop ? 'persistent' : 'temporary'}
       />
       <main className={classes.content}>
-        {children}
-        <Footer />
+        {children}       
       </main>
+      <Footer className='footer-space' />
     </div>
   );
 };
