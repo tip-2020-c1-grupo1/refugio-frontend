@@ -8,13 +8,11 @@ import {
   CardActions,
   Typography,
   Grid,
-  Divider,
-  Button
+  Divider
 } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import './ColaborationModal.css';
-import cogoToast from 'cogo-toast';
-import submitAdoptionRequest from '../ColaborationAdoptionApi';
+import {filter, map} from 'lodash';
 import ColaborationSubmit from '../ColaborationSubmit'
 
 const useStyles = makeStyles(theme => ({
@@ -48,6 +46,16 @@ const ColaborationModal = props => {
   const { className, open, reloadColabs, handleClose, colaboration, user, ...rest } = props;
   const classes = useStyles();
 
+  const colabs = map(colaboration.colaborators, 'email');
+
+  const isAlreadyColab = filter(colabs, function (colabmail) {
+    return  colabmail === user.email
+  }).length === 1;
+
+  const otherColabs = filter(colabs, function (colabmail) {
+    return  colabmail !== user.email
+  });
+
   return (
     <Modal
       open={open}
@@ -68,12 +76,38 @@ const ColaborationModal = props => {
           >
             {colaboration.name}
           </Typography>
-          <Typography
+          <React.Fragment >
+            <Divider />
+            <Typography
+            className='colaboration_card_description'
             align="center"
             variant="body1"
           >
             {colaboration.description}
           </Typography>
+          </React.Fragment >
+
+          {isAlreadyColab ? <React.Fragment >
+            <Divider />
+            <Typography
+              align="center"
+              variant="body1"
+              className='colaboration_card_description'
+            >
+              Usted ya colaboro en esta petición.
+            </Typography>
+          </React.Fragment > : <React.Fragment />}
+
+          <Divider />
+          {otherColabs.map( (colab) => (
+            <Typography
+            align="center"
+            variant="body1"
+            className='colaboration_card_description'
+          >
+            {colab} tambien colaboro.
+          </Typography>
+          ))}
         </CardContent>
         <Divider />
         <CardActions>
@@ -89,7 +123,7 @@ const ColaborationModal = props => {
                 display="inline"
                 variant="body2"
               >
-                {colaboration.gender} - {colaboration.race} - {colaboration.species}
+                {colaboration.gender} - {colaboration.race} - {colaboration.specie}
               </Typography>
               
             </Grid>
@@ -97,7 +131,7 @@ const ColaborationModal = props => {
               className={classes.statsItem}
               item
             >
-              <ColaborationSubmit reloadColabs={reloadColabs} user={user} colaboration={colaboration}/>
+              <ColaborationSubmit isAlreadyColab={isAlreadyColab} reloadColabs={reloadColabs} user={user} colaboration={colaboration}/>
             </Grid>
           </Grid>
         </CardActions>

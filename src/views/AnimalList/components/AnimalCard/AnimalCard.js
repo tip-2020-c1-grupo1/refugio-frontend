@@ -75,7 +75,6 @@ const AnimalCard = props => {
   const manageOpenSeguimiento = () => {
     getAnimalTimelineApi(animal.id).then(response => {
       const data = response.data;
-      console.log(data);
       setData(data);
       setOpenSeguimiento(true);    
     })
@@ -154,7 +153,7 @@ const AnimalCard = props => {
               display="inline"
               variant="body2"
             >
-              {animal.gender} - {animal.race} - {animal.species} | ESTADO : {animal.status_request}
+              {animal.gender} - {animal.race} - {animal.specie} | ESTADO : {animal.status_request}
             </Typography>
 
           </Grid>

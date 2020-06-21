@@ -18,7 +18,7 @@ const ColaborationSubmit = props => {
 
     const classes = useStyles()
 
-    const {colaboration, user, reloadColabs} = props;
+    const {colaboration, user, reloadColabs, isAlreadyColab} = props;
 
     const errorCallback = err => {
         cogoToast.error(err.response.data.Error, {
@@ -40,10 +40,14 @@ const ColaborationSubmit = props => {
 
     const isAvailable = colaboration.status_request == 'Disponible'
 
+    if (isAlreadyColab) {
+        return <React.Fragment />
+    }
     return (
         <Button variant='outlined'
             color='primary'
             className={classes.button}
+            disabled={!isAvailable}
             onClick={adoptionRequest}
             disabled={!isAvailable}>{isAvailable ? 'Quiero colaborar !' : 'No disponible'}</Button>
     )

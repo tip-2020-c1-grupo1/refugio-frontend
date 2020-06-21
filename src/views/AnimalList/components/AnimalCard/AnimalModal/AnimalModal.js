@@ -122,7 +122,7 @@ const AnimalModal = props => {
                 display="inline"
                 variant="body2"
               >
-                {animal.gender} - {animal.race} - {animal.species}
+                {animal.gender} - {animal.race} - {animal.specie}
               </Typography>
               
             </Grid>

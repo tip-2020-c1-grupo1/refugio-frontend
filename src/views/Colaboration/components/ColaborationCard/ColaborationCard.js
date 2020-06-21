@@ -7,7 +7,6 @@ import {
   CardContent,
   CardActions,
   Typography,
-  Button,
   Grid,
   Divider
 } from '@material-ui/core';
@@ -16,6 +15,7 @@ import ColaborationModalOpen from './ColaborationModalOpen';
 import ColaborationSubmit from './ColaborationSubmit';
 import cogoToast from 'cogo-toast';
 import './ColaborationCard.css';
+import {filter, map} from 'lodash';
 
 // <RouterLink {...props} />
 
@@ -70,6 +70,15 @@ const ColaborationCard = props => {
     })
   };
 
+  const colabs = map(colaboration.colaborators, 'email');
+
+  const isAlreadyColab = filter(colabs, function (colabmail) {
+    return  colabmail === user.email
+  }).length === 1;
+
+  const otherColabs = filter(colabs, function (colabmail) {
+    return  colabmail !== user.email
+  });
 
   
   return (
@@ -114,6 +123,28 @@ const ColaborationCard = props => {
         </React.Fragment >
         }
 
+        {isAlreadyColab ? <React.Fragment >
+          <Divider />
+          <Typography
+            align="center"
+            variant="body1"
+            className='colaboration_card_description'
+          >
+            Usted ya colaboro en esta petición.
+          </Typography>
+        </React.Fragment > : <React.Fragment />}
+
+        <Divider />
+        {otherColabs.map( (colab) => (
+          <Typography
+          align="center"
+          variant="body1"
+          className='colaboration_card_description'
+        >
+          {colab} tambien colaboro.
+        </Typography>
+        ))}
+
       </CardContent>
       <Divider />
       <CardActions>
@@ -136,7 +167,7 @@ const ColaborationCard = props => {
           <Grid className={classes.statsItem} item> 
             <ColaborationModalOpen isLanding={isLanding} onClick={handleOpen} />   
             {
-              isLanding ? <React.Fragment /> : <ColaborationSubmit reloadColabs={reloadColabs} user={user} colaboration={colaboration}/>
+              isLanding ? <React.Fragment /> : <ColaborationSubmit isAlreadyColab={isAlreadyColab} reloadColabs={reloadColabs} user={user} colaboration={colaboration}/>
             }     
             
           </Grid>  
