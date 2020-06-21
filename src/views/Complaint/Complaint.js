@@ -4,6 +4,7 @@ import { Grid, TextField, Typography, Divider, Button, Box } from '@material-ui/
 import { Redirect } from "react-router-dom";
 import cogoToast from 'cogo-toast';
 import {makeComplaint} from './ComplaintApi';
+import './Complaint.css'
 
 
 const useStyles = makeStyles(theme => ({
