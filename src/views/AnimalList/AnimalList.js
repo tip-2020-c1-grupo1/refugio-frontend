@@ -4,6 +4,7 @@ import { AnimalsGrid, AnimalsToolbar, AnimalsPagination } from './components';
 import cogoToast from 'cogo-toast';
 import MDSpinner from 'react-md-spinner';
 import {getInitialsAnimals, getAnimalsByPage} from './AnimalsApi';
+import './AnimalList.css'
 
 const containerCss = {
   display: 'flex',
@@ -68,7 +69,8 @@ const AnimalList = props => {
 
   const errorCallback = (err) => {
     cogoToast.error(err.message, {
-      position: 'top-center'
+      position: 'top-center',
+      
     });
     setData({ results: [] });
     setPages([]);
