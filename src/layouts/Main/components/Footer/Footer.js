@@ -32,7 +32,7 @@ const Footer = props => {
         {' '}2020
       </Typography>
       <Typography variant="caption">
-        Created with love for the environment.
+        Creado con amor por el medioambiente.
       </Typography>
     </div>
   );
