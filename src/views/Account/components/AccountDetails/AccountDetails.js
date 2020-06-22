@@ -14,7 +14,8 @@ import {
   TextField
 } from '@material-ui/core';
 import {isEmpty} from 'lodash';
-import {submitAccountDetails} from './AccountDetailsApi'; 
+import {submitAccountDetails} from './AccountDetailsApi';
+import './AccountDetails.css'
 
 const useStyles = makeStyles(() => ({
   root: {}
