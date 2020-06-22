@@ -14,7 +14,7 @@ import {
 import AnimalModal from './AnimalModal';
 import AnimalSeguimientoModal from './AnimalSeguimientoModal';
 import AdoptionSubmit from './AdoptionSubmit';
-import AnimalPlanVacunatorioModal from './AnimalPlanVacunatorioModal';
+
 import cogoToast from 'cogo-toast';
 import getAnimalTimelineApi from './AnimalTimelineApi';
 
@@ -55,11 +55,9 @@ const AnimalCard = props => {
 
   const classes = useStyles();
   const [data, setData] = useState([]);
-  
   const [open, setOpen] = useState(false);
   const [openSeguimiento, setOpenSeguimiento] = useState(false);
-  const [openPlanVacunatorio, setOpenPlanVacunatorio] = useState(false);
-  
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -85,18 +83,10 @@ const AnimalCard = props => {
       errorCallback(err);
     });
     
-  }; 
+  };
 
   const handleCloseSeguimiento = () => {
     setOpenSeguimiento(false);
-  };
-
-  const handleOpenPlanVacunatorio = () => {
-    setOpenPlanVacunatorio(true);
-  };
-
-  const handleClosePlanVacunatorio = () => {
-    setOpenPlanVacunatorio(false);
   };
 
   
@@ -110,11 +100,9 @@ const AnimalCard = props => {
           isLanding ? <React.Fragment />
           : <React.Fragment>
             <Button className={classes.button} size="small" variant="contained" onClick={manageOpenSeguimiento}>Ver seguimiento</Button>
-
             <Button className={classes.button} size="small" variant="contained" onClick={handleOpen}>Ver detalle</Button>
-            
-            <Button className={classes.button} size="small" variant="contained" onClick={handleOpenPlanVacunatorio}>Ver Plan Vacunatorio</Button>
-            
+
+           
             <AnimalModal 
               handleClose={handleClose}
               animal={animal}
@@ -127,13 +115,6 @@ const AnimalCard = props => {
               data={data}
               open={openSeguimiento}
             />
-
-          <AnimalPlanVacunatorioModal 
-              handleClose={handleClosePlanVacunatorio}
-              planVacunatorio={animal.vaccination_plan}
-              open={openPlanVacunatorio}
-            />
-            
           </React.Fragment>
         }
         
@@ -178,8 +159,8 @@ const AnimalCard = props => {
 
           </Grid>
         </Grid>
-        {
-          isLanding ? <React.Fragment />
+
+        { animal.status_request === 'Adoptado' || animal.status_request === 'Revisión' ? <React.Fragment />
           : <Grid className={classes.statsItem} item>
               <AdoptionSubmit user={user} animal={animal}/>
             </Grid>
