@@ -79,21 +79,6 @@ const Routes = (props) => {
         layout={MinimalLayout}
         path="/not-found"
       />
-      <Redirect
-        exact
-        from="/donacion/exito"
-        to="/donacion"
-      />
-      <Redirect
-        exact
-        from="/donacion/pendiente"
-        to="/donacion"
-      />
-      <Redirect
-        exact
-        from="/donacion/fallo"
-        to="/donacion"
-      />
       <Redirect to="/not-found" />
     </Switch>
   );

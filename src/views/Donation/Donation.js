@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Typography, Button, Divider } from '@material-ui/core';
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter, useHistory, Redirect } from "react-router-dom";
 import DonationModal from './components/DonationModal';
 
 
@@ -13,6 +13,8 @@ import Avatar from '@material-ui/core/Avatar';
 
 import {getPreference} from './DonationApi'; 
 import cogoToast from 'cogo-toast';
+
+import './Donation.css'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -32,8 +34,36 @@ const Donation = props => {
     const [open, setOpen] = useState(false);
     const [url, setUrl] = useState('');
 
+    let search = window.location.search;
+    let params = new URLSearchParams(search);
+    let collection_status = params.get('collection_status')
+    let history = useHistory();
 
+    useEffect(() => {
+      switch(collection_status) {
+        case 'approved': 
+          cogoToast.success('Gracias por tu donación a Refug.io!', {
+            position: 'top-center'
+          });
+          history.push('/donacion')
+          break;
+        case 'in_process': 
+          cogoToast.warn('Su pago se encuentra pendiente de aprobación', {
+            position: 'top-center'
+          });
+          history.push('/donacion')
+          break;
+        case 'rejected': 
+          cogoToast.error('Hubo un error al procesar el pago. Inténtelo nuevamente', {
+            position: 'top-center'
+          })
+          history.push('/donacion')
+          break;
+        default:
+    }
+  });
 
+    
     const handleChange = (event) => {
       setAmount(event.target.value)
     }
@@ -53,7 +83,9 @@ const Donation = props => {
     } 
     
     function failCallback(error) {
-      console.log("Error with Mercadopago " + error);
+      cogoToast.error('Hubo un error al conectarse con MercadoPago', {
+        position: 'top-center'
+      });
     }
 
     if (props.user.email === '') {
@@ -73,15 +105,8 @@ const Donation = props => {
 
     const onlyNumbers = (event) => onChangeWithRegex(onlyNumbersRegex, event)
 
-    const triggerToast = () => {
-      if(this.props.location.state.status){
-        this.props.location.state.status === 'success' ? cogoToast.success('Gracias por tu donación a Refug.io!') : cogoToast.error('Hubo un error en la transacción');
-      }
-    }
-
     return (
       <div className={classes.root}>
-        {/* {triggerToast()} */}
         <Typography variant='h2'>
           Ingrese el monto que desea donar
           <Divider light/>
@@ -108,7 +133,7 @@ const Donation = props => {
             handleClose={handleClose}
             open={open}
             url={url}/>
-        </Typography> 
+        </Typography>
       </div>
     );
   };
