@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'http://' + process.env.REACT_APP_API_HOST + '/api/timelines/';
+const baseUrl = process.env.REACT_APP_API_HOST + '/api/timelines/';
 
 function getAnimalTimelineApi(animalId) {
   const url = baseUrl + animalId + '/by_animal/';
