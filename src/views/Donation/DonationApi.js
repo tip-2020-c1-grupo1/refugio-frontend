@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:8000/api/preference_id?amount=';
+const baseUrl = 'http://' + process.env.REACT_APP_API_HOST + '/api/preference_id?amount=';
 
 function getPreference(amount) {
   const url = baseUrl + amount;

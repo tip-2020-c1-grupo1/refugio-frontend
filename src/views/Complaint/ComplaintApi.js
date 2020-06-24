@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:8000/api/complaint/';
+const baseUrl = 'http://' + process.env.REACT_APP_API_HOST + '/api/complaint/';
 
 function getApprovedComplaints() {
   const url = baseUrl + '?status_request=Disponible';
