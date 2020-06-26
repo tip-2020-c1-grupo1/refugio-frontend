@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {map} from 'lodash';
 
-const baseUrl = 'http://localhost:8000/api/animals?page=';
+const baseUrl = process.env.REACT_APP_API_HOST + '/api/animals?page=';
 
 function getInitialsAnimals(searchString, selectedFilters, selectedStateFilter) {
   return getAnimalsByPage(1, searchString, selectedFilters, selectedStateFilter);

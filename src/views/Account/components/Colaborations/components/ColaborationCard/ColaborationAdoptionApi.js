@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:8000/api/colaboration/';
+const baseUrl = process.env.REACT_APP_API_HOST + '/api/colaboration/';
 
 function removeColabRequest(colabId, userEmail) {
   const url = baseUrl + colabId + '/remove_colab_for_user/'

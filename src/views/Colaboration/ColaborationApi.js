@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:8000/api/colaboration/';
+const baseUrl = process.env.REACT_APP_API_HOST + '/api/colaboration/';
 
 function getInitialsColaborations() {
   const url = baseUrl + '?status_request=Disponible';

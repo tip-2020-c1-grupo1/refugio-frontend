@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:8000/api/profiles';
+const baseUrl = process.env.REACT_APP_API_HOST + '/api/profiles';
 
 function submitAccountDetails(data) {
   const url = baseUrl + '/update_profile/';
