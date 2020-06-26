@@ -5,50 +5,6 @@ import cogoToast from 'cogo-toast';
 import MDSpinner from 'react-md-spinner';
 import {getInitialsColaborations} from './ColaborationApi';
 import { Typography } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
-import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
-import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-
-const ExpansionPanel = withStyles({
-  root: {
-    border: '1px solid rgba(0, 0, 0, .125)',
-    boxShadow: 'none',
-    '&:not(:last-child)': {
-      borderBottom: 0,
-    },
-    '&:before': {
-      display: 'none',
-    },
-    '&$expanded': {
-      margin: 'auto',
-    },
-  },
-  expanded: {},
-})(MuiExpansionPanel);
-
-const ExpansionPanelSummary = withStyles({
-  root: {
-    backgroundColor: 'rgba(0, 0, 0, .03)',
-    borderBottom: '1px solid rgba(0, 0, 0, .125)',
-    marginBottom: -1,
-    minHeight: 56,
-    '&$expanded': {
-      minHeight: 56,
-    },
-  },
-  content: {
-    '&$expanded': {
-      margin: '12px 0',
-    },
-  },
-  expanded: {},
-})(MuiExpansionPanelSummary);
-
-const ExpansionPanelDetails = withStyles((theme) => ({
-  root: {
-  },
-}))(MuiExpansionPanelDetails);
 
 const containerCss = {
   display: 'flex',
@@ -63,7 +19,7 @@ const centerCss = {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    paddingTop: theme.spacing(3)
+    padding: theme.spacing(3)
   },
   content: {
     marginTop: theme.spacing(2)
@@ -95,13 +51,8 @@ const Colaboration = props => {
   const classes = useStyles();
   const [data, setData] = useState([]);
   const [load, setLoad] = useState(false);
-  const [expanded, setExpanded] = React.useState('panel1');
-
+  
   const {user, isLanding, status_request} = props
-
-  const handleChange = (panel) => (event, newExpanded) => {
-    setExpanded(newExpanded ? panel : false);
-  };
 
   useEffect(() => {
     searchColaboration();
@@ -140,21 +91,13 @@ const Colaboration = props => {
       );
   }
 
-  const title = status_request === 'Disponible' ? 'Mis colaboraciones activas' : 'Mis colaboraciones pasadas';
+  const title = status_request === 'Disponible' ? 'Mis solicitudes activas' : 'Mis solicitudes en las que ya estoy comprometido';
 
   function showColabs() {
     return (<div className={!isLanding ? classes.root : ''}>
-
-      <ExpansionPanel square expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-        <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
-          <h2 variant='h2'>{title}</h2>
-        </ExpansionPanelSummary>
-        
-        <ExpansionPanelDetails>
-          <h5 variant='h5'>{data.results.length > 0 ? <h5>Si queres ayudarnos, podes comprometerte con alguna de estas tareas</h5> : <React.Fragment />}</h5>
-          <ColaborationGrid reloadColabs={searchColaboration} isLanding={isLanding} classes={classes} data={data} user={user} />
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+      <Typography variant='h2'>{title}</Typography>
+      <Typography variant='h5'>{data.results.length > 0 ? <h5>Si queres ayudarnos, podes comprometerte con alguna de estas tareas</h5> : <React.Fragment />}</Typography>
+      <ColaborationGrid reloadColabs={searchColaboration} isLanding={isLanding} classes={classes} data={data} user={user} />
 
     </div>)
   }

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { ColaborationGrid} from './components';
-import cogoToast from 'cogo-toast';
-import MDSpinner from 'react-md-spinner';
-import {getInitialsColaborations} from './ColaborationApi';
+import { Redirect } from "react-router-dom";
+import { AccountDetails } from './components';
+import Colaboration from './components/Colaborations';
+import AnimalList from './components/AnimalList';
 import { Typography } from '@material-ui/core';
+
 import { withStyles } from '@material-ui/core/styles';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -46,9 +47,10 @@ const ExpansionPanelSummary = withStyles({
 })(MuiExpansionPanelSummary);
 
 const ExpansionPanelDetails = withStyles((theme) => ({
-  root: {
-  },
+  
 }))(MuiExpansionPanelDetails);
+
+
 
 const containerCss = {
   display: 'flex',
@@ -57,13 +59,16 @@ const containerCss = {
   justifyContent: 'center'
 };
 
+const isLanding = true;
+
 const centerCss = {
   alignSelf: 'center'
 };
 
+const pageSize = 5;
 const useStyles = makeStyles(theme => ({
   root: {
-    paddingTop: theme.spacing(3)
+    padding: theme.spacing(3)
   },
   content: {
     marginTop: theme.spacing(2)
@@ -91,82 +96,38 @@ const useStyles = makeStyles(theme => ({
   center: centerCss
 }));
 
-const Colaboration = props => {
+
+const Account = props => {
   const classes = useStyles();
-  const [data, setData] = useState([]);
-  const [load, setLoad] = useState(false);
   const [expanded, setExpanded] = React.useState('panel1');
 
-  const {user, isLanding, status_request} = props
+  const {user, setUser} = props;
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
 
-  useEffect(() => {
-    searchColaboration();
-  }, []);
-
-  const errorCallback = (err) => {
-    cogoToast.error(err.message, {
-      position: 'top-center'
-    });
-    setData({ results: [] });
-    console.log(err.message);
+  if (user.email === '') {
+    return <Redirect to='/' />
   }
-
-  const saveInformationInState = (res) => {
-    setData(res.data);
-    setLoad(true); 
-  }
-
-  const searchColaboration = () => {
-    getInitialsColaborations(status_request,user.email)
-      .then(res => {
-        saveInformationInState(res);           
-      })
-      .catch(err => {        
-        errorCallback(err);
-      })    
-  }
-
-  if (!load) {
-    return (
-      <div className={classes.container}>
-        <div className={classes.center}>
-          <MDSpinner size={88} />
-        </div>
-      </div>
-      );
-  }
-
-  const title = status_request === 'Disponible' ? 'Mis colaboraciones activas' : 'Mis colaboraciones pasadas';
-
-  function showColabs() {
-    return (<div className={!isLanding ? classes.root : ''}>
-
+  return (
+    <div className={classes.root}>
       <ExpansionPanel square expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
-          <h2 variant='h2'>{title}</h2>
+          <Typography variant='h2'>Información del usuario</Typography>
         </ExpansionPanelSummary>
-        
         <ExpansionPanelDetails>
-          <h5 variant='h5'>{data.results.length > 0 ? <h5>Si queres ayudarnos, podes comprometerte con alguna de estas tareas</h5> : <React.Fragment />}</h5>
-          <ColaborationGrid reloadColabs={searchColaboration} isLanding={isLanding} classes={classes} data={data} user={user} />
+          <AccountDetails setUser={setUser} user={user} />
         </ExpansionPanelDetails>
       </ExpansionPanel>
 
-    </div>)
-  }
-
-  if (data.results.length === 0 && isLanding) {
-    
-    return <React.Fragment />
-  }
-
-  else {
-    return showColabs()
-  }
+      <Colaboration user={user} status_request='Disponible' isLanding={false} />
+      <Colaboration user={user} status_request='Reservado' isLanding={false} />
+      <AnimalList isLanding={false} role='requester' user={user} />
+      <AnimalList isLanding={false} role='adopter' user={user} />
+      
+    </div>
+  );
 };
 
-export default Colaboration;
+export default Account;

@@ -35,12 +35,21 @@ const AdoptionSubmit = props => {
             })
     };
 
+    if (animal.status_request === 'Adoptado' || animal.status_request === 'Revisión' ) {
+        return <Button variant='outlined'
+            color='disabled'
+            disabled={true}
+            className={classes.button}>{'ADOPTADO asdasdsadsadadasda'}
+        </Button> 
+    }
 
     return (
+        
         <Button variant='outlined'
             color='primary'
             className={classes.button}
-            onClick={adoptionRequest}>{'Cancelar solicitud de adopción'}</Button>
+            onClick={adoptionRequest}>{'Cancelar solicitud de adopción'}</Button> 
+
     )
 }
 

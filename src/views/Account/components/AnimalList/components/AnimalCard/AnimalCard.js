@@ -93,6 +93,7 @@ const AnimalCard = props => {
   return (
     <Card
       {...rest}
+      style={{width : '100%'}}
       className={clsx(classes.root, className)}
     >
       <CardContent>
@@ -160,11 +161,9 @@ const AnimalCard = props => {
           </Grid>
         </Grid>
 
-        { animal.status_request === 'Adoptado' || animal.status_request === 'Revisión' ? <React.Fragment />
-          : <Grid className={classes.statsItem} item>
-              <AdoptionSubmit user={user} animal={animal}/>
-            </Grid>
-        }        
+        <Grid className={classes.statsItem} item>
+          <AdoptionSubmit user={user} animal={animal}/> 
+        </Grid>     
       </CardActions>
     </Card>
   );
