@@ -96,7 +96,7 @@ const Account = props => {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Tabs value={value} onChange={handleChange} aria-label="wrapped label tabs example">
+        <Tabs style={{paddingTop: '20px'}} value={value} onChange={handleChange} aria-label="wrapped label tabs example">
           <Tab
             value="one"
             label="Información Personal"

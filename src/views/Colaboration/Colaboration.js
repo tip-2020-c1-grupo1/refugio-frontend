@@ -94,7 +94,7 @@ const Colaboration = props => {
   function showColabs() {
     return (<div className={!isLanding ? classes.root : ''}>
       <Typography variant='h2'>Colaboraciones</Typography>
-      <Typography variant='h5'>{data.results.length > 0 ? 'Si queres ayudarnos, podes comprometerte con alguna de estas tareas' : ''}</Typography>
+      <Typography variant='h5'>{data.results.length > 0 && !isLanding ? 'Si queres ayudarnos, podes comprometerte con alguna de estas tareas' : ''}</Typography>
       <ColaborationGrid reloadColabs={searchColaboration} isLanding={isLanding} classes={classes} data={data} user={user} />
 
     </div>)

@@ -4,7 +4,7 @@ import cogoToast from 'cogo-toast';
 import MDSpinner from 'react-md-spinner';
 import {getInitialsAnimals} from './LandingApi';
 import { AnimalsGrid } from 'views/AnimalList/components';
-import { Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import Colaboration from 'views/Colaboration';
 const containerCss = {
   display: 'flex',
@@ -144,9 +144,17 @@ const Landing = props => {
 
   return (
     <div className={classes.root}>      
-      <Typography variant='h2'>Animales del refugio</Typography>
-      <AnimalsGrid isLanding={isLanding} classes={classes} data={data} user={user} />
-      <Colaboration isLanding={isLanding} classes={classes} data={data} user={user} />
+      <Grid container spacing={3}>
+        <Grid item key={'animalsgrid'} lg={6} md={12} sm={12}>
+          <Typography variant='h2'>Animales del refugio</Typography>
+          <AnimalsGrid isLanding={isLanding} classes={classes} data={data} user={user} />
+        </Grid>
+
+        <Grid item key={'colaboration-grid'} lg={6} md={12} sm={12}>
+          <Colaboration isLanding={isLanding} classes={classes} data={data} user={user} />
+        </Grid>
+      </Grid>
+      
     </div>
   );
 };

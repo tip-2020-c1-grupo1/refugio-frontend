@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
 const AnimalPlanVacunatorioModal = props => {
   const { className, planVacunatorio, open, handleClose, ...rest } = props;
   const classes = useStyles();
-
+  console.log(planVacunatorio);
   return (
     <Modal
       className={classes.modalStyle1}
@@ -90,8 +90,8 @@ AnimalPlanVacunatorioModal.propTypes = {
 export default AnimalPlanVacunatorioModal;
 
 function preparePlanVacunatorio(planVacunatorio) {
-  return <Typography>
-    {planVacunatorio}
-  </Typography>;
+  const RawHTML = ({children, className = ""}) => 
+  <div className={className} dangerouslySetInnerHTML={{ __html: children.replace(/\n/g, '<br />')}} />
+  return <RawHTML>{planVacunatorio}</RawHTML>;
 }
 

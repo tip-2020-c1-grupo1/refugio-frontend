@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
@@ -17,7 +17,7 @@ import AdoptionSubmit from './AdoptionSubmit';
 import AnimalPlanVacunatorioModal from './AnimalPlanVacunatorioModal';
 import cogoToast from 'cogo-toast';
 import getAnimalTimelineApi from './AnimalTimelineApi';
-
+import ReactIntense from 'react-intense';
 // <RouterLink {...props} />
 
 const useStyles = makeStyles(theme => ({
@@ -61,6 +61,15 @@ const AnimalCard = props => {
   const [openSeguimiento, setOpenSeguimiento] = useState(false);
   const [openPlanVacunatorio, setOpenPlanVacunatorio] = useState(false);
   
+  useEffect(() => {
+    document.addEventListener('mousedown', userEvent => {
+      // const parentClass = userEvent.path[0].parentNode.className
+      // if (parentClass === 'ri-container') document.body.style.overflow = null
+      document.body.style.overflow = null
+
+    })
+  }, []);
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -140,12 +149,9 @@ const AnimalCard = props => {
         
 
         <div className={classes.imageContainer}>
-          <img
-            alt="Animal"
-            className={classes.image}
-            src={animal.images[0].image}
-          />
+          <ReactIntense src={animal.images[0].image} />
         </div>
+        
         <Typography
           align="center"
           gutterBottom

@@ -16,13 +16,13 @@ const ColaborationGrid = props => {
       : isLanding
       ? <Carousel>
       {data.results.map(colaboration => (
-        <ColaborationCard reloadColabs={reloadColabs} isLanding={isLanding} colaboration={colaboration} user={user} />))}
+        <ColaborationCard key={'colaboration-card' + colaboration.id } reloadColabs={reloadColabs} isLanding={isLanding} colaboration={colaboration} user={user} />))}
       </Carousel>
       :
       <Grid container spacing={3}>
       {data.results.map(colaboration => (
         <Grid item key={colaboration.id} lg={6} md={6} sm={12}>
-          <ColaborationCard reloadColabs={reloadColabs} isLanding={isLanding} colaboration={colaboration} user={user} />
+          <ColaborationCard key={'colaboration-card' + colaboration.id }reloadColabs={reloadColabs} isLanding={isLanding} colaboration={colaboration} user={user} />
         </Grid>
         ))}
       </Grid>
