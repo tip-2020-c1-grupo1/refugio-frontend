@@ -52,7 +52,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AnimalCard = props => {
-  const { className, isLanding, animal, user, ...rest } = props;
+  const { className, isLanding, reload, animal, user, ...rest } = props;
 
   const classes = useStyles();
   const [data, setData] = useState([]);
@@ -116,6 +116,7 @@ const AnimalCard = props => {
            
             <AnimalModal 
               handleClose={handleClose}
+              reload={reload}
               animal={animal}
               open={open}
               user={user}
@@ -169,7 +170,7 @@ const AnimalCard = props => {
         </Grid>
 
         <Grid className={classes.statsItem} item>
-          <AdoptionSubmit user={user} animal={animal}/> 
+          <AdoptionSubmit reload={reload} user={user} animal={animal}/> 
         </Grid>     
       </CardActions>
     </Card>

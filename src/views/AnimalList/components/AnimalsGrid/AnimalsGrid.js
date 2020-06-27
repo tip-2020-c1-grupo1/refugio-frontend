@@ -4,8 +4,8 @@ import AnimalCard from "../AnimalCard";
 import Carousel from 'react-material-ui-carousel'
 
 const AnimalGrid = props => {
-  const { data, isLanding , classes, user } = props;
-  
+  const { data, isLanding , reload, classes, user } = props;
+  console.log(data);
   return (
     <React.Fragment
     >
@@ -15,11 +15,11 @@ const AnimalGrid = props => {
         : isLanding 
         ? <Carousel>
           {data.results.map(animal => (
-            <AnimalCard isLanding={isLanding} animal={animal} user={user} />))}
+            <AnimalCard reload={reload} isLanding={isLanding} animal={animal} user={user} />))}
           </Carousel>
         : <Grid container spacing={3}>
         {data.results.map(animal => (<Grid item key={animal.id} lg={4} md={6} xs={12}>
-          <AnimalCard isLanding={isLanding} animal={animal} user={user} />
+          <AnimalCard reload={reload} isLanding={isLanding} animal={animal} user={user} />
         </Grid>))}
       </Grid>
       }

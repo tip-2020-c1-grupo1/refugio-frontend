@@ -252,7 +252,7 @@ const AnimalList = props => {
           </ExpansionPanelDetails> 
         : <React.Fragment>
           <ExpansionPanelDetails>          
-            <AnimalsGrid isLanding={isLanding} classes={classes} data={data} user={user} />
+            <AnimalsGrid reload={searchAnimals} isLanding={isLanding} classes={classes} data={data} user={user} />
           </ExpansionPanelDetails>
           <ExpansionPanelDetails><AnimalsPagination 
             classes={classes}  

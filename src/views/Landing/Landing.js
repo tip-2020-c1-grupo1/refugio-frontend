@@ -122,6 +122,7 @@ const Landing = props => {
   
 
   const searchAnimals = () => {
+    console.log('BUSCANDO ANIMALES !!!')
     getInitialsAnimals(searchString, selectedFilters, selectedStateFilter)
       .then(res => {
         saveInformationInState(res);           
@@ -147,11 +148,11 @@ const Landing = props => {
       <Grid container spacing={3}>
         <Grid item key={'animalsgrid'} lg={6} md={12} sm={12}>
           <Typography variant='h2'>Animales del refugio</Typography>
-          <AnimalsGrid isLanding={isLanding} classes={classes} data={data} user={user} />
+          <AnimalsGrid reload={searchAnimals} isLanding={isLanding} classes={classes} data={data} user={user} />
         </Grid>
 
         <Grid item key={'colaboration-grid'} lg={6} md={12} sm={12}>
-          <Colaboration isLanding={isLanding} classes={classes} data={data} user={user} />
+          <Colaboration isLanding={isLanding} classes={classes} user={user} />
         </Grid>
       </Grid>
       

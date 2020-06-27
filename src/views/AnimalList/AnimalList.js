@@ -79,6 +79,7 @@ const AnimalList = props => {
 
   const saveInformationInState = (res) => {
     setData(res.data);
+    console.log(res.data);
     const count = res.data.count;
     let numberOfRequiredPages = Math.round(count / pageSize);
     if (count < pageSize) {
@@ -176,7 +177,7 @@ const AnimalList = props => {
       {data.count === 0 
         ? <p> Por favor intente buscar nuevamente </p>
         : <React.Fragment>
-          <AnimalsGrid isLanding={isLanding} classes={classes} data={data} user={user} />
+          <AnimalsGrid reload={searchAnimals} isLanding={isLanding} classes={classes} data={data} user={user} />
           <AnimalsPagination 
             classes={classes}  
             getAnimalsPage={getAnimalsPage} 

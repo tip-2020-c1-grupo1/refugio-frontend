@@ -3,6 +3,7 @@ import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import submitAdoptionRequest from './AnimalAdoptionApi'
 import cogoToast from 'cogo-toast';
+import {filter} from 'lodash';
 
 const AdoptionSubmit = props => {
 
@@ -36,14 +37,18 @@ const AdoptionSubmit = props => {
             })
     };
 
-    const isAvailable = animal.status_request == 'Disponible'
-
+    const youRequested = filter(animal.requesters, function(requester) {
+        return requester.user.email == user.email;
+    }).length > 0;
+    const isAvailable = animal.status_request == 'Disponible' 
+    // && !youRequested;
+    const message = isAvailable ? (!youRequested ? 'Solicitar adopción' : 'Ya envio solicitud para adoptarlo') : 'No disponible';
     return (
         <Button variant='outlined'
             color='primary'
             className={classes.button}
             onClick={adoptionRequest}
-            disabled={!isAvailable}>{isAvailable ? 'Solicitar adopción' : 'No disponible'}</Button>
+            disabled={!isAvailable || youRequested}>{message}</Button>
     )
 }
 

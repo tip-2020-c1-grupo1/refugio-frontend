@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AnimalModal = props => {
-  const { className, open, handleClose, animal, user, ...rest } = props;
+  const { className, open, handleClose, reload, animal, user, ...rest } = props;
   const classes = useStyles();
 
   const errorCallback = (err) => {
@@ -58,9 +58,11 @@ const AnimalModal = props => {
 
   const adoptionRequest = () => { 
     submitAdoptionRequest(animal.id, user.email).then(response => {
+      reload();
       cogoToast.success(response.data.Ok, {
         position: 'top-center'
-      });           
+      });   
+             
     })
     .catch(err => {        
       errorCallback(err);
@@ -130,7 +132,7 @@ const AnimalModal = props => {
               className={classes.statsItem}
               item
             >
-              <AdoptionSubmit user={user} animal={animal}/>
+              <AdoptionSubmit reload={reload} user={user} animal={animal}/>
             </Grid>
           </Grid>
         </CardActions>

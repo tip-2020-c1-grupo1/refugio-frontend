@@ -16,7 +16,7 @@ const AdoptionSubmit = props => {
 
     const classes = useStyles()
 
-    const {animal, user} = props;
+    const {animal, reload, user} = props;
 
     const errorCallback = err => {
         cogoToast.error(err.response.data.Error, {
@@ -26,9 +26,11 @@ const AdoptionSubmit = props => {
 
     const adoptionRequest = () => {
         cancelAdoptionRequest(animal.id, user.email).then(response => {
+            reload();
             cogoToast.success(response.data.Ok, {
                 position: 'top-center'
             });
+            
         })
             .catch(err => {
                 errorCallback(err);
