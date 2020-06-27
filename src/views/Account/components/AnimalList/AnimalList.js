@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { AnimalsGrid, AnimalsToolbar, AnimalsPagination } from './components';
+import { AnimalsGrid, AnimalsToolbar, AnimalsToolbarWithDefaultValue, AnimalsPagination } from './components';
 import cogoToast from 'cogo-toast';
 import MDSpinner from 'react-md-spinner';
 import {getInitialsAnimals, getAnimalsByPage} from './AnimalsApi';
-import { Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
+import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import './AnimalList.css';
 
 const containerCss = {
   display: 'flex',
@@ -22,7 +26,7 @@ const centerCss = {
 const pageSize = 5;
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: theme.spacing(3)
+    // paddingTop: theme.spacing(3),
   },
   content: {
     marginTop: theme.spacing(2)
@@ -50,18 +54,66 @@ const useStyles = makeStyles(theme => ({
   center: centerCss
 }));
 
+const ExpansionPanel = withStyles({
+  root: {
+    border: '1px solid rgba(0, 0, 0, .125)',
+    boxShadow: 'none',
+    '&:not(:last-child)': {
+      borderBottom: 0,
+    },
+    '&:before': {
+      display: 'none',
+    },
+    '&$expanded': {
+      margin: 'auto',
+    },
+  },
+  expanded: {},
+})(MuiExpansionPanel);
+
+const ExpansionPanelSummary = withStyles({
+  root: {
+    backgroundColor: 'rgba(0, 0, 0, .03)',
+    borderBottom: '1px solid rgba(0, 0, 0, .125)',
+    marginBottom: -1,
+    minHeight: 56,
+    '&$expanded': {
+      minHeight: 56,
+    },
+  },
+  content: {
+    '&$expanded': {
+      margin: '12px 0',
+    },
+  },
+  expanded: {},
+})(MuiExpansionPanelSummary);
+
+const ExpansionPanelDetails = withStyles((theme) => ({
+  
+}))(MuiExpansionPanelDetails);
+
+
 const AnimalList = props => {
+  
   const classes = useStyles();
   const [data, setData] = useState([]);
   const [pages, setPages] = useState([]);
   const [selectedPage, setSelectedPage] = useState(1);
   const [load, setLoad] = useState(false);
-  // const [selectedStateFilter, setSelectedStateFilter] = useState([{ label: 'Disponible', value: 'Disponible' }]);
+  const [expanded, setExpanded] = React.useState('panel1');  
 
-  // const [selectedFilters, setSelectedFilters] = useState([{ label: "Nombre", value: "name" }]);
+  const [selectedFilters, setSelectedFilters] = useState([{ label: "Nombre", value: "name" }]);
   const [searchString, setSearchString] = useState('');
   
   const {user, role} = props
+  const isRequester = role === 'requester';
+  const defaltState = isRequester ? [{ label: 'Disponible', value: 'Disponible' }] 
+    : [{ label: 'Adoptado', value: 'Adoptado' }]
+
+
+  const [selectedStateFilter, setSelectedStateFilter] = 
+    useState(defaltState);
 
   useEffect(() => {
     searchAnimals();
@@ -76,6 +128,10 @@ const AnimalList = props => {
     console.log(err.message);
   }
 
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
+  
   const saveInformationInState = (res) => {
     setData(res.data);
     const count = res.data.count;
@@ -119,7 +175,7 @@ const AnimalList = props => {
   }
 
   const searchAnimals = () => {
-    getInitialsAnimals(searchString, user.email, role)
+    getInitialsAnimals(searchString, selectedFilters, selectedStateFilter, user.email, role)
       .then(res => {
         saveInformationInState(res);           
       })
@@ -129,7 +185,7 @@ const AnimalList = props => {
   }
 
   const getAnimalsPage = (page) => {
-    getAnimalsByPage(page, searchString, user.email, role)
+    getAnimalsByPage(page, searchString, selectedFilters, selectedStateFilter, user.email, role)
     .then(res => {
       saveInformationInState(res);           
     })
@@ -161,27 +217,62 @@ const AnimalList = props => {
       </div>
       );
   }
-  const title = role === 'requester' ? 'Mis solicitudes de adopción' : 'Mis adopciones';
-  const message = role === 'requester' ? 'No tiene solicitudes de adopción nuevas' : 'Todavia no realizo adopciones';
+  const title =  isRequester ? 'Mis solicitudes de adopción' : 'Mis adopciones';
+  const message = isRequester ? 'No tiene solicitudes de adopción nuevas' : 'Todavia no realizo adopciones';
 
   return (
     <div className={classes.root}>
-      <Typography variant='h2'>{title}</Typography>
-      <AnimalsGrid isLanding={isLanding} classes={classes} data={data} user={user} />
 
-      {data.count === 0 
-        ? <h2> {message} </h2>
-        : <AnimalsPagination 
-          classes={classes}  
-          getAnimalsPage={getAnimalsPage} 
-          getPrevPage={getPrevPage}
-          getNextPage={getNextPage}
-          previousUrl={data.previous}
-          nextUrl={data.next}
-          pages={pages}
-          selectedPage={selectedPage}
-        />
-      }
+      <ExpansionPanel square expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+        <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
+          <p className='titleText'>{title}</p>
+        </ExpansionPanelSummary>
+        
+
+        <ExpansionPanelDetails>
+          {
+            !isRequester ? <AnimalsToolbarWithDefaultValue
+              selectedFilters={selectedFilters}
+              setSelectedFilters={setSelectedFilters}
+              setSearchString={setSearchString} 
+              applySearch={applySearch} />
+          
+            : <AnimalsToolbar
+              selectedFilters={selectedFilters}
+              setSelectedFilters={setSelectedFilters}
+              selectedStateFilter={selectedStateFilter}
+              setSelectedStateFilter={setSelectedStateFilter}
+              setSearchString={setSearchString} 
+              applySearch={applySearch} /> }
+        </ExpansionPanelDetails>
+
+        { data.count === 0 
+        ? <ExpansionPanelDetails>
+          <p> Por favor intente buscar nuevamente </p>
+          </ExpansionPanelDetails> 
+        : <React.Fragment>
+          <ExpansionPanelDetails>          
+            <AnimalsGrid reload={searchAnimals} isLanding={isLanding} classes={classes} data={data} user={user} />
+          </ExpansionPanelDetails>
+          <ExpansionPanelDetails><AnimalsPagination 
+            classes={classes}  
+            getAnimalsPage={getAnimalsPage} 
+            getPrevPage={getPrevPage}
+            getNextPage={getNextPage}
+            previousUrl={data.previous}
+            nextUrl={data.next}
+            pages={pages}
+            selectedPage={selectedPage}
+          />
+        </ExpansionPanelDetails> }
+        </React.Fragment>
+
+        }
+        
+
+               
+      
+      </ExpansionPanel>
     </div>
   );
 };

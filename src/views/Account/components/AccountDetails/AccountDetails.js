@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-import clsx from 'clsx';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/styles';
 import cogoToast from 'cogo-toast';
 import {
   Card,
@@ -13,19 +10,13 @@ import {
   Button,
   TextField
 } from '@material-ui/core';
+
 import {isEmpty} from 'lodash';
 import {submitAccountDetails} from './AccountDetailsApi';
 import './AccountDetails.css'
 
-const useStyles = makeStyles(() => ({
-  root: {}
-}));
-
-
 const AccountDetails = props => {
   const { className, user, setUser, ...rest } = props;
-
-  const classes = useStyles();
 
   const [values, setValues] = useState({
     firstName: user.firstName,
@@ -108,13 +99,14 @@ const AccountDetails = props => {
   return (
     <Card
       {...rest}
-      className={clsx(classes.root, className)}
+      className={className}
     >
       <form
         autoComplete="off"
         noValidate
       >
         <CardHeader
+          className='cardheader-title'
           subheader="La información puede ser editada"
           title="Perfil"
         />
@@ -209,8 +201,5 @@ const AccountDetails = props => {
   );
 };
 
-AccountDetails.propTypes = {
-  className: PropTypes.string
-};
 
 export default AccountDetails;

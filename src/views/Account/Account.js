@@ -5,7 +5,30 @@ import { Redirect } from "react-router-dom";
 import { AccountDetails } from './components';
 import Colaboration from './components/Colaborations';
 import AnimalList from './components/AnimalList';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Box from '@material-ui/core/Box';
 
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`wrapped-tabpanel-${index}`}
+      aria-labelledby={`wrapped-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <React.Fragment>
+          {children}
+        </React.Fragment>
+      )}
+    </div>
+  );
+}
 const containerCss = {
   display: 'flex',
   width: '100%', 
@@ -53,6 +76,18 @@ const useStyles = makeStyles(theme => ({
 
 const Account = props => {
   const classes = useStyles();
+  const [value, setValue] = React.useState('one');
+
+  function a11yProps(index) {
+    return {
+      id: `wrapped-tab-${index}`,
+      'aria-controls': `wrapped-tabpanel-${index}`,
+    };
+  }
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
   const {user, setUser} = props;
 
   if (user.email === '') {
@@ -60,27 +95,29 @@ const Account = props => {
   }
   return (
     <div className={classes.root}>
-      <Grid
-        container
-        spacing={4}
-      >
-        <Grid
-          item
-          lg={8}
-          md={6}
-          xl={8}
-          xs={12}
-        >
-          <AccountDetails setUser={setUser} user={user} />
-          
-          
-        </Grid>
-      </Grid>
-      <Colaboration user={user} status_request='Disponible' isLanding={false} />
-      <Colaboration user={user} status_request='Reservado' isLanding={false} />
-      <AnimalList isLanding={false} role='requester' user={user} />
-      <AnimalList isLanding={false} role='adopter' user={user} />
-      
+      <AppBar position="static">
+        <Tabs style={{paddingTop: '20px'}} value={value} onChange={handleChange} aria-label="wrapped label tabs example">
+          <Tab
+            value="one"
+            label="Información Personal"
+            wrapped
+            {...a11yProps('one')}
+          />
+          <Tab value="two" label="Colaboraciones" {...a11yProps('two')} />
+          <Tab value="three" label="Adopciones" {...a11yProps('three')} />
+        </Tabs>
+      </AppBar>
+      <TabPanel value={value} index="one">
+        <AccountDetails setUser={setUser} user={user} />
+      </TabPanel>
+      <TabPanel value={value} index="two">
+        <Colaboration user={user} status_request='Disponible' isLanding={false} />
+        <Colaboration user={user} status_request='Confirmado' isLanding={false} />
+      </TabPanel>
+      <TabPanel value={value} index="three">
+        <AnimalList isLanding={false} role='requester' user={user} />
+        <AnimalList isLanding={false} role='adopter' user={user} />
+      </TabPanel>
     </div>
   );
 };

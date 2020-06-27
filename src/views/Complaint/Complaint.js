@@ -71,49 +71,45 @@ const Complaint = props => {
 
   return (
     <div className={classes.root}>
-      <Typography>
-        <Grid 
-          item 
-          xs={3}
-          md={3}>
-        <Typography variant='h4'>
-          Email:
-        </Typography>
-          <TextField 
-            value={user.email} 
-            disabled 
-            className={classes.disabledInput}
-            fullWidth
-            variant="outlined"/>
-        </Grid>
+      <Grid 
+        item 
+        xs={3}
+        md={3}>
+      <Typography variant='h4'>
+        Email:
       </Typography>
+        <TextField 
+          value={user.email} 
+          disabled 
+          className={classes.disabledInput}
+          fullWidth
+          variant="outlined"/>
+      </Grid>
+      {fiveDivider}      
+      <Grid item >
+      <Typography variant='h4'>
+          Descripción:
+      </Typography>
+        <TextField 
+          multiline
+          className={classes.input}
+          error={errorHandler}
+          helperText={helperTextHandler}
+          value={description}
+          onChange={handleChange}
+          rows={2}
+          rowsMax={10}
+          fullWidth
+          variant="outlined"/>
+      </Grid>
       {fiveDivider}
-      <Typography>
-        <Grid item >
-        <Typography variant='h4'>
-            Descripción:
-        </Typography>
-          <TextField 
-            multiline
-            className={classes.input}
-            error={errorHandler}
-            helperText={helperTextHandler}
-            value={description}
-            onChange={handleChange}
-            rows={2}
-            rowsMax={10}
-            fullWidth
-            variant="outlined"/>
-        </Grid>
-        {fiveDivider}
-        <Button 
-          onClick={sendComplaint}
-          color="primary"
-          variant="contained"
-          disabled={disableButton}>
-            Enviar denuncia
-          </Button>
-      </Typography> 
+      <Button 
+        onClick={sendComplaint}
+        color="primary"
+        variant="contained"
+        disabled={disableButton}>
+          Enviar denuncia
+        </Button>
     </div>
 
     

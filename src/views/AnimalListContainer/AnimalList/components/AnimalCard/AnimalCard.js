@@ -14,11 +14,10 @@ import {
 import AnimalModal from './AnimalModal';
 import AnimalSeguimientoModal from './AnimalSeguimientoModal';
 import AdoptionSubmit from './AdoptionSubmit';
-
+import AnimalPlanVacunatorioModal from './AnimalPlanVacunatorioModal';
 import cogoToast from 'cogo-toast';
 import getAnimalTimelineApi from './AnimalTimelineApi';
 import ReactIntense from 'react-intense';
-
 // <RouterLink {...props} />
 
 const useStyles = makeStyles(theme => ({
@@ -35,7 +34,8 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
   },
   image: {
-    width: '100%'
+    width: '100%',
+    height: '100%'
   },
   statsItem: {
     display: 'flex',
@@ -47,7 +47,8 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     size: 'large',
-    marginLeft: 13
+    marginLeft: 13,
+    marginBottom: 5
   }
 }));
 
@@ -56,9 +57,11 @@ const AnimalCard = props => {
 
   const classes = useStyles();
   const [data, setData] = useState([]);
+  
   const [open, setOpen] = useState(false);
   const [openSeguimiento, setOpenSeguimiento] = useState(false);
-
+  const [openPlanVacunatorio, setOpenPlanVacunatorio] = useState(false);
+  
   useEffect(() => {
     document.addEventListener('mousedown', userEvent => {
       // const parentClass = userEvent.path[0].parentNode.className
@@ -93,17 +96,24 @@ const AnimalCard = props => {
       errorCallback(err);
     });
     
-  };
+  }; 
 
   const handleCloseSeguimiento = () => {
     setOpenSeguimiento(false);
+  };
+
+  const handleOpenPlanVacunatorio = () => {
+    setOpenPlanVacunatorio(true);
+  };
+
+  const handleClosePlanVacunatorio = () => {
+    setOpenPlanVacunatorio(false);
   };
 
   
   return (
     <Card
       {...rest}
-      style={{width : '100%'}}
       className={clsx(classes.root, className)}
     >
       <CardContent>
@@ -111,13 +121,15 @@ const AnimalCard = props => {
           isLanding ? <React.Fragment />
           : <React.Fragment>
             <Button className={classes.button} size="small" variant="contained" onClick={manageOpenSeguimiento}>Ver seguimiento</Button>
-            <Button className={classes.button} size="small" variant="contained" onClick={handleOpen}>Ver detalle</Button>
 
-           
+            <Button className={classes.button} size="small" variant="contained" onClick={handleOpen}>Ver detalle</Button>
+            
+            <Button className={classes.button} size="small" variant="contained" onClick={handleOpenPlanVacunatorio}>Ver Plan Vacunatorio</Button>
+            
             <AnimalModal 
               handleClose={handleClose}
-              reload={reload}
               animal={animal}
+              reload={reload}
               open={open}
               user={user}
             />
@@ -127,6 +139,13 @@ const AnimalCard = props => {
               data={data}
               open={openSeguimiento}
             />
+
+          <AnimalPlanVacunatorioModal 
+              handleClose={handleClosePlanVacunatorio}
+              planVacunatorio={animal.vaccination_plan}
+              open={openPlanVacunatorio}
+            />
+            
           </React.Fragment>
         }
         
@@ -168,10 +187,12 @@ const AnimalCard = props => {
 
           </Grid>
         </Grid>
-
-        <Grid className={classes.statsItem} item>
-          <AdoptionSubmit reload={reload} user={user} animal={animal}/> 
-        </Grid>     
+        {
+          isLanding ? <React.Fragment />
+          : <Grid className={classes.statsItem} item>
+              <AdoptionSubmit reload={reload} user={user} animal={animal}/>
+            </Grid>
+        }        
       </CardActions>
     </Card>
   );

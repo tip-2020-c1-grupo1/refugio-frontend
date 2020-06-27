@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Button, Typography } from '@material-ui/core';
 import MultiSelect from "react-multi-select-component";
 import { SearchInput } from 'components';
-import './AnimalsToolbar.css';
+import './AnimalsToolbarWithDefaultValue.css';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -33,27 +33,14 @@ const options = [
   { label: "Raza", value: "race" },
 ];
 
-const optionsSelected = [
-  { label: 'Disponible', value: 'Disponible' },
-  { label: 'Comenzo', value: 'Comenzo' },
-  { label: 'En espera', value: 'En espera' },
-  { label: 'Aceptado', value: 'Aceptado' },
-  { label: 'Rechazado', value: 'Rechazado' },
-  { label: 'En revisión', value: 'En revisión' },
-  { label: 'Adoptado', value: 'Adoptado' },
-];
-
-const AnimalsToolbar = props => {
+const AnimalsToolbarWithDefaultValue = props => {
   const { className, ...rest } = props;
-  const { applySearch, selectedFilters, selectedStateFilter, setSelectedStateFilter, setSelectedFilters , setSearchString} = props;
+  const { applySearch, selectedFilters, setSelectedFilters, 
+    setSearchString} = props;
   const classes = useStyles();
 
   const applyFilter = (e) => {
     setSelectedFilters(e);
-  }
-
-  const applyFilterSelectedStateFilter = (e) => {
-    setSelectedStateFilter(e);
   }
   
   return (
@@ -75,24 +62,15 @@ const AnimalsToolbar = props => {
           labelledBy={"Select"}
           className={classes.multiselect}
         />
-        <MultiSelect
-            options={optionsSelected}
-            value={selectedStateFilter}
-            onChange={applyFilterSelectedStateFilter}
-            selectAllLabel={'Seleccionar todos'}
-            labelledBy={"Select"}
-            className={clsx(classes.multiselect, 'status_of_animal')}
-          />
-        <Button disabled={selectedFilters && selectedFilters.length == 0 && 
-          selectedStateFilter && selectedStateFilter.length == 0
+        <Button disabled={selectedFilters && selectedFilters.length == 0
           } onClick={applySearch}> Aplicar Busqueda</Button>
       </div>
     </div>
   );
 };
 
-AnimalsToolbar.propTypes = {
+AnimalsToolbarWithDefaultValue.propTypes = {
   className: PropTypes.string
 };
 
-export default AnimalsToolbar;
+export default AnimalsToolbarWithDefaultValue;

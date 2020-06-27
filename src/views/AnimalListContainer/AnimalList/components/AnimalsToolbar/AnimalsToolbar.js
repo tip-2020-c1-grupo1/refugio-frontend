@@ -68,13 +68,13 @@ const AnimalsToolbar = props => {
           placeholder="Busque su mascota aquí"
         />
         <MultiSelect
-          options={options}
-          value={selectedFilters}
-          onChange={applyFilter}
-          selectAllLabel={'Seleccionar todos'}
-          labelledBy={"Select"}
-          className={classes.multiselect}
-        />
+            options={options}
+            value={selectedFilters}
+            onChange={applyFilter}
+            selectAllLabel={'Seleccionar todos'}
+            labelledBy={"Select"}
+            className={classes.multiselect}
+          />
         <MultiSelect
             options={optionsSelected}
             value={selectedStateFilter}

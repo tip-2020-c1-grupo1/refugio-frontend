@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import cogoToast from 'cogo-toast';
-import submitAdoptionRequest from './ColaborationAdoptionApi'
+import submitColaborationRequest from './ColaborationAdoptionApi'
 
 
 const ColaborationSubmit = props => {
@@ -27,7 +27,8 @@ const ColaborationSubmit = props => {
     };
 
     const adoptionRequest = () => {
-        submitAdoptionRequest(colaboration.id, user.email).then(response => {
+        console.log(colaboration);
+        submitColaborationRequest(colaboration.id, user.email).then(response => {
             reloadColabs();
             cogoToast.success(response.data.Ok, {
                 position: 'top-center'

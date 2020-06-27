@@ -12,8 +12,8 @@ import {
   Divider
 } from '@material-ui/core';
 import AdoptionSubmit from './AdoptionSubmit';
+import ReactIntense from 'react-intense';
 
-import cogoToast from 'cogo-toast';
 
 // <RouterLink {...props} />
 
@@ -59,14 +59,6 @@ const AnimalCard = props => {
       className={clsx(classes.root, className)}
     >
       <CardContent>
-
-        <div className={classes.imageContainer}>
-          <img
-            alt="Animal"
-            className={classes.image}
-            src={animal.images[0].image}
-          />
-        </div>
         <Typography
           align="center"
           gutterBottom
