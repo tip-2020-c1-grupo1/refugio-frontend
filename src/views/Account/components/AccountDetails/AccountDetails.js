@@ -106,6 +106,7 @@ const AccountDetails = props => {
         noValidate
       >
         <CardHeader
+          className='cardheader-title'
           subheader="La información puede ser editada"
           title="Perfil"
         />

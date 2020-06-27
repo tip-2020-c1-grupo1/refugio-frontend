@@ -173,21 +173,22 @@ const AnimalList = props => {
         setSearchString={setSearchString} 
         applySearch={applySearch} /> }
 
-      
-      <AnimalsGrid isLanding={isLanding} classes={classes} data={data} user={user} />
-
       {data.count === 0 
-        ? <h2> Por favor intente buscar nuevamente </h2>
-        : <AnimalsPagination 
-          classes={classes}  
-          getAnimalsPage={getAnimalsPage} 
-          getPrevPage={getPrevPage}
-          getNextPage={getNextPage}
-          previousUrl={data.previous}
-          nextUrl={data.next}
-          pages={pages}
-          selectedPage={selectedPage}
-        />
+        ? <p> Por favor intente buscar nuevamente </p>
+        : <React.Fragment>
+          <AnimalsGrid isLanding={isLanding} classes={classes} data={data} user={user} />
+          <AnimalsPagination 
+            classes={classes}  
+            getAnimalsPage={getAnimalsPage} 
+            getPrevPage={getPrevPage}
+            getNextPage={getNextPage}
+            previousUrl={data.previous}
+            nextUrl={data.next}
+            pages={pages}
+            selectedPage={selectedPage}
+          />
+        </React.Fragment>
+        
       }
     </div>
   );

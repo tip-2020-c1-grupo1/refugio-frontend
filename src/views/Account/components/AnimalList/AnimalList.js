@@ -8,6 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import './AnimalList.css';
 
 const containerCss = {
   display: 'flex',
@@ -25,7 +26,7 @@ const centerCss = {
 const pageSize = 5;
 const useStyles = makeStyles(theme => ({
   root: {
-    paddingTop: theme.spacing(3),
+    // paddingTop: theme.spacing(3),
   },
   content: {
     marginTop: theme.spacing(2)
@@ -224,7 +225,7 @@ const AnimalList = props => {
 
       <ExpansionPanel square expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
-          <h2>{title}</h2>
+          <p className='titleText'>{title}</p>
         </ExpansionPanelSummary>
         
 
@@ -245,15 +246,15 @@ const AnimalList = props => {
               applySearch={applySearch} /> }
         </ExpansionPanelDetails>
 
-        <ExpansionPanelDetails>
-          
-          <AnimalsGrid isLanding={isLanding} classes={classes} data={data} user={user} />
-        </ExpansionPanelDetails>
-
-        <ExpansionPanelDetails>
-          {data.count === 0 
-          ? <h2> Por favor intente buscar nuevamente </h2>
-          : <AnimalsPagination 
+        { data.count === 0 
+        ? <ExpansionPanelDetails>
+          <p> Por favor intente buscar nuevamente </p>
+          </ExpansionPanelDetails> 
+        : <React.Fragment>
+          <ExpansionPanelDetails>          
+            <AnimalsGrid isLanding={isLanding} classes={classes} data={data} user={user} />
+          </ExpansionPanelDetails>
+          <ExpansionPanelDetails><AnimalsPagination 
             classes={classes}  
             getAnimalsPage={getAnimalsPage} 
             getPrevPage={getPrevPage}
@@ -262,8 +263,14 @@ const AnimalList = props => {
             nextUrl={data.next}
             pages={pages}
             selectedPage={selectedPage}
-          />}
-        </ExpansionPanelDetails>        
+          />
+        </ExpansionPanelDetails> }
+        </React.Fragment>
+
+        }
+        
+
+               
       
       </ExpansionPanel>
     </div>
