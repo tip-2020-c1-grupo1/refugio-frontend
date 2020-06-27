@@ -47,7 +47,8 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     size: 'large',
-    marginLeft: 13
+    marginLeft: 13,
+    marginBottom: 5
   }
 }));
 

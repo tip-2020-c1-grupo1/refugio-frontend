@@ -252,7 +252,7 @@ const AnimalList = props => {
 
         <ExpansionPanelDetails>
           {data.count === 0 
-          ? <h5> Por favor intente buscar nuevamente </h5>
+          ? <h2> Por favor intente buscar nuevamente </h2>
           : <AnimalsPagination 
             classes={classes}  
             getAnimalsPage={getAnimalsPage} 
