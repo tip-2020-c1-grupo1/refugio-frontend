@@ -4,7 +4,6 @@ import { ColaborationGrid} from './components';
 import cogoToast from 'cogo-toast';
 import MDSpinner from 'react-md-spinner';
 import {getInitialsColaborations} from './ColaborationApi';
-import { Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -82,11 +81,6 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     justifyContent: 'flex-end'
   },
-  typographyClass: {
-    '& > * + *': {
-      marginLeft: theme.spacing(2),
-    },
-  },
   container: containerCss,
   center: centerCss
 }));
@@ -140,7 +134,7 @@ const Colaboration = props => {
       );
   }
 
-  const title = status_request === 'Disponible' ? 'Mis colaboraciones activas' : 'Mis colaboraciones pasadas';
+  const title = status_request === 'Disponible' ? 'Mis colaboraciones activas por confirmar' : 'Mis colaboraciones pasadas';
 
   function showColabs() {
     return (<div className={!isLanding ? classes.root : ''}>
@@ -149,9 +143,7 @@ const Colaboration = props => {
         <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
           <h2 variant='h2'>{title}</h2>
         </ExpansionPanelSummary>
-        
         <ExpansionPanelDetails>
-          <h5 variant='h5'>{data.results.length > 0 ? <h5>Si queres ayudarnos, podes comprometerte con alguna de estas tareas</h5> : <React.Fragment />}</h5>
           <ColaborationGrid reloadColabs={searchColaboration} isLanding={isLanding} classes={classes} data={data} user={user} />
         </ExpansionPanelDetails>
       </ExpansionPanel>

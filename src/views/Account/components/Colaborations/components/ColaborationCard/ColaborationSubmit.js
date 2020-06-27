@@ -26,6 +26,7 @@ const ColaborationSubmit = props => {
     };
 
     const removeMeFromColabRequest = () => {
+        console.log(colaboration);
         removeColabRequest(colaboration.id, user.email).then(response => {
             reloadColabs();
             cogoToast.success(response.data.Ok, {
@@ -37,8 +38,8 @@ const ColaborationSubmit = props => {
             })
     };
 
-
-    if (colaboration.status === 'Reservado') {
+    console.log(colaboration);
+    if (colaboration.status_request === 'Confirmado') {
         return <React.Fragment />
     }
     return (

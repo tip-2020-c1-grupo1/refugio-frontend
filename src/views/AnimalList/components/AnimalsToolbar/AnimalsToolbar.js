@@ -67,8 +67,7 @@ const AnimalsToolbar = props => {
           className={classes.searchInput}
           placeholder="Busque su mascota aquí"
         />
-        <Typography>
-          <MultiSelect
+        <MultiSelect
             options={options}
             value={selectedFilters}
             onChange={applyFilter}
@@ -76,9 +75,7 @@ const AnimalsToolbar = props => {
             labelledBy={"Select"}
             className={classes.multiselect}
           />
-        </Typography>
-        <Typography>
-          <MultiSelect
+        <MultiSelect
             options={optionsSelected}
             value={selectedStateFilter}
             onChange={applyFilterSelectedStateFilter}
@@ -86,7 +83,6 @@ const AnimalsToolbar = props => {
             labelledBy={"Select"}
             className={clsx(classes.multiselect, 'status_of_animal')}
           />
-        </Typography>
         <Button disabled={selectedFilters && selectedFilters.length == 0 && 
           selectedStateFilter && selectedStateFilter.length == 0
           } onClick={applySearch}> Aplicar Busqueda</Button>

@@ -54,16 +54,14 @@ const AnimalsToolbarWithDefaultValue = props => {
           className={classes.searchInput}
           placeholder="Busque su mascota aquí"
         />
-        <Typography>
-          <MultiSelect
-            options={options}
-            value={selectedFilters}
-            onChange={applyFilter}
-            selectAllLabel={'Seleccionar todos'}
-            labelledBy={"Select"}
-            className={classes.multiselect}
-          />
-        </Typography>
+        <MultiSelect
+          options={options}
+          value={selectedFilters}
+          onChange={applyFilter}
+          selectAllLabel={'Seleccionar todos'}
+          labelledBy={"Select"}
+          className={classes.multiselect}
+        />
         <Button disabled={selectedFilters && selectedFilters.length == 0
           } onClick={applySearch}> Aplicar Busqueda</Button>
       </div>
