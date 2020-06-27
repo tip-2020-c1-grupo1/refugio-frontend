@@ -8,6 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import './Colaboration.css';
 
 const ExpansionPanel = withStyles({
   root: {
@@ -62,7 +63,7 @@ const centerCss = {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    paddingTop: theme.spacing(3)
+    // paddingTop: theme.spacing(3)
   },
   content: {
     marginTop: theme.spacing(2)
@@ -134,14 +135,15 @@ const Colaboration = props => {
       );
   }
 
-  const title = status_request === 'Disponible' ? 'Mis colaboraciones activas por confirmar' : 'Mis colaboraciones pasadas';
-
+  const isAvailable = status_request === 'Disponible' 
+  const title = isAvailable ? 'Mis colaboraciones activas por confirmar' : 'Mis colaboraciones pasadas';
+  
   function showColabs() {
     return (<div className={!isLanding ? classes.root : ''}>
 
       <ExpansionPanel square expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
-          <h2 variant='h2'>{title}</h2>
+          <p className='titleText'>{title}</p>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <ColaborationGrid reloadColabs={searchColaboration} isLanding={isLanding} classes={classes} data={data} user={user} />

@@ -12,7 +12,7 @@ const ColaborationGrid = props => {
   return (
     <div className={classes.content}>
       {data.count === 0 
-      ? <h2> No tenes colaboraciones </h2>
+      ? <p> No tenes colaboraciones </p>
       : isLanding
       ? <Carousel>
       {data.results.map(colaboration => (
