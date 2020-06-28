@@ -22,7 +22,9 @@ const AnimalList = props => {
 
   React.useEffect(() => {
     initialSearch(searchString, selectedFilters, selectedStateFilter).then(res => {
-      saveInformationInState(res);           
+      saveInformationInState(res);
+      console.log(data)        
+      console.log(load)
     })
     .catch(err => {        
       errorCallback(err);
@@ -36,13 +38,15 @@ const AnimalList = props => {
     });
     setData({ results: [] });
     setPages([]);
-    console.log(err.message);
   }
 
   const saveInformationInState = (res) => {
+    console.log(data)
+    console.log(res.data)
     setData(res.data);
-    console.log(res.data);
+    console.log(data)
     const count = res.data.count;
+    console.log(count)
     let numberOfRequiredPages = Math.round(count / pageSize);
     if (count < pageSize) {
       setPages([1]);
@@ -79,11 +83,14 @@ const AnimalList = props => {
         setSelectedPage(selectedPageElem);
       }      
     }
+    console.log(load)
     setLoad(true); 
+    console.log(load)
+    console.log("Terminó el método")
   }
 
   const searchAnimals = () => {
-    console.log(props);
+    // console.log(props);
     getInitialsAnimals(searchString, selectedFilters, selectedStateFilter)
       .then(res => {
         saveInformationInState(res);           
@@ -142,7 +149,7 @@ const AnimalList = props => {
         : <React.Fragment>
           <AnimalsGrid 
             reload={searchAnimals} 
-            isLanding={isLanding} 
+            isLanding={isLanding}
             data={data} 
             user={user} />
           <AnimalsPagination  

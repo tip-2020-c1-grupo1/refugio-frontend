@@ -6,7 +6,6 @@ import './AnimalGrid.css';
 
 const AnimalGrid = props => {
   const { data, isLanding , reload, user } = props;
-  console.log(data);
   return (
     <React.Fragment
     >
