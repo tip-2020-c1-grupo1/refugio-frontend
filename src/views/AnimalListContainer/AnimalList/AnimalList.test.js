@@ -7,11 +7,12 @@ import axios from 'axios';
 import { ThemeProvider } from "@material-ui/core";
 
 describe("AnimalList", () => {
-  let wrapper;
+  let wrapperEmpty;
+  let wrapperWithElements;
   const user = {'email' : 'someEmail'};
   let data =  {"data":{"count":1,"next":null,"previous":null, "results":[{"id":2,"name":"Ethel","description":"Es muy vago y duerme todo el día","status_request":"Disponible","specie":"Gato","race":"Dos dedos","gender":"Macho","owner":null}]},"status":200,"statusText":"OK","headers": {}}
   const emptyData = {"data":{"count":0,"next":null,"previous":null, "results":[]},"status":200,"statusText":"OK","headers": {}}
-  const props = {
+  let props = {
     user: user,
     initialSearch: jest.fn('','','').mockResolvedValue(emptyData)
   };
@@ -25,25 +26,25 @@ describe("AnimalList", () => {
     useEffect = jest.spyOn(React, "useEffect");
     mockUseEffect();
     mockUseEffect();
-    wrapper = shallow(<AnimalList {...props} />);
+    wrapperEmpty = shallow(<AnimalList {...props} />);
+    props = {
+      user: user,
+      initialSearch: jest.fn('','','').mockResolvedValue(data)
+    };
+    wrapperWithElements = shallow(<AnimalList {...props} />);
   });
 
   describe("on start", () => {
 
-    it("does load posts", () => {
-      console.log(wrapper.debug())
+    it("got empty response", () => {
+      console.log(wrapperEmpty.debug())
       expect(props.initialSearch).toHaveBeenCalled();
     });
 
-    // it("does load posts", () => {
-    //   useEffect = jest.spyOn(React, "useEffect");
-    //   mockUseEffect();
-    //   mockUseEffect();
-    //   data = emptyData
-    //   wrapper = shallow(<AnimalList {...props} />);
-    //   console.log(wrapper.debug())
-    //   expect(props.initialSearch).toHaveBeenCalled();
-    // });
+    it("got response with elements", () => {
+      console.log(wrapperWithElements.debug())
+      expect(props.initialSearch).toHaveBeenCalled();
+    });
 
   });
 });
