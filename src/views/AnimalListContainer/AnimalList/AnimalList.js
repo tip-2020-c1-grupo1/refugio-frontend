@@ -23,8 +23,6 @@ const AnimalList = props => {
   React.useEffect(() => {
     initialSearch(searchString, selectedFilters, selectedStateFilter).then(res => {
       saveInformationInState(res);
-      console.log(data)        
-      console.log(load)
     })
     .catch(err => {        
       errorCallback(err);
@@ -41,12 +39,8 @@ const AnimalList = props => {
   }
 
   const saveInformationInState = (res) => {
-    console.log(data)
-    console.log(res.data)
     setData(res.data);
-    console.log(data)
     const count = res.data.count;
-    console.log(count)
     let numberOfRequiredPages = Math.round(count / pageSize);
     if (count < pageSize) {
       setPages([1]);
@@ -83,10 +77,7 @@ const AnimalList = props => {
         setSelectedPage(selectedPageElem);
       }      
     }
-    console.log(load)
     setLoad(true); 
-    console.log(load)
-    console.log("Terminó el método")
   }
 
   const searchAnimals = () => {
@@ -135,7 +126,7 @@ const AnimalList = props => {
   }
 
   return (
-    <div className='root'>
+    <div className='root' data-testid='responseWithAnimals'>
       {<AnimalsToolbar
         selectedFilters={selectedFilters}
         setSelectedFilters={setSelectedFilters}
