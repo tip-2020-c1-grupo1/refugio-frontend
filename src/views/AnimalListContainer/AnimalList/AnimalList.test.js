@@ -1,10 +1,7 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import AnimalList from "./AnimalList";
-import { act } from 'react-dom/test-utils';
-import {getInitialsAnimals} from './AnimalsApi';
-import axios from 'axios';
-import { ThemeProvider } from "@material-ui/core";
+import { AnimalsGrid, AnimalsToolbar, AnimalsPagination } from './components';
 
 describe("AnimalList", () => {
   let wrapperEmpty;
@@ -39,11 +36,15 @@ describe("AnimalList", () => {
     it("got empty response", () => {
       console.log(wrapperEmpty.debug())
       expect(props.initialSearch).toHaveBeenCalled();
+      expect(wrapperEmpty.text().includes('Por favor intente buscar nuevamente')).toBeTruthy
     });
 
     it("got response with elements", () => {
       console.log(wrapperWithElements.debug())
       expect(props.initialSearch).toHaveBeenCalled();
+      expect(wrapperWithElements.text().includes('Por favor intente buscar nuevamente')).toBeFalsy
+      expect(wrapperWithElements.find(AnimalsGrid)).toHaveLength(1);
+      expect(wrapperWithElements.find(AnimalsPagination)).toHaveLength(1);
     });
 
   });
