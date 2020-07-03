@@ -34,13 +34,11 @@ describe("AnimalList", () => {
   describe("on start", () => {
 
     it("got empty response", () => {
-      console.log(wrapperEmpty.debug())
       expect(props.initialSearch).toHaveBeenCalled();
       expect(wrapperEmpty.text().includes('Por favor intente buscar nuevamente')).toBeTruthy
     });
 
     it("got response with elements", () => {
-      console.log(wrapperWithElements.debug())
       expect(props.initialSearch).toHaveBeenCalled();
       expect(wrapperWithElements.text().includes('Por favor intente buscar nuevamente')).toBeFalsy
       expect(wrapperWithElements.find(AnimalsGrid)).toHaveLength(1);
