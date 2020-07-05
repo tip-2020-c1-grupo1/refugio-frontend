@@ -41,7 +41,10 @@ const AdoptionSubmit = props => {
             })
     };
 
-    
+    if (user.email === '') {
+        return <React.Fragment />;
+    }
+
     const youRequested = filter(animal.requesters, function(requester) {
         return requester.user.email == user.email;
     }).length > 0;
