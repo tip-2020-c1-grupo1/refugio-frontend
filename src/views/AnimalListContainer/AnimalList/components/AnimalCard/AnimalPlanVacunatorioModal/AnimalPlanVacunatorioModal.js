@@ -50,7 +50,6 @@ const useStyles = makeStyles(theme => ({
 const AnimalPlanVacunatorioModal = props => {
   const { className, planVacunatorio, open, handleClose, ...rest } = props;
   const classes = useStyles();
-  console.log(planVacunatorio);
   return (
     <Modal
       className={classes.modalStyle1}

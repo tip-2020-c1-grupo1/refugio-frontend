@@ -5,13 +5,13 @@ import { RouteWithLayout } from './components';
 import { Main as MainLayout, Minimal as MinimalLayout } from './layouts';
 
 import {
-  AnimalList as AnimalListView,
   NotFound as NotFoundView,
   Account as AccountView,
   Landing as LandingView,
   Complaint as ComplaintView,
   Colaboration as ColaborationView,
-  Donation as DonationView
+  Donation as DonationView,
+  AnimalListContainer as AnimalListView
 } from './views';
 
 const isLanding = false; 

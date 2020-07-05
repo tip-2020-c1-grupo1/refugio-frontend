@@ -1,70 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/styles';
+import React, { useState } from 'react';
 import { AnimalsGrid, AnimalsToolbar, AnimalsPagination } from './components';
 import cogoToast from 'cogo-toast';
 import MDSpinner from 'react-md-spinner';
 import {getInitialsAnimals, getAnimalsByPage} from './AnimalsApi';
-import './AnimalList.css'
-
-const containerCss = {
-  display: 'flex',
-  width: '100%', 
-  height: '100vh',
-  justifyContent: 'center'
-};
+import './AnimalList.css';
 
 const isLanding = false;
-
-const centerCss = {
-  alignSelf: 'center'
-};
-
-const pageSize = 5;
-const useStyles = makeStyles(theme => ({
-  root: {
-    padding: theme.spacing(3)
-  },
-  content: {
-    marginTop: theme.spacing(2)
-  },
-  nonSelectedPage: {
-    padding: '5px'
-  },
-  selectedPage: {
-    padding: '5px',
-    borderRadius: '15px',
-    border: 'solid lightblue'
-  },
-  pagination: {
-    marginTop: theme.spacing(3),
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end'
-  },
-  typographyClass: {
-    '& > * + *': {
-      marginLeft: theme.spacing(2),
-    },
-  },
-  container: containerCss,
-  center: centerCss
-}));
+const pageSize = 5; 
 
 const AnimalList = props => {
-  const classes = useStyles();
   const [data, setData] = useState([]);
   const [pages, setPages] = useState([]);
-  const [selectedPage, setSelectedPage] = useState(1);
   const [load, setLoad] = useState(false);
+  const [selectedPage, setSelectedPage] = useState(1);
   const [selectedStateFilter, setSelectedStateFilter] = useState([{ label: 'Disponible', value: 'Disponible' }]);
 
   const [selectedFilters, setSelectedFilters] = useState([{ label: "Nombre", value: "name" }]);
   const [searchString, setSearchString] = useState('');
   
-  const {user} = props
+  const {user, initialSearch} = props;
 
-  useEffect(() => {
-    searchAnimals();
+  React.useEffect(() => {
+    initialSearch(searchString, selectedFilters, selectedStateFilter).then(res => {
+      saveInformationInState(res);
+    })
+    .catch(err => {        
+      errorCallback(err);
+    })
   }, []);
 
   const errorCallback = (err) => {
@@ -74,12 +36,10 @@ const AnimalList = props => {
     });
     setData({ results: [] });
     setPages([]);
-    console.log(err.message);
   }
 
   const saveInformationInState = (res) => {
     setData(res.data);
-    console.log(res.data);
     const count = res.data.count;
     let numberOfRequiredPages = Math.round(count / pageSize);
     if (count < pageSize) {
@@ -121,6 +81,7 @@ const AnimalList = props => {
   }
 
   const searchAnimals = () => {
+    // console.log(props);
     getInitialsAnimals(searchString, selectedFilters, selectedStateFilter)
       .then(res => {
         saveInformationInState(res);           
@@ -156,8 +117,8 @@ const AnimalList = props => {
 
   if (!load) {
     return (
-      <div className={classes.container}>
-        <div className={classes.center}>
+      <div className='container'>
+        <div className='center'>
           <MDSpinner size={88} />
         </div>
       </div>
@@ -165,7 +126,7 @@ const AnimalList = props => {
   }
 
   return (
-    <div className={classes.root}>
+    <div className='root' data-testid='responseWithAnimals'>
       {<AnimalsToolbar
         selectedFilters={selectedFilters}
         setSelectedFilters={setSelectedFilters}
@@ -175,11 +136,14 @@ const AnimalList = props => {
         applySearch={applySearch} /> }
 
       {data.count === 0 
-        ? <p> Por favor intente buscar nuevamente </p>
+        ? <p data-testid='emptyResponse'> Por favor intente buscar nuevamente </p>
         : <React.Fragment>
-          <AnimalsGrid reload={searchAnimals} isLanding={isLanding} classes={classes} data={data} user={user} />
-          <AnimalsPagination 
-            classes={classes}  
+          <AnimalsGrid 
+            reload={searchAnimals} 
+            isLanding={isLanding}
+            data={data} 
+            user={user} />
+          <AnimalsPagination  
             getAnimalsPage={getAnimalsPage} 
             getPrevPage={getPrevPage}
             getNextPage={getNextPage}

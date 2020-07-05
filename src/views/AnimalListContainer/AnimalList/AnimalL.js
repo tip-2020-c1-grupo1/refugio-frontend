@@ -1,62 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/styles';
+import { AnimalsGrid, AnimalsToolbar, AnimalsPagination } from './components';
 import cogoToast from 'cogo-toast';
 import MDSpinner from 'react-md-spinner';
-import {getInitialsAnimals} from './LandingApi';
-import { AnimalsGrid } from 'views/AnimalListContainer/AnimalList/components';
-import { Grid, Typography } from '@material-ui/core';
-import Colaboration from 'views/Colaboration';
-const containerCss = {
-  display: 'flex',
-  width: '100%', 
-  height: '100vh',
-  justifyContent: 'center'
-};
+import {getInitialsAnimals, getAnimalsByPage} from './AnimalsApi';
+import './AnimalList.css';
 
-const isLanding = true;
+const isLanding = false;
+const pageSize = 5; 
 
-const centerCss = {
-  alignSelf: 'center'
-};
-
-const pageSize = 5;
-const useStyles = makeStyles(theme => ({
-  root: {
-    padding: theme.spacing(3)
-  },
-  content: {
-    marginTop: theme.spacing(2)
-  },
-  nonSelectedPage: {
-    padding: '5px'
-  },
-  selectedPage: {
-    padding: '5px',
-    borderRadius: '15px',
-    border: 'solid lightblue'
-  },
-  pagination: {
-    marginTop: theme.spacing(3),
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end'
-  },
-  typographyClass: {
-    '& > * + *': {
-      marginLeft: theme.spacing(2),
-    },
-  },
-  container: containerCss,
-  center: centerCss
-}));
-
-const Landing = props => {
-  const classes = useStyles();
+const AnimalList = props => {
   const [data, setData] = useState([]);
   const [pages, setPages] = useState([]);
-  
   const [selectedPage, setSelectedPage] = useState(1);
-  const [load, setLoad] = useState(false);
+  const [load, setLoad] = useState(true);
   const [selectedStateFilter, setSelectedStateFilter] = useState([{ label: 'Disponible', value: 'Disponible' }]);
 
   const [selectedFilters, setSelectedFilters] = useState([{ label: "Nombre", value: "name" }]);
@@ -65,12 +21,18 @@ const Landing = props => {
   const {user} = props
 
   useEffect(() => {
-    searchAnimals();
+    initialSearch().then(res => {
+      saveInformationInState(res);           
+    })
+    .catch(err => {        
+      errorCallback(err);
+    })
   }, []);
 
   const errorCallback = (err) => {
     cogoToast.error(err.message, {
-      position: 'top-center'
+      position: 'top-center',
+      
     });
     setData({ results: [] });
     setPages([]);
@@ -79,6 +41,7 @@ const Landing = props => {
 
   const saveInformationInState = (res) => {
     setData(res.data);
+    console.log(res.data);
     const count = res.data.count;
     let numberOfRequiredPages = Math.round(count / pageSize);
     if (count < pageSize) {
@@ -119,10 +82,11 @@ const Landing = props => {
     setLoad(true); 
   }
 
-  
+  const initialSearch = () =>{
+    return getInitialsAnimals(searchString, selectedFilters, selectedStateFilter)
+  }
 
   const searchAnimals = () => {
-    console.log('BUSCANDO ANIMALES !!!')
     getInitialsAnimals(searchString, selectedFilters, selectedStateFilter)
       .then(res => {
         saveInformationInState(res);           
@@ -132,11 +96,34 @@ const Landing = props => {
       })    
   }
 
+  const getAnimalsPage = (page) => {
+    getAnimalsByPage(page, searchString, selectedFilters, selectedStateFilter)
+    .then(res => {
+      saveInformationInState(res);           
+    })
+    .catch(err => {   
+      errorCallback(err);
+    }) 
+  }
+
+  const getPrevPage = (page) => {
+    const prevPage = page - 1;
+    getAnimalsPage(prevPage);
+  }
+
+  const getNextPage = (page) => {
+    const nextPage = page + 1;
+    getAnimalsPage(nextPage);
+  }
+
+  const applySearch = () => {
+    searchAnimals();
+  }
 
   if (!load) {
     return (
-      <div className={classes.container}>
-        <div className={classes.center}>
+      <div className='container'>
+        <div className='center'>
           <MDSpinner size={88} />
         </div>
       </div>
@@ -144,20 +131,34 @@ const Landing = props => {
   }
 
   return (
-    <div className={classes.root}>      
-      <Grid container spacing={3}>
-        <Grid item key={'animalsgrid'} lg={6} md={12} sm={12}>
-          <Typography variant='h2'>Animales del refugio</Typography>
-          <AnimalsGrid reload={searchAnimals} isLanding={isLanding} classes={classes} data={data} user={user} />
-        </Grid>
+    <div className='root'>
+      {<AnimalsToolbar
+        selectedFilters={selectedFilters}
+        setSelectedFilters={setSelectedFilters}
+        selectedStateFilter={selectedStateFilter}
+        setSelectedStateFilter={setSelectedStateFilter}
+        setSearchString={setSearchString} 
+        applySearch={applySearch} /> }
 
-        <Grid item key={'colaboration-grid'} lg={6} md={12} sm={12}>
-          <Colaboration isLanding={isLanding} classes={classes} user={user} />
-        </Grid>
-      </Grid>
-      
+      {data.count === 0 
+        ? <p data-testid='emptyResponse'> Por favor intente buscar nuevamente </p>
+        : <React.Fragment>
+          <AnimalsGrid reload={searchAnimals} isLanding={isLanding} data={data} user={user} />
+          <AnimalsPagination  
+            getAnimalsPage={getAnimalsPage} 
+            getPrevPage={getPrevPage}
+            getNextPage={getNextPage}
+            previousUrl={data.previous}
+            nextUrl={data.next}
+            pages={pages}
+            selectedPage={selectedPage}
+          />
+        </React.Fragment>
+        
+      }
     </div>
   );
 };
 
-export default Landing;
+export default AnimalList;
+

@@ -5,7 +5,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 const AnimalsPagination = props => {
-  const { classes, getPrevPage, getNextPage, pages, getAnimalsPage, selectedPage, previousUrl, nextUrl} = props;
+  const { getPrevPage, getNextPage, pages, getAnimalsPage, selectedPage, previousUrl, nextUrl} = props;
   const {} = props;
   
   const getPrev = () => {
@@ -17,11 +17,11 @@ const AnimalsPagination = props => {
   };
 
   return (
-    <div className={classes.pagination}>
+    <div className={'pagination'}>
       <IconButton disabled={!previousUrl} onClick={getPrev}>
         <ChevronLeftIcon />
       </IconButton>
-      <Typography className={classes.typographyClass}>
+      <Typography >
         {pages.map(page => (
           <Link
             component="button"
@@ -30,7 +30,7 @@ const AnimalsPagination = props => {
               getAnimalsPage(page)
             }}
           >
-            <span className={page == selectedPage ? classes.selectedPage : classes.nonSelectedPage}>
+            <span className={page == selectedPage ? 'selectedPage' : 'nonSelectedPage'}>
               {page}
             </span>
           </Link>
