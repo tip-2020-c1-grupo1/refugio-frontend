@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { Grid } from '@material-ui/core';
+import { Grid, Divider } from '@material-ui/core';
 import { Redirect } from "react-router-dom";
 import { AccountDetails } from './components';
 import Colaboration from './components/Colaborations';

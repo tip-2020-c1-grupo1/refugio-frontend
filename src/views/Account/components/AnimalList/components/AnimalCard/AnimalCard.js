@@ -35,7 +35,8 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
   },
   image: {
-    width: '100%'
+    width: '100%',
+    height: '100%'
   },
   statsItem: {
     display: 'flex',
@@ -47,7 +48,8 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     size: 'large',
-    marginLeft: 13
+    marginLeft: 13,
+    marginBottom: 5
   }
 }));
 
@@ -103,10 +105,9 @@ const AnimalCard = props => {
   return (
     <Card
       {...rest}
-      style={{width : '100%'}}
       className={clsx(classes.root, className)}
     >
-      <CardContent>
+      <CardContent className='card-content'>
         {
           isLanding ? <React.Fragment />
           : <React.Fragment>

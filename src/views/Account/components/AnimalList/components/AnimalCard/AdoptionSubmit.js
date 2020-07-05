@@ -41,7 +41,7 @@ const AdoptionSubmit = props => {
         return <Button variant='outlined'
             color='disabled'
             disabled={true}
-            className={classes.button}>{'ADOPTADO asdasdsadsadadasda'}
+            className={classes.button}>{'ADOPTADO'}
         </Button> 
     }
 
