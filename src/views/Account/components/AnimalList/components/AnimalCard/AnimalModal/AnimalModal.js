@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
@@ -18,7 +18,6 @@ import './AnimalModal.css';
 import cogoToast from 'cogo-toast';
 import submitAdoptionRequest from '../AnimalAdoptionApi';
 import AdoptionSubmit from '../AdoptionSubmit'
-import ReactIntense from 'react-intense';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -51,15 +50,6 @@ const AnimalModal = props => {
   const { className, open, handleClose, reload, animal, user, ...rest } = props;
   const classes = useStyles();
 
-  useEffect(() => {
-    document.addEventListener('mousedown', userEvent => {
-      // const parentClass = userEvent.path[0].parentNode.className
-      // if (parentClass === 'ri-container') document.body.style.overflow = null
-      document.body.style.overflow = null
-
-    })
-  }, []);
-
   const errorCallback = (err) => {
     cogoToast.error(err.response.data.Error, {
       position: 'top-center'
@@ -71,8 +61,8 @@ const AnimalModal = props => {
       reload();
       cogoToast.success(response.data.Ok, {
         position: 'top-center'
-      }); 
-         
+      });   
+             
     })
     .catch(err => {        
       errorCallback(err);
@@ -96,7 +86,11 @@ const AnimalModal = props => {
             <Carousel>
               {animal.images.map(image => (
                 <div>
-                  <ReactIntense src={image.image} />
+                  <img
+                    alt="Animal"
+                    className={classes.image}
+                    src={image.image}
+                  />
                 </div>                
               ))}
             </Carousel>
