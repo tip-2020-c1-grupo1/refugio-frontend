@@ -41,22 +41,27 @@ const AdoptionSubmit = props => {
             })
     };
 
-    if (user.email === '') {
-        return <React.Fragment />;
-    }
+    const renderButton = () => { 
+        console.log(user.email)
+        
+        const youRequested = filter(animal.requesters, function(requester) {
+            return requester.user ? requester.user.email == user.email : false
+        }).length > 0;
+        const isAvailable = animal.status_request == 'Disponible' 
+        // && !youRequested;
+        const message = isAvailable ? (!youRequested ? 'Solicitar adopción' : 'Ya envio solicitud para adoptarlo') : 'No disponible';
+        
+        return <Button variant='outlined'
+        color='primary'
+        className={classes.button}
+        onClick={adoptionRequest}
+        disabled={!isAvailable || youRequested}>{message}</Button>  
+    } 
 
-    const youRequested = filter(animal.requesters, function(requester) {
-        return requester.user.email == user.email;
-    }).length > 0;
-    const isAvailable = animal.status_request == 'Disponible' 
-    // && !youRequested;
-    const message = isAvailable ? (!youRequested ? 'Solicitar adopción' : 'Ya envio solicitud para adoptarlo') : 'No disponible';
+    const renderEmpty = () => { return <React.Fragment /> }
+    
     return (
-        <Button variant='outlined'
-            color='primary'
-            className={classes.button}
-            onClick={adoptionRequest}
-            disabled={!isAvailable || youRequested}>{message}</Button>
+        user.email ? renderButton() : renderEmpty()
     )
 }
 
