@@ -12,15 +12,27 @@ import {
   Button
 } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
+// import "react-responsive-carousel/lib/styles/carousel.min.css";
+// import { Carousel } from 'react-responsive-carousel';
+import ImageGallery from 'react-image-gallery';
+
+import Carousel from 'react-material-ui-carousel'
+import {map} from 'lodash';
 import './AnimalModal.css';
 import cogoToast from 'cogo-toast';
 import submitAdoptionRequest from '../AnimalAdoptionApi';
 import AdoptionSubmit from '../AdoptionSubmit'
 
+
 const useStyles = makeStyles(theme => ({
-  root: {},
+  modalStyle1:{
+    position:'absolute',
+    top:'10%',
+    left:'10%',
+    overflow:'scroll',
+    height:'100%',
+    display:'block'
+  },
   imageContainer: {
     height: 500,
     width: 500,
@@ -49,7 +61,6 @@ const useStyles = makeStyles(theme => ({
 const AnimalModal = props => {
   const { className, open, handleClose, reload, animal, user, ...rest } = props;
   const classes = useStyles();
-
   const errorCallback = (err) => {
     cogoToast.error(err.response.data.Error, {
       position: 'top-center'
@@ -69,9 +80,23 @@ const AnimalModal = props => {
     })   
   };
 
+  const imagesShow = map(animal.images, function(elem) {
+    return {
+      original: elem.image,
+      thumbnail: elem.image,
+    }
+  });
+
+  const prepareLongDescription = (elem) => {
+    const RawHTML = ({children, className = ""}) => 
+    <div className={className} dangerouslySetInnerHTML={{ __html: children.replace(/\n/g, '<br />')}} />
+    return <RawHTML>{elem}</RawHTML>;
+  }
+
   return (
     <Modal
       open={open}
+      className={classes.modalStyle1}
       onClose={handleClose}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
@@ -82,20 +107,8 @@ const AnimalModal = props => {
         className={clsx(classes.root, className)}
       >
         <CardContent>
-          <div className={classes.imageContainer}>
-            <Carousel>
-              {animal.images.map(image => (
-                <div>
-                  <img
-                    alt="Animal"
-                    className={classes.image}
-                    src={image.image}
-                  />
-                </div>                
-              ))}
-            </Carousel>
+          <ImageGallery items={imagesShow} />
 
-          </div>
           <Typography
             align="center"
             gutterBottom
@@ -103,12 +116,14 @@ const AnimalModal = props => {
           >
             {animal.name}
           </Typography>
-          <Typography
+
+          {animal.long_description ? prepareLongDescription(animal.long_description) : <Typography
             align="center"
-            variant="body1"
+            variant="h4"
           >
             {animal.description}
-          </Typography>
+          </Typography> }
+
         </CardContent>
         <Divider />
         <CardActions>

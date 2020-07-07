@@ -68,7 +68,7 @@ const AnimalSeguimientoModal = props => {
     >
       <Card
         {...rest}
-        style={{width: '700px', margin: 'auto'}}
+        style={{minWidth: '700px', margin: 'auto'}}
         className={clsx(classes.root, className)}
       >
         <CardContent>

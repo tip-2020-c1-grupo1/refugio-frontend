@@ -9,6 +9,9 @@ import './assets/scss/index.scss';
 import validators from './common/validators';
 import Routes from './Routes';
 
+import 'react-image-gallery/styles/css/image-gallery.css';
+
+
 const browserHistory = createBrowserHistory();
 
 validate.validators = {
