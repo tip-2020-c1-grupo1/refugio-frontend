@@ -1,3 +1,11 @@
 #ct-container {
     font-family: roboto;
 }
+
+.adorno-pesos {
+    padding-left: 10px;
+}
+
+.monto-holder {
+    height: 20px;
+}

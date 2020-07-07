@@ -22,6 +22,9 @@ const useStyles = makeStyles(theme => ({
     },
     input:{
       width: "40%",
+      height: "35px",
+      borderRadius: "5px",
+      border: "1px solid lightgrey",
       backgroundColor: "white",
       minWidth: "400px"
     }
@@ -117,7 +120,7 @@ const Donation = props => {
             error={validateAmount}
             margin='dense'
             placeholder='Por favor ingrese un monto mayor a cero'
-            startAdornment={<InputAdornment position="start">(ARS) $</InputAdornment>}
+            startAdornment={<InputAdornment className='adorno-pesos' position="start">(ARS) $</InputAdornment>}
           />
         </Typography>
         <Typography>
