@@ -94,6 +94,7 @@ const ColaborationCard = props => {
           colaboration={colaboration}
           open={open}
           user={user}
+          isLanding={isLanding}
         />
 
         <Typography
@@ -130,7 +131,7 @@ const ColaborationCard = props => {
             variant="body1"
             className='colaboration_card_description'
           >
-            Usted ya colaboro en esta petición.
+            Usted ya colaboró en esta petición.
           </Typography>
         </React.Fragment > : <React.Fragment />}
 
@@ -141,7 +142,7 @@ const ColaborationCard = props => {
           variant="body1"
           className='colaboration_card_description'
         >
-          {colab} tambien colaboro.
+          {colab} también colaboró.
         </Typography>
         ))}
 

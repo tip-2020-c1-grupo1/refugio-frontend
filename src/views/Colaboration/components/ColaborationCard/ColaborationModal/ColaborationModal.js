@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ColaborationModal = props => {
-  const { className, open, reloadColabs, handleClose, colaboration, user, ...rest } = props;
+  const { className, open, reloadColabs, handleClose, colaboration, user, isLanding, ...rest } = props;
   const classes = useStyles();
 
   const colabs = map(colaboration.colaborators, 'email');
@@ -94,7 +94,7 @@ const ColaborationModal = props => {
               variant="body1"
               className='colaboration_card_description'
             >
-              Usted ya colaboro en esta petición.
+              Usted ya colaboró en esta petición.
             </Typography>
           </React.Fragment > : <React.Fragment />}
 
@@ -105,7 +105,7 @@ const ColaborationModal = props => {
             variant="body1"
             className='colaboration_card_description'
           >
-            {colab} tambien colaboro.
+            {colab} también colaboró.
           </Typography>
           ))}
         </CardContent>
@@ -131,7 +131,7 @@ const ColaborationModal = props => {
               className={classes.statsItem}
               item
             >
-              <ColaborationSubmit isAlreadyColab={isAlreadyColab} reloadColabs={reloadColabs} user={user} colaboration={colaboration}/>
+              <ColaborationSubmit isLanding={isLanding} isAlreadyColab={isAlreadyColab} reloadColabs={reloadColabs} user={user} colaboration={colaboration}/>
             </Grid>
           </Grid>
         </CardActions>

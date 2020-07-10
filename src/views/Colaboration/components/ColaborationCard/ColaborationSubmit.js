@@ -18,7 +18,7 @@ const ColaborationSubmit = props => {
 
     const classes = useStyles()
 
-    const {colaboration, user, reloadColabs, isAlreadyColab} = props;
+    const {colaboration, user, reloadColabs, isAlreadyColab, isLanding} = props;
 
     const errorCallback = err => {
         cogoToast.error(err.response.data.Error, {
@@ -41,7 +41,14 @@ const ColaborationSubmit = props => {
 
     const isAvailable = colaboration.status_request == 'Disponible'
 
-    if (isAlreadyColab) {
+    console.log(isLanding);
+        console.log(isAlreadyColab);
+        console.log(user);
+
+    if (isAlreadyColab || isLanding && (!user.email || user.email === "")) {
+        console.log(isLanding);
+        console.log(isAlreadyColab);
+        console.log(user);
         return <React.Fragment />
     }
     return (
