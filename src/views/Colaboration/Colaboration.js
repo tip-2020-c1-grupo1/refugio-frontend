@@ -4,7 +4,8 @@ import { ColaborationGrid} from './components';
 import cogoToast from 'cogo-toast';
 import MDSpinner from 'react-md-spinner';
 import {getInitialsColaborations} from './ColaborationApi';
-import { Typography } from '@material-ui/core';
+import { Typography, Divider } from '@material-ui/core';
+import { Redirect } from "react-router-dom";
 
 const containerCss = {
   display: 'flex',
@@ -81,6 +82,10 @@ const Colaboration = props => {
       })    
   }
 
+  if (!isLanding && props.user.email === '') {
+    return <Redirect to='/' />
+  }
+
   if (!load) {
     return (
       <div className={classes.container}>
@@ -94,7 +99,8 @@ const Colaboration = props => {
   function showColabs() {
     return (<div className={!isLanding ? classes.root : ''}>
       <Typography variant='h2'>Colaboraciones</Typography>
-      <Typography variant='h5'>{data.results.length > 0 && !isLanding ? 'Si queres ayudarnos, podes comprometerte con alguna de estas tareas' : ''}</Typography>
+      <Divider/>
+      <Typography variant='h5'>{data.results.length > 0 && !isLanding ? 'Si querés ayudarnos, podés comprometerte con alguna de estas tareas' : ''}</Typography>
       <ColaborationGrid reloadColabs={searchColaboration} isLanding={isLanding} classes={classes} data={data} user={user} />
 
     </div>)
