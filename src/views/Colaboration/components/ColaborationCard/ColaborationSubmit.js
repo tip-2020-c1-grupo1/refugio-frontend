@@ -41,14 +41,7 @@ const ColaborationSubmit = props => {
 
     const isAvailable = colaboration.status_request == 'Disponible'
 
-    console.log(isLanding);
-        console.log(isAlreadyColab);
-        console.log(user);
-
     if (isAlreadyColab || isLanding && (!user.email || user.email === "")) {
-        console.log(isLanding);
-        console.log(isAlreadyColab);
-        console.log(user);
         return <React.Fragment />
     }
     return (
