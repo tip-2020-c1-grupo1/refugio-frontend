@@ -87,7 +87,18 @@ const ColaborationModal = props => {
           </Typography>
           </React.Fragment >
 
-          {isAlreadyColab ? <React.Fragment >
+          {isAlreadyColab && colaboration.status_request === 'Confirmado' ? <React.Fragment >
+            <Divider />
+            <Typography
+              align="center"
+              variant="body1"
+              className='colaboration_card_description'
+            >
+              Usted se encuentra colaborando en esta petición.
+            </Typography>
+          </React.Fragment > : <React.Fragment />}
+
+          {isAlreadyColab && colaboration.status_request !== 'Confirmado' ? <React.Fragment >
             <Divider />
             <Typography
               align="center"

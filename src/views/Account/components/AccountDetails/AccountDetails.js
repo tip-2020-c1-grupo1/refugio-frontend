@@ -43,7 +43,7 @@ const AccountDetails = props => {
         cogoToast.loading('Salvando tus cambios ...').then(() => {
           submitAccountDetails(values)
             .then(response => {
-              cogoToast.success('Ha guardado el cambio en el perfil con exito', {
+              cogoToast.success('Ha guardado el cambio en el perfil con éxito', {
                 position: 'top-center'
               });
               const newUser = {
