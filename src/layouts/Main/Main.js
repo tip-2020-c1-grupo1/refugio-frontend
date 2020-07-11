@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/styles';
 import { useMediaQuery } from '@material-ui/core';
-import axios from "axios";
 import { Sidebar, Topbar, Footer } from './components';
+import './Main.css';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -18,16 +18,15 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: 240
   },
   content: {
-    height: '100%'
+    minHeight: '90%'
   }
 }));
 
 const Main = props => {
   const { children } = props;
   
-
+  const setUser = children.props.setUser;
   const user = children.props.user;
-  console.log(user);
   const classes = useStyles();
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
@@ -35,8 +34,6 @@ const Main = props => {
   });
 
   const [openSidebar, setOpenSidebar] = useState(false);
-
-  // const url = "https://gist.githubusercontent.com/witalewski/fc8f043d53a0d505f84c5ddb04ae76ea/raw/7c505bbc1675a0bc8a067f8b633b531c769bb64c/data.json"
 
   const handleSidebarOpen = () => {
     setOpenSidebar(true);
@@ -55,17 +52,21 @@ const Main = props => {
         [classes.shiftContent]: isDesktop
       })}
     >
-      <Topbar onSidebarOpen={handleSidebarOpen} />
+      <Topbar 
+        user={user}
+        setUser={setUser}
+        onSidebarOpen={handleSidebarOpen}/>
       <Sidebar
         user={user}
+        setUser={setUser}
         onClose={handleSidebarClose}
         open={shouldOpenSidebar}
         variant={isDesktop ? 'persistent' : 'temporary'}
       />
       <main className={classes.content}>
-        {children}
-        <Footer />
+        {children}       
       </main>
+      <Footer className='footer-space' />
     </div>
   );
 };

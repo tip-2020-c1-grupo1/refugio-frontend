@@ -1,0 +1,11 @@
+.thumbs.animated {
+  display: none;
+}
+
+.image-gallery-content.bottom .image-gallery-image{
+  height: 400px;
+}
+
+.image-gallery-content.bottom.fullscreen .image-gallery-image{
+  height: calc(100vh - 80px);
+}

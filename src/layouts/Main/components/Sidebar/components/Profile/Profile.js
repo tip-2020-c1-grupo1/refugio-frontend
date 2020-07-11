@@ -23,10 +23,15 @@ const useStyles = makeStyles(theme => ({
 
 const Profile = props => {
   const { className, ...rest } = props;
-  console.log(props);
   const classes = useStyles();
 
-  const user = props.user;
+  const user = {
+    name: props.user.username,
+    avatar: props.user.imageUrl,
+    bio: props.user.email
+  };
+
+  const userNameResolver = () => user.name ? user.name : 'Invitado'
 
   return (
     <div
@@ -38,18 +43,19 @@ const Profile = props => {
         className={classes.avatar}
         component={RouterLink}
         src={user.avatar}
-        to="/settings"
       />
       <Typography
         className={classes.name}
         variant="h4"
       >
-        {user.name}
+        {userNameResolver()}
       </Typography>
       <Typography variant="body2">{user.bio}</Typography>
     </div>
   );
 };
+
+
 
 Profile.propTypes = {
   className: PropTypes.string

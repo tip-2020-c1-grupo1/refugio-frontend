@@ -1,0 +1,14 @@
+.imagesNotAvailable {
+  filter: grayscale(100%);
+  height: 100;
+  width: 100;
+}
+
+.rejected-text {
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+}
+
+.rejected-card {
+  color: red;
+}

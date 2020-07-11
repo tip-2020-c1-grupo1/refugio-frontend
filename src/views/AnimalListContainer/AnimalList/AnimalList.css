@@ -1,0 +1,39 @@
+#ct-container {
+    font-family: roboto;
+}
+
+.root {
+    padding: 15px;
+}
+
+.content {
+    margin-top: 10px;
+}
+
+.nonSelectedPage {
+    padding: 5px
+}
+
+.selectedPage {
+    padding: 5px;
+    border-radius: 15px;
+    border: solid lightblue;
+}
+
+.pagination {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.container{
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+}
+
+.center {
+    align-self: center;
+}

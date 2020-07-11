@@ -1,33 +1,78 @@
 import React from 'react';
-import { Switch, Redirect } from 'react-router-dom';
+import { Switch, Redirect, Route } from 'react-router-dom';
 
 import { RouteWithLayout } from './components';
 import { Main as MainLayout, Minimal as MinimalLayout } from './layouts';
 
 import {
-  AnimalList as AnimalListView,
-  NotFound as NotFoundView
+  NotFound as NotFoundView,
+  Account as AccountView,
+  Landing as LandingView,
+  Complaint as ComplaintView,
+  Colaboration as ColaborationView,
+  Donation as DonationView,
+  AnimalListContainer as AnimalListView
 } from './views';
 
+const isLanding = false; 
+
 const Routes = (props) => {
-  console.log('En routes');
-  console.log(props);
   return (
     <Switch>
-      <Redirect
+      <RouteWithLayout
+        component={LandingView}
+        user={props.user}
+        setUser={props.setUser}
         exact
-        from="/"
-        to="/animals"
+        layout={MainLayout}
+        path="/"
       />
-      
+
       <RouteWithLayout
         component={AnimalListView}
         user={props.user}
+        setUser={props.setUser}
         exact
         layout={MainLayout}
-        path="/animals"
+        path="/animales"
       />
-      
+
+      <RouteWithLayout
+        component={AccountView}
+        user={props.user}
+        setUser={props.setUser}
+        exact
+        layout={MainLayout}
+        path="/perfil"
+      />
+
+      <RouteWithLayout
+        component={DonationView}
+        user={props.user}
+        setUser={props.setUser}
+        exact
+        layout={MainLayout}
+        path="/donacion"
+      />
+
+      <RouteWithLayout
+        component={ComplaintView}
+        user={props.user}
+        setUser={props.setUser}
+        exact
+        layout={MainLayout}
+        path="/denuncia"
+      />
+
+      <RouteWithLayout
+        component={ColaborationView}
+        user={props.user}
+        setUser={props.setUser}
+        isLanding={isLanding}
+        exact
+        layout={MainLayout}
+        path="/colaborar"
+      />
       <RouteWithLayout
         component={NotFoundView}
         exact

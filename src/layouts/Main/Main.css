@@ -1,0 +1,5 @@
+.footer-space {
+  width: -webkit-fill-available;
+  position: relative;
+  bottom: 0px;
+}
