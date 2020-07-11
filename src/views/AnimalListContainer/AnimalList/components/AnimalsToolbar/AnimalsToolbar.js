@@ -35,11 +35,6 @@ const options = [
 
 const optionsSelected = [
   { label: 'Disponible', value: 'Disponible' },
-  { label: 'Comenzo', value: 'Comenzo' },
-  { label: 'En espera', value: 'En espera' },
-  { label: 'Aceptado', value: 'Aceptado' },
-  { label: 'Rechazado', value: 'Rechazado' },
-  { label: 'En revisión', value: 'En revisión' },
   { label: 'Adoptado', value: 'Adoptado' },
 ];
 
