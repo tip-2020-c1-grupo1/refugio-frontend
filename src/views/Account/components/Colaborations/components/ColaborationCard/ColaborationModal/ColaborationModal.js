@@ -105,7 +105,7 @@ const ColaborationModal = props => {
               variant="body1"
               className='colaboration_card_description'
             >
-              Usted ya colaboro en esta petición.
+              Usted ya colaboró en esta petición.
             </Typography>
           </React.Fragment > : <React.Fragment />}
 
@@ -116,7 +116,7 @@ const ColaborationModal = props => {
             variant="body1"
             className='colaboration_card_description'
           >
-            {colab} tambien colaboro.
+            {colab} tambien colaboró.
           </Typography>
           ))}
         </CardContent>
