@@ -49,7 +49,7 @@ const AdoptionSubmit = props => {
         }).length > 0;
         const isAvailable = animal.status_request == 'Disponible' 
         // && !youRequested;
-        const message = isAvailable ? (!youRequested ? 'Solicitar adopción' : 'Ya envio solicitud para adoptarlo') : 'No disponible';
+        const message = isAvailable ? (!youRequested ? 'Solicitar adopción' : (animal.requesters.status === 'Rechazado' ? 'Su solicitud fue rechazada, contactese con el refugio por más detalles' : 'Ya envio solicitud para adoptarlo')) : animal.status_request;
         
         return <Button variant='outlined'
         color='primary'

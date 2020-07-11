@@ -14,11 +14,10 @@ import {
 import AnimalModal from './AnimalModal';
 import AnimalSeguimientoModal from './AnimalSeguimientoModal';
 import AdoptionSubmit from './AdoptionSubmit';
-
+import {map, filter} from 'lodash';
 import cogoToast from 'cogo-toast';
 import getAnimalTimelineApi from './AnimalTimelineApi';
-import ReactIntense from 'react-intense';
-
+import './AnimalCard.css';
 // <RouterLink {...props} />
 
 const useStyles = makeStyles(theme => ({
@@ -101,11 +100,16 @@ const AnimalCard = props => {
     setOpenSeguimiento(false);
   };
 
-  
+  const statusP = map(filter(animal.requesters, (requester) => {
+    return user.email === requester.user.email
+  }),'status');
+
+  const status = statusP[0];
+
   return (
     <Card
       {...rest}
-      className={clsx(classes.root, className)}
+      className={status === 'Rechazado' ? clsx(classes.root, className, 'rejected-card') : clsx(classes.root, className)}
     >
       <CardContent className='card-content'>
         {
@@ -131,10 +135,9 @@ const AnimalCard = props => {
           </React.Fragment>
         }
         
-
         <div className={classes.imageContainer}>
-          <ReactIntense src={animal.images[0].image} />
-        </div>
+          <img className={classes.image} src={animal.images[0].image} />
+        </div>        
         
         <Typography
           align="center"
@@ -149,30 +152,27 @@ const AnimalCard = props => {
         >
           {animal.description}
         </Typography>
+
+        <Typography
+          display="inline"
+          variant="body2"
+        >
+          {animal.gender} - {animal.race} - {animal.specie} | ESTADO : {animal.status_request}
+        </Typography>
+
+        
+
       </CardContent>
       <Divider />
-      <CardActions>
-        <Grid
-          container
-          justify="space-between"
+      <CardActions style={{display : 'block'}}>
+        {status !== 'Rechazado' ? <React.Fragment></React.Fragment> : <Typography
+          className='rejected-text'
+          align="center"
+          variant="h5"
         >
-          <Grid
-            className={classes.statsItem}
-            item
-          >
-            <Typography
-              display="inline"
-              variant="body2"
-            >
-              {animal.gender} - {animal.race} - {animal.specie} | ESTADO : {animal.status_request}
-            </Typography>
-
-          </Grid>
-        </Grid>
-
-        <Grid className={classes.statsItem} item>
-          <AdoptionSubmit reload={reload} user={user} animal={animal}/> 
-        </Grid>     
+          SU SOLICITUD FUE RECHAZADA
+        </Typography>}
+          <AdoptionSubmit reload={reload} user={user} animal={animal}/>  
       </CardActions>
     </Card>
   );

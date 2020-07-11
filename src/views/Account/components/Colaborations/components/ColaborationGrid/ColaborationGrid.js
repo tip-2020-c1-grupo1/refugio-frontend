@@ -1,14 +1,12 @@
 import React from "react";
 import { Grid } from '@material-ui/core';
 import ColaborationCard from "../ColaborationCard";
-import Carousel from 'react-material-ui-carousel'
+import Carousel from 'react-material-ui-carousel';
 
 
 const ColaborationGrid = props => {
   const { data, reloadColabs, isLanding , classes, user } = props;
   
-
-
   return (
     <div className={classes.content}>
       {data.count === 0 

@@ -247,7 +247,7 @@ const AnimalList = props => {
 
         { data.count === 0 
         ? <ExpansionPanelDetails>
-          <p> Por favor intente buscar nuevamente </p>
+          <p style={{marginTop: '10px'}}> Por favor intente buscar nuevamente </p>
           </ExpansionPanelDetails> 
         : <React.Fragment>
           <ExpansionPanelDetails>          

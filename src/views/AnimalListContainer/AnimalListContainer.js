@@ -7,7 +7,6 @@ const AnimalListContainer = props => {
   const {user, setUser} = props
 
   const initialSearch = (searchString, selectedFilters, selectedStateFilter) =>{
-    console.log(getInitialsAnimals)
     return getInitialsAnimals(searchString, selectedFilters, selectedStateFilter)
   }
   return (

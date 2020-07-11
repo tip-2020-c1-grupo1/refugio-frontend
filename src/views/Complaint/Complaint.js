@@ -49,7 +49,7 @@ const Complaint = props => {
   const sendComplaint = () => {
     makeComplaint(user.email, description)
       .then(res => {
-        cogoToast.success('Denuncia enviada con exito', {
+        cogoToast.success('Denuncia enviada con éxito', {
           position: 'top-center'
         });        
         setDescription('')  

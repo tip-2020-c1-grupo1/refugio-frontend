@@ -8,15 +8,10 @@ import {
   CardActions,
   Typography,
   Grid,
-  Divider,
-  Button
+  Divider
 } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
-// import "react-responsive-carousel/lib/styles/carousel.min.css";
-// import { Carousel } from 'react-responsive-carousel';
 import ImageGallery from 'react-image-gallery';
-
-import Carousel from 'react-material-ui-carousel'
 import {map} from 'lodash';
 import './AnimalModal.css';
 import cogoToast from 'cogo-toast';

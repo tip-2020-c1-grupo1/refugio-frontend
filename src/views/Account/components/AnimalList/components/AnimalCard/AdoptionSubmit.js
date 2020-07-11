@@ -9,8 +9,8 @@ const AdoptionSubmit = props => {
     const useStyles = makeStyles(theme => ({
         button: {
             height: 65,
-            width: 139,
-            fontSize: '10px'
+            fontSize: '10px',
+            width: '100%'
         }
     }));
 
@@ -37,7 +37,7 @@ const AdoptionSubmit = props => {
             })
     };
 
-    if (animal.status_request === 'Adoptado' || animal.status_request === 'Revisión' ) {
+    if (animal.status_request === 'Adoptado') {
         return <Button variant='outlined'
             color='disabled'
             disabled={true}

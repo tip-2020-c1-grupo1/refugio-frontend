@@ -6,6 +6,8 @@ import {getInitialsAnimals} from './LandingApi';
 import { AnimalsGrid } from 'views/AnimalListContainer/AnimalList/components';
 import { Grid, Typography } from '@material-ui/core';
 import Colaboration from 'views/Colaboration';
+import ComplaintList from './ComplaintList';
+
 const containerCss = {
   display: 'flex',
   width: '100%', 
@@ -78,7 +80,7 @@ const Landing = props => {
   }
 
   const saveInformationInState = (res) => {
-    setData(res.data);
+    setData({results : res.data});
     const count = res.data.count;
     let numberOfRequiredPages = Math.round(count / pageSize);
     if (count < pageSize) {
@@ -146,13 +148,17 @@ const Landing = props => {
   return (
     <div className={classes.root}>      
       <Grid container spacing={3}>
-        <Grid item key={'animalsgrid'} lg={6} md={12} sm={12}>
+        <Grid item key={'animalsgrid'} lg={12} md={12} sm={12}>
           <Typography variant='h2'>Animales del refugio</Typography>
           <AnimalsGrid reload={searchAnimals} isLanding={isLanding} classes={classes} data={data} user={user} />
         </Grid>
 
-        <Grid item key={'colaboration-grid'} lg={6} md={12} sm={12}>
+        <Grid item key={'colaboration-grid'} lg={12} md={12} sm={12}>
           <Colaboration isLanding={isLanding} classes={classes} user={user} />
+        </Grid>
+
+        <Grid item key={'complaints-grid'} lg={12} md={12} sm={12}>
+          <ComplaintList classes={classes} user={user} />
         </Grid>
       </Grid>
       

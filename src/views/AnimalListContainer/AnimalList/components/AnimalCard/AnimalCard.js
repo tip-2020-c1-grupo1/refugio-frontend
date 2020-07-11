@@ -17,7 +17,7 @@ import AdoptionSubmit from './AdoptionSubmit';
 import AnimalPlanVacunatorioModal from './AnimalPlanVacunatorioModal';
 import cogoToast from 'cogo-toast';
 import getAnimalTimelineApi from './AnimalTimelineApi';
-import ReactIntense from 'react-intense';
+import './AnimalCard.css';
 // <RouterLink {...props} />
 
 const useStyles = makeStyles(theme => ({
@@ -109,7 +109,6 @@ const AnimalCard = props => {
   const handleClosePlanVacunatorio = () => {
     setOpenPlanVacunatorio(false);
   };
-
   
   return (
     <Card
@@ -151,7 +150,7 @@ const AnimalCard = props => {
         
 
         <div className={classes.imageContainer}>
-          <ReactIntense src={animal.images[0].image} />
+          <img className={animal.status_request === 'Adoptado' ? 'imagesNotAvailable' : classes.image} src={animal.images[0].image} />
         </div>
         
         <Typography
@@ -167,32 +166,17 @@ const AnimalCard = props => {
         >
           {animal.description}
         </Typography>
+        <Typography
+            display="inline"
+            variant="body2"
+          >
+            {animal.gender} - {animal.race} - {animal.specie} | ESTADO : {animal.status_request}
+          </Typography>       
+
       </CardContent>
       <Divider />
-      <CardActions>
-        <Grid
-          container
-          justify="space-between"
-        >
-          <Grid
-            className={classes.statsItem}
-            item
-          >
-            <Typography
-              display="inline"
-              variant="body2"
-            >
-              {animal.gender} - {animal.race} - {animal.specie} | ESTADO : {animal.status_request}
-            </Typography>
-
-          </Grid>
-        </Grid>
-        {
-          isLanding ? <React.Fragment />
-          : <Grid className={classes.statsItem} item>
-              <AdoptionSubmit reload={reload} user={user} animal={animal}/>
-            </Grid>
-        }        
+      <CardActions style={{display : 'block'}}>
+          <AdoptionSubmit reload={reload} user={user} animal={animal}/>  
       </CardActions>
     </Card>
   );
